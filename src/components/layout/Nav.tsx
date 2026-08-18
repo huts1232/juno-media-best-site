@@ -259,15 +259,15 @@ export function Nav({ brand, links, cta, email, labels, socialLinks }: NavProps)
     >
       <div
         ref={wrapperRef}
-        className="pointer-events-none mx-auto flex h-20 w-full justify-center px-[var(--gutter)] pt-[1.11rem] max-[767px]:block max-[767px]:h-16 max-[767px]:overflow-hidden max-[767px]:px-5 max-[767px]:pt-5"
+        className="site-nav-wrapper pointer-events-none mx-auto flex h-20 w-full justify-center px-[var(--gutter)] pt-[1.11rem]"
       >
         <nav
           aria-label={labels.primary}
-          className="pointer-events-auto flex h-[3.47222rem] w-[41.25rem] max-w-full flex-none items-center justify-between overflow-hidden rounded-[.83333rem] bg-[#191919] p-[.28rem] max-[767px]:h-8 max-[767px]:w-full max-[767px]:rounded-none max-[767px]:bg-transparent max-[767px]:p-0"
+          className="site-nav-shell pointer-events-auto flex h-[3.47222rem] w-[41.25rem] max-w-full flex-none items-center justify-between overflow-hidden rounded-[.83333rem] bg-[#191919] p-[.28rem]"
         >
           <Link
             href={brand.href}
-            className="flex h-full min-w-[7.25rem] items-center px-4 font-[var(--font-display)] text-[.97222rem] uppercase leading-none text-copy max-[767px]:min-w-0 max-[767px]:px-0"
+            className="site-nav-brand flex h-full min-w-[7.25rem] items-center px-4 font-[var(--font-display)] text-[.97222rem] uppercase leading-none text-copy"
             onClick={closeMenu}
           >
             {brand.name}
@@ -291,10 +291,10 @@ export function Nav({ brand, links, cta, email, labels, socialLinks }: NavProps)
               );
             })}
           </div>
-          <div className="hidden h-full w-[7rem] items-center justify-end overflow-hidden md:flex">
+          <div className="hidden h-full w-[8.75rem] items-center justify-end overflow-hidden md:flex">
             <Button
               href={cta.href}
-              className="group/button h-full rounded-[.5rem] bg-brand px-[1.46rem] pb-[.8rem] pt-[1.01rem] text-[.97222rem] leading-none text-copy"
+              className="group/button h-full min-w-[8.33rem] whitespace-nowrap rounded-[.5rem] bg-brand px-[1.46rem] pb-[.8rem] pt-[1.01rem] text-[.97222rem] leading-none text-copy"
             >
               <span>{cta.label}</span>
               <svg
@@ -319,7 +319,7 @@ export function Nav({ brand, links, cta, email, labels, socialLinks }: NavProps)
             aria-label={isMenuOpen ? labels.closeMenu : labels.openMenu}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
-            className="hidden h-full flex-none flex-col items-center justify-center gap-2 px-2 max-[767px]:flex"
+            className="mobile-menu-button h-full flex-none flex-col items-center justify-center gap-2 px-2"
             onClick={() => setIsMenuOpen((open) => !open)}
           >
             <span ref={firstLineRef} className="h-px w-[1.6rem] origin-center bg-copy-muted" />

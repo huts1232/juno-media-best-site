@@ -33,6 +33,16 @@ export const site = {
       eyebrow: "Juno Media",
       title: "Digital launches with startup velocity",
       intro: "A placeholder homepage shell for the phased replica build.",
+      hero: {
+        eyebrow: "Juno Media studio",
+        titleLines: ["Digital launches", "startup velocity"],
+        video: {
+          ariaLabel: "Abstract Juno Media showreel placeholder",
+          poster: "/assets/hero-showreel-poster.svg",
+          src: "",
+        },
+        scrollLabel: "Scroll",
+      },
     },
     cases: {
       eyebrow: "Cases",

@@ -42,3 +42,12 @@
 - Interactie: desktop-links hebben scaleX-underline, CTA heeft magnetic hover en arrow-shift, body scroll-lock actief bij mobiel menu.
 - Afwijkingen: social-icons zijn neutrale inline SVG-placeholders tot FASE 6 assets.
 - Verificatie: `npm run lint` en `npm run build` slagen zonder warnings.
+
+## FASE 3.2 — Hero
+
+- Status: afgerond.
+- Structuur: `hero-height-new` met sticky `section.hero.home`, eyebrow/tag, H1 in twee regels, lazy showreel-video met verplichte poster en 7 losse inline SVG-parallaxlagen.
+- Motion: page-load timeline na font readiness, H1 per woord via clipped reveal, video fade/scale, layer stagger, ScrollTrigger scrub-parallax en desktop mouse-parallax.
+- Responsief: desktop volgt Webflow-maatvoering; mobiel schakelt sticky uit, verkleint H1 en behoudt veilige spacing rond video en lagen.
+- Afwijkingen: video en parallax-assets zijn neutrale placeholders; er is geen Outcrowd-video of illustratie gekopieerd.
+- Verificatie: `npm run lint`, `npm run build`, lokale 200-check en desktop/mobiele headless screenshots uitgevoerd.
