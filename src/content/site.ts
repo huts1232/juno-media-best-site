@@ -46,6 +46,15 @@ export const site = {
       statement: {
         text: "We turn messy growth goals into focused digital systems that launch fast and keep compounding.",
       },
+      stats: {
+        heading: "Studio stats",
+        items: [
+          { value: "48+", label: "Launch systems shipped" },
+          { value: "96%", label: "Retention across active partners" },
+          { value: "$12M", label: "Pipeline influenced by launches" },
+          { value: "7+", label: "Focused launch squads" },
+        ],
+      },
     },
     cases: {
       eyebrow: "Cases",

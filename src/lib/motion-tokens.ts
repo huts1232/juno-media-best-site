@@ -118,6 +118,19 @@ export const statementMotion = {
   },
 } as const;
 
+export const statsMotion = {
+  triggerStart: "top 70%",
+  count: {
+    duration: 1.6,
+    ease: "power2.out",
+  },
+  divider: {
+    duration: 0.8,
+    ease: "power2.out",
+    stagger: 0.1,
+  },
+} as const;
+
 export const webflowEaseMap = {
   ease: "power1.inOut",
   easeOut: "power2.out",

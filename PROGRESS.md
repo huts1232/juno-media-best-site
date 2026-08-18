@@ -60,3 +60,11 @@
 - Responsief: regels worden na resize opnieuw gemeten; mobiel gebruikt compactere type-scale en 4-koloms layout.
 - Afwijkingen: floating element is een neutrale inline SVG-placeholder.
 - Verificatie: `npm run lint` en `npm run build` slagen zonder warnings.
+
+## FASE 3.4 — Stats
+
+- Status: afgerond.
+- Structuur: 4 content-gestuurde statistieken in een `dl`, 4 kolommen desktop, 2x2 tablet, 1 kolom mobiel.
+- Motion: `CountUp` parseert prefix/suffix en animeert alleen het numerieke deel vanaf `top 70%`; dividers groeien met `scaleY` en 0.1s stagger.
+- Toegankelijkheid: verborgen content-heading, labels via `dt/dd`, reduced motion toont direct eindwaarden.
+- Verificatie: `npm run lint`, `npm run build` en lokale 200-check slagen.
