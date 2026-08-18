@@ -1776,6 +1776,129 @@ h1 {
   opacity: 1;
 }
 
+.cta-banner {
+  position: relative;
+  min-height: 42rem;
+  padding-block: var(--space-10);
+  overflow: hidden;
+  background: var(--color-bg);
+  color: #080808;
+  isolation: isolate;
+}
+
+.cta-banner__surface {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background:
+    linear-gradient(90deg, #0808080d 1px, transparent 1px),
+    linear-gradient(180deg, #0808080d 1px, transparent 1px),
+    #f5f5f5;
+  background-size: 5rem 5rem;
+  will-change: clip-path;
+}
+
+.cta-banner__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-height: 34rem;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: center;
+  gap: var(--gutter);
+}
+
+.cta-banner__copy {
+  grid-column: 1 / span 7;
+  max-width: 62rem;
+}
+
+.cta-banner__statement {
+  max-width: 9ch;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 500;
+  line-height: .92;
+  letter-spacing: 0;
+}
+
+.cta-banner__support {
+  max-width: 31rem;
+  margin: var(--space-5) 0 0;
+  color: #404040;
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-normal);
+}
+
+.cta-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-top: var(--space-6);
+}
+
+.cta-banner__button {
+  min-height: 3.5rem;
+  gap: .65rem;
+  padding: 0 1.45rem;
+  border: 1px solid #080808;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-eyebrow);
+  line-height: 1;
+  transition:
+    background-color var(--dur-fast) var(--ease-out-expo),
+    border-color var(--dur-fast) var(--ease-out-expo),
+    color var(--dur-fast) var(--ease-out-expo);
+}
+
+.cta-banner__button--primary {
+  border-color: #080808;
+  background: #080808;
+  color: #fff;
+}
+
+.cta-banner__button--secondary {
+  border-color: #080808;
+  background: transparent;
+  color: #080808;
+}
+
+.cta-banner__button--primary:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+
+.cta-banner__button--secondary:hover {
+  background: #080808;
+  color: #fff;
+}
+
+.cta-banner__arrow {
+  width: .9rem;
+  height: .9rem;
+  flex: 0 0 auto;
+  transition: transform var(--dur-fast) var(--ease-out-expo);
+}
+
+.cta-banner__button:hover .cta-banner__arrow {
+  transform: translateX(4px);
+}
+
+.cta-banner__decor {
+  grid-column: 8 / -1;
+  width: min(100%, 36rem);
+  justify-self: end;
+  color: #080808;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cta-banner__decor svg {
+  width: 100%;
+  height: auto;
+}
+
 @keyframes hero-tag-border {
   from {
     background-position: 0% 50%;
@@ -2157,6 +2280,28 @@ h1 {
   .faq-question {
     font-size: 1.25rem;
     line-height: 1.45;
+  }
+
+  .cta-banner {
+    min-height: 38rem;
+    padding-block: var(--space-8);
+  }
+
+  .cta-banner__inner {
+    min-height: 30rem;
+  }
+
+  .cta-banner__copy {
+    grid-column: 1 / span 6;
+  }
+
+  .cta-banner__statement {
+    font-size: 5rem;
+  }
+
+  .cta-banner__decor {
+    grid-column: 7 / -1;
+    width: min(100%, 28rem);
   }
 }
 
@@ -2610,6 +2755,51 @@ h1 {
     font-size: .875rem;
   }
 
+  .cta-banner {
+    min-height: auto;
+    padding-block: var(--space-8) var(--space-9);
+  }
+
+  .cta-banner__inner {
+    min-height: auto;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .cta-banner__copy {
+    grid-column: 1 / -1;
+  }
+
+  .cta-banner__statement {
+    max-width: 10ch;
+    font-size: 3rem;
+    line-height: .95;
+  }
+
+  .cta-banner__support {
+    max-width: 24rem;
+    margin-top: var(--space-4);
+    font-size: var(--fs-body);
+  }
+
+  .cta-banner__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+    margin-top: var(--space-5);
+  }
+
+  .cta-banner__button {
+    width: 100%;
+    min-height: 3.25rem;
+  }
+
+  .cta-banner__decor {
+    grid-column: 2 / -1;
+    width: 16rem;
+    margin-top: var(--space-4);
+  }
+
   .page-shell {
     padding-top: calc(var(--space-10) + var(--space-5));
   }
@@ -2669,6 +2859,10 @@ h1 {
   }
 
   .faq-heading {
+    font-size: 2.65rem;
+  }
+
+  .cta-banner__statement {
     font-size: 2.65rem;
   }
 

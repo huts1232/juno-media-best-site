@@ -120,6 +120,12 @@ export const site = {
           },
         ],
       },
+      ctaBanner: {
+        statement: "Ready to launch a sharper digital system?",
+        support: "Bring a product, campaign or repositioning brief and we will shape the next focused move.",
+        primary: { label: "Start een project", href: "/contact" },
+        secondary: { label: "Plan een call", href: "/contact" },
+      },
     },
     cases: {
       eyebrow: "Cases",

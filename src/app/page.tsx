@@ -15,6 +15,7 @@ import { Awards } from "@/components/sections/Awards";
 import { News } from "@/components/sections/News";
 import { faq } from "@/content/faq";
 import { Faq } from "@/components/sections/Faq";
+import { CtaBanner } from "@/components/sections/CtaBanner";
 
 export default function Home() {
   return (
@@ -30,6 +31,7 @@ export default function Home() {
       <Awards content={awards} />
       <News content={site.pages.home.news} />
       <Faq content={faq} />
+      <CtaBanner content={site.pages.home.ctaBanner} />
     </main>
   );
 }

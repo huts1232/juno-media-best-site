@@ -132,3 +132,11 @@
 - Interactie: maximaal één item tegelijk open; ArrowUp, ArrowDown, Home en End verplaatsen focus tussen vragen.
 - Motion: hoogte via CSS `grid-template-rows: 0fr -> 1fr`, antwoordcontent met `overflow: hidden`, plus roteert 45 graden en de verticale streep schaalt weg.
 - Verificatie: `npm run lint` en `npm run build` slagen.
+
+## FASE 3.13 — CTA-banner
+
+- Status: afgerond.
+- Structuur: full-bleed CTA-band na FAQ en voor de globale footer, met groot statement, ondersteunende regel en twee content-gestuurde buttons.
+- Motion: achtergrondvlak revealt via `clipPath: inset(100% 0 0 0) -> inset(0%)` vanaf `top 80%`; rechter inline SVG-decor krijgt y-parallax met scrub.
+- Responsief: desktop gebruikt 12-koloms plaatsing met decor rechts; mobiel stapelt copy, buttons en decor zonder overlap.
+- Verificatie: `npm run lint`, `npm run build` en lokale homepage 200-check slagen.

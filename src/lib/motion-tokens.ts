@@ -198,6 +198,21 @@ export const awardsMotion = {
   hoverDuration: 0.4,
 } as const;
 
+export const ctaMotion = {
+  triggerStart: "top 80%",
+  surfaceDuration: 1.2,
+  surfaceEase: "expo.out",
+  copyY: 24,
+  copyDuration: 0.9,
+  copyEase: "power2.out",
+  copyDelay: 0.15,
+  copyStagger: 0.08,
+  decorYPercent: -18,
+  decorStart: "top bottom",
+  decorEnd: "bottom top",
+  decorScrub: 1,
+} as const;
+
 export const webflowEaseMap = {
   ease: "power1.inOut",
   easeOut: "power2.out",
