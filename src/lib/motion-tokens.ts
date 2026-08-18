@@ -164,6 +164,16 @@ export const marqueeMotion = {
   triggerEnd: "bottom top",
 } as const;
 
+export const casesMotion = {
+  revealY: 60,
+  revealDuration: 0.9,
+  revealEase: "power2.out",
+  revealStagger: 0.1,
+  triggerStart: "top 85%",
+  desktopQuery: "(min-width: 768px)",
+  mobileQuery: "(max-width: 767px)",
+} as const;
+
 export const webflowEaseMap = {
   ease: "power1.inOut",
   easeOut: "power2.out",

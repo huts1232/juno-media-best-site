@@ -92,3 +92,11 @@
 - Motion: CSS-keyframe loopt lineair van `translate3d(0, 0, 0)` naar `translate3d(-50%, 0, 0)` over 30s; hover pauzeert de animatie.
 - Scrollgedrag: ScrollTrigger stuurt `--marquee-duration` naar sneller bij down-scroll en langzamer bij up-scroll; reduced motion schakelt de loop uit.
 - Verificatie: `npm run lint`, `npm run build` en lokale 200-check slagen.
+
+## FASE 3.8 — Cases
+
+- Status: afgerond.
+- Structuur: 6 content-gestuurde cases met 4:3 thumbnail, klantnaam, beschrijving, logo-placeholder en case-link.
+- Motion: cards revealen per rij met `y: 60`, `opacity: 0 -> 1`, `top 85%` en 0.1s stagger; hover schaalt thumbnail, schuift titeloverlay in en roteert de pijl 45 graden.
+- Navigatie: elke kaart linkt naar een prerendered `/cases/[slug]` detailpagina met Framer Motion `layoutId` op de thumbnail.
+- Verificatie: `npm run lint`, `npm run build`, home 200-check en detailroute 200-check slagen.

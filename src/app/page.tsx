@@ -4,6 +4,8 @@ import { Stats } from "@/components/sections/Stats";
 import { Stages } from "@/components/sections/Stages";
 import { Services } from "@/components/sections/Services";
 import { LogoMarquee } from "@/components/sections/LogoMarquee";
+import { CasesGrid } from "@/components/sections/CasesGrid";
+import { cases, casesSection } from "@/content/cases";
 import { services } from "@/content/services";
 import { site } from "@/content/site";
 
@@ -16,6 +18,7 @@ export default function Home() {
       <Stages content={site.pages.home.stages} />
       <Services content={services} />
       <LogoMarquee content={site.pages.home.logoMarquee} />
+      <CasesGrid content={casesSection} items={cases} />
     </main>
   );
 }
