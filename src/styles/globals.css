@@ -563,6 +563,137 @@ h1 {
   line-height: var(--lh-normal);
 }
 
+.stages-section {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-12);
+  background: var(--color-bg);
+}
+
+.stages-header {
+  margin-bottom: var(--space-6);
+}
+
+.stages-list {
+  --stages-progress: 0;
+  display: flex;
+  gap: var(--space-4);
+  overflow: visible;
+}
+
+.stage-card {
+  min-width: 0;
+  min-height: 38rem;
+  flex: 1 1 0;
+  border-radius: 8px;
+  background: var(--color-bg-alt);
+  color: var(--color-ink);
+  position: relative;
+  overflow: hidden;
+  transition: flex .7s var(--ease-out-expo);
+}
+
+.stages-list:hover .stage-card {
+  flex: .9 1 0;
+}
+
+.stages-list .stage-card:hover {
+  flex: 2.2 1 0;
+}
+
+.stage-card__media {
+  position: absolute;
+  inset: 0;
+  transform: scale(1.1);
+  transform-origin: center;
+  transition: transform .7s var(--ease-out-expo);
+}
+
+.stage-card:hover .stage-card__media {
+  transform: scale(1);
+}
+
+.stage-card__media::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #08080800 0%, #08080873 45%, #080808 100%);
+  content: "";
+}
+
+.stage-card__media svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stage-card__content {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+  padding: var(--space-5);
+}
+
+.stage-card__title {
+  max-width: 11rem;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  line-height: var(--lh-tight);
+  letter-spacing: 0;
+}
+
+.stage-card__body {
+  max-width: 30rem;
+  margin-top: var(--space-4);
+  color: var(--color-ink-muted);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity .45s var(--ease-out-expo),
+    transform .45s var(--ease-out-expo);
+}
+
+.stage-card:hover .stage-card__body {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: .15s;
+}
+
+.stage-card__result {
+  max-width: 24rem;
+  margin-top: var(--space-5);
+  color: var(--color-ink);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-normal);
+}
+
+.stage-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  margin-top: var(--space-4);
+  color: var(--color-ink);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-tight);
+}
+
+.stage-card__link svg {
+  width: .9rem;
+  height: .9rem;
+  transition: transform .3s var(--ease-out-expo);
+}
+
+.stage-card__link:hover svg {
+  transform: translateX(4px);
+}
+
+.stages-progress {
+  display: none;
+}
+
 @keyframes hero-tag-border {
   from {
     background-position: 0% 50%;
@@ -675,6 +806,68 @@ h1 {
 
   .stats-item:nth-child(odd) .stats-divider {
     display: none;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .stages-section {
+    padding-block: var(--space-10);
+  }
+
+  .stages-list {
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-padding-inline: var(--gutter);
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .stages-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .stage-card,
+  .stages-list:hover .stage-card,
+  .stages-list .stage-card:hover {
+    flex: 0 0 85vw;
+  }
+
+  .stage-card {
+    min-height: 32rem;
+    scroll-snap-align: start;
+  }
+
+  .stage-card__media,
+  .stage-card:hover .stage-card__media {
+    transform: scale(1);
+  }
+
+  .stage-card__body {
+    opacity: 1;
+    transform: none;
+  }
+
+  .stage-card__title {
+    font-size: var(--fs-h3);
+  }
+
+  .stages-progress {
+    display: block;
+    height: 1px;
+    margin-top: var(--space-4);
+    background: var(--color-line);
+    overflow: hidden;
+  }
+
+  .stages-progress span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--color-accent);
+    transform: scaleX(var(--stages-progress));
+    transform-origin: left;
   }
 }
 
@@ -863,6 +1056,22 @@ h1 {
   .stats-label {
     max-width: 18rem;
     margin-top: var(--space-3);
+  }
+
+  .stages-section {
+    padding-block: var(--space-8) var(--space-10);
+  }
+
+  .stage-card {
+    min-height: 30rem;
+  }
+
+  .stage-card__content {
+    padding: var(--space-4);
+  }
+
+  .stage-card__title {
+    font-size: 3rem;
   }
 
   .page-shell {

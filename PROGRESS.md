@@ -68,3 +68,11 @@
 - Motion: `CountUp` parseert prefix/suffix en animeert alleen het numerieke deel vanaf `top 70%`; dividers groeien met `scaleY` en 0.1s stagger.
 - Toegankelijkheid: verborgen content-heading, labels via `dt/dd`, reduced motion toont direct eindwaarden.
 - Verificatie: `npm run lint`, `npm run build` en lokale 200-check slagen.
+
+## FASE 3.5 — Fases
+
+- Status: afgerond.
+- Structuur: 3 content-gestuurde cards met titel, body, resultaatregel en details-link.
+- Desktop: flex-row cards met `flex: 1`, hover-expansie naar `2.2` en overige cards naar `.9`, plus media-scale en body fade-in.
+- Tablet/mobiel: horizontale scroll-snap carousel met `85vw` cards, gap `--space-4` en scrollLeft-progressbar.
+- Verificatie: `npm run lint`, `npm run build` en lokale 200-check slagen.

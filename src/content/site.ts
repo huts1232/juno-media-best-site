@@ -55,6 +55,29 @@ export const site = {
           { value: "7+", label: "Focused launch squads" },
         ],
       },
+      stages: {
+        heading: "Project phases",
+        items: [
+          {
+            title: "Map",
+            body: "Clarify the launch goal, audience, funnel, constraints and signal we need before design starts.",
+            result: "Output: launch brief and conversion map",
+            link: { label: "Bekijk details", href: "/services" },
+          },
+          {
+            title: "Shape",
+            body: "Turn the brief into interface direction, content rhythm, visual rules and a production-ready page system.",
+            result: "Output: responsive design system",
+            link: { label: "Bekijk details", href: "/services" },
+          },
+          {
+            title: "Ship",
+            body: "Build the site, wire motion, tune performance, connect analytics and prepare the next iteration loop.",
+            result: "Output: live launch and sprint backlog",
+            link: { label: "Bekijk details", href: "/services" },
+          },
+        ],
+      },
     },
     cases: {
       eyebrow: "Cases",
