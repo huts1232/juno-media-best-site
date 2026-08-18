@@ -131,6 +131,30 @@ export const statsMotion = {
   },
 } as const;
 
+export const serviceMotion = {
+  desktopQuery: "(min-width: 1024px)",
+  mobileQuery: "(max-width: 1023px)",
+  activeStart: "top center",
+  activeEnd: "bottom center",
+  lineBase: {
+    start: "top bottom",
+    end: "bottom top",
+    scrub: 1,
+  },
+  lineColor: {
+    start: "top 75%",
+    end: "bottom 25%",
+    scrub: 1,
+  },
+  mobileReveal: {
+    y: 40,
+    opacity: 0,
+    duration: 0.8,
+    ease: "power2.out",
+    start: "top 85%",
+  },
+} as const;
+
 export const webflowEaseMap = {
   ease: "power1.inOut",
   easeOut: "power2.out",

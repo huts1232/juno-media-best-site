@@ -76,3 +76,11 @@
 - Desktop: flex-row cards met `flex: 1`, hover-expansie naar `2.2` en overige cards naar `.9`, plus media-scale en body fade-in.
 - Tablet/mobiel: horizontale scroll-snap carousel met `85vw` cards, gap `--space-4` en scrollLeft-progressbar.
 - Verificatie: `npm run lint`, `npm run build` en lokale 200-check slagen.
+
+## FASE 3.6 — Services
+
+- Status: afgerond.
+- Structuur: sticky-scroll servicesectie met 40/60 grid, sticky linkerkolom, 6 serviceblokken rechts en content uit `src/content/services.ts`.
+- Motion: actieve servicenaam wisselt via ScrollTrigger per blok; inline SVG-lijnen gebruiken `pathLength="1"` en scrubbed dashoffset-timelines voor basis- en kleurpad.
+- Responsief: onder 1024px schakelt sticky uit en stapelen de blokken met standaard reveal; Mobile Apps heeft een lazy video-frame met verplichte posterplaceholder.
+- Verificatie: `npm run lint`, `npm run build` en lokale 200-check slagen.
