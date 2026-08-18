@@ -1,8 +1,58 @@
-export const testimonials = [
-  {
-    name: "Client One",
-    role: "Founder",
-    quote: "Placeholder testimonial quote.",
-    score: 5,
+export const testimonials = {
+  eyebrow: "Testimonials",
+  headingLines: ["Teams choose", "Juno when launches", "need focus"],
+  platform: {
+    reviewCount: "24 reviewed launches",
+    name: "SignalRank",
+    score: "5.0",
+    scoreLabel: "Average review score",
   },
-] as const;
+  sliderLabel: "Client testimonials",
+  previousLabel: "Previous testimonial",
+  nextLabel: "Next testimonial",
+  dragLabel: "Drag",
+  items: [
+    {
+      quote: "The team turned an unclear product story into a launch system our sales team could actually use.",
+      name: "Mara Jensen",
+      role: "Founder, Northline",
+      score: 5,
+      scoreLabel: "5 stars",
+    },
+    {
+      quote: "Every sprint had a clear output, from positioning to build details. Nothing felt decorative.",
+      name: "Daan Verhoeven",
+      role: "Product Lead, Forma Lab",
+      score: 5,
+      scoreLabel: "5 stars",
+    },
+    {
+      quote: "We needed speed without losing the product logic. Juno gave us a structure we could keep scaling.",
+      name: "Iris Cole",
+      role: "COO, Atlas Grid",
+      score: 5,
+      scoreLabel: "5 stars",
+    },
+    {
+      quote: "The website finally explains what the platform does before a demo call even starts.",
+      name: "Noah Stein",
+      role: "Growth Director, Signal One",
+      score: 5,
+      scoreLabel: "5 stars",
+    },
+    {
+      quote: "Their motion work made the interface feel premium, but the build stayed clean and measurable.",
+      name: "Lea Bakker",
+      role: "Marketing Lead, Nova Works",
+      score: 5,
+      scoreLabel: "5 stars",
+    },
+    {
+      quote: "We left with a sharper brand, a faster site and a backlog that made the next quarter obvious.",
+      name: "Sam Rivera",
+      role: "CEO, Brightpath",
+      score: 5,
+      scoreLabel: "5 stars",
+    },
+  ],
+} as const;

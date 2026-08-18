@@ -174,6 +174,20 @@ export const casesMotion = {
   mobileQuery: "(max-width: 767px)",
 } as const;
 
+export const testimonialMotion = {
+  cardWidthDesktop: 380,
+  cardWidthMobile: "85vw",
+  snapDuration: 0.65,
+  snapEase: "power2.out",
+  dragInertia: 420,
+  dragThreshold: 3,
+  revealY: 34,
+  revealDuration: 0.9,
+  revealEase: "power2.out",
+  revealStagger: 0.08,
+  triggerStart: "top 82%",
+} as const;
+
 export const webflowEaseMap = {
   ease: "power1.inOut",
   easeOut: "power2.out",

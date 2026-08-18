@@ -100,3 +100,11 @@
 - Motion: cards revealen per rij met `y: 60`, `opacity: 0 -> 1`, `top 85%` en 0.1s stagger; hover schaalt thumbnail, schuift titeloverlay in en roteert de pijl 45 graden.
 - Navigatie: elke kaart linkt naar een prerendered `/cases/[slug]` detailpagina met Framer Motion `layoutId` op de thumbnail.
 - Verificatie: `npm run lint`, `npm run build`, home 200-check en detailroute 200-check slagen.
+
+## FASE 3.9 — Testimonials
+
+- Status: afgerond.
+- Structuur: 3-regelige versprongen testimonial-heading, platform/reviewcountblok en 6 content-gestuurde testimonial cards met quote, naam, rol, score en inline SVG-sterren.
+- Slider: scroll-snap met 380px cards desktop en 85vw mobiel, pointer-drag, `power2.out` inertia-snap naar de dichtstbijzijnde card en custom dragcursor op pointer-fine.
+- Interactie: vorige/volgende knoppen hebben disabled-states aan de uiteinden; slider reageert ook op ArrowLeft en ArrowRight.
+- Verificatie: `npm run lint`, `npm run build` en lokale 200-check slagen.

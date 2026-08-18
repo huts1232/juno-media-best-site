@@ -8,6 +8,8 @@ import { CasesGrid } from "@/components/sections/CasesGrid";
 import { cases, casesSection } from "@/content/cases";
 import { services } from "@/content/services";
 import { site } from "@/content/site";
+import { testimonials } from "@/content/testimonials";
+import { Testimonials } from "@/components/sections/Testimonials";
 
 export default function Home() {
   return (
@@ -19,6 +21,7 @@ export default function Home() {
       <Services content={services} />
       <LogoMarquee content={site.pages.home.logoMarquee} />
       <CasesGrid content={casesSection} items={cases} />
+      <Testimonials content={testimonials} />
     </main>
   );
 }
