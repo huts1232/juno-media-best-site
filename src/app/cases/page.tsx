@@ -1,3 +1,6 @@
+import { CasesGrid } from "@/components/sections/CasesGrid";
+import { PageHero } from "@/components/sections/PageHero";
+import { cases, casesSection } from "@/content/cases";
 import { site } from "@/content/site";
 
 export default function CasesPage() {
@@ -5,11 +8,8 @@ export default function CasesPage() {
 
   return (
     <main>
-      <section className="page-shell">
-        <p className="eyebrow">{page.eyebrow}</p>
-        <h1>{page.title}</h1>
-        <p className="lead">{page.intro}</p>
-      </section>
+      <PageHero content={page} id="cases-page-title" />
+      <CasesGrid content={casesSection} items={cases} />
     </main>
   );
 }

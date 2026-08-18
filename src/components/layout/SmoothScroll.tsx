@@ -2,7 +2,7 @@
 
 import { type ReactNode, useEffect } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
-import { createLenis } from "@/lib/lenis";
+import { createLenis, setActiveLenis } from "@/lib/lenis";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 type SmoothScrollProps = {
@@ -19,6 +19,7 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
     const update = () => ScrollTrigger.update();
     const tick = (time: number) => lenis.raf(time * 1000);
 
+    setActiveLenis(lenis);
     lenis.on("scroll", update);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
@@ -26,6 +27,7 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
     return () => {
       lenis.off("scroll", update);
       gsap.ticker.remove(tick);
+      setActiveLenis(null);
       lenis.destroy();
     };
   }, [reducedMotion]);

@@ -1,5 +1,7 @@
 import Lenis from "lenis";
 
+let activeLenis: Lenis | null = null;
+
 export const lenisOptions = {
   lerp: 0.1,
   duration: 1.2,
@@ -10,4 +12,12 @@ export const lenisOptions = {
 
 export function createLenis() {
   return new Lenis(lenisOptions);
+}
+
+export function setActiveLenis(instance: Lenis | null) {
+  activeLenis = instance;
+}
+
+export function getActiveLenis() {
+  return activeLenis;
 }

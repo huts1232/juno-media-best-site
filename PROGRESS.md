@@ -156,3 +156,12 @@
 - Interactie: verschijnt na 1.2s, schrijft de keuze naar `localStorage` en sluit met CSS slide/fade-out.
 - Consent: Consent Mode v2-update via `gtag('consent', 'update', ...)` met advertentie-, analytics- en personalisatievelden.
 - Verificatie: `npm run lint`, `npm run build` en lokale homepage 200-check slagen.
+
+## FASE 4 — Subpagina's
+
+- Status: afgerond.
+- Structuur: `/cases`, `/services`, `/blog`, `/over-ons` en `/contact` gebruiken gedeelde `PageHero` met SplitText H1-reveal; route-content wordt via `PageTransition` met Framer Motion gewisseld.
+- Subpagina's: cases en services hergebruiken de bestaande content-gedreven secties; blog heeft 3 placeholder-artikelen; over-ons heeft `#numbers`, `#mission`, `#values` en `#clients` met Lenis anchor-scroll.
+- Contact: formulier met naam, e-mail, bedrijf, budget-select en bericht; client-side validatie toont inline foutmeldingen en succesvolle verzending toont een inline bevestiging.
+- Afwijkingen: subpagina-copy en thumbnails blijven neutrale placeholders conform FASE 6 assetbeleid.
+- Verificatie: `npm run lint`, `npm run build` en 200-checks voor `/cases`, `/services`, `/blog`, `/over-ons` en `/contact` slagen.

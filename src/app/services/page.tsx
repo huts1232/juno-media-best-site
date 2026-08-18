@@ -1,3 +1,6 @@
+import { PageHero } from "@/components/sections/PageHero";
+import { Services } from "@/components/sections/Services";
+import { services } from "@/content/services";
 import { site } from "@/content/site";
 
 export default function ServicesPage() {
@@ -5,11 +8,8 @@ export default function ServicesPage() {
 
   return (
     <main>
-      <section className="page-shell">
-        <p className="eyebrow">{page.eyebrow}</p>
-        <h1>{page.title}</h1>
-        <p className="lead">{page.intro}</p>
-      </section>
+      <PageHero content={page} id="services-page-title" />
+      <Services content={services} />
     </main>
   );
 }

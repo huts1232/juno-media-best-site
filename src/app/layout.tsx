@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { CookieBar } from "@/components/layout/CookieBar";
 import { Footer } from "@/components/layout/Footer";
 import { Nav } from "@/components/layout/Nav";
+import { PageTransition } from "@/components/layout/PageTransition";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { Cursor } from "@/components/ui/Cursor";
 import { site } from "@/content/site";
@@ -66,7 +67,7 @@ export default function RootLayout({
             labels={site.navLabels}
             socialLinks={site.socialLinks}
           />
-          {children}
+          <PageTransition>{children}</PageTransition>
           <Footer
             content={site.footer}
             socialLabel={site.navLabels.social}

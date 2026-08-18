@@ -141,16 +141,119 @@ export const site = {
       eyebrow: "Blog",
       title: "Notes from the studio",
       intro: "Placeholder editorial intro for the later blog page build.",
+      articlesLabel: "Studio articles",
+      readLabel: "Read note",
+      articles: [
+        {
+          title: "How launch teams can make product value easier to scan",
+          category: "Strategy",
+          date: "18 Aug 2026",
+          href: "/blog",
+          accent: "#fe4a23",
+        },
+        {
+          title: "A practical motion checklist for conversion-focused websites",
+          category: "Motion",
+          date: "04 Aug 2026",
+          href: "/blog",
+          accent: "#8a5cff",
+        },
+        {
+          title: "What to decide before a homepage build enters production",
+          category: "Build",
+          date: "21 Jul 2026",
+          href: "/blog",
+          accent: "#ffffff",
+        },
+      ],
     },
     about: {
       eyebrow: "Over ons",
       title: "A compact team for ambitious launches",
       intro: "Placeholder about content for the later anchor-section build.",
+      anchorsLabel: "Over ons secties",
+      anchors: [
+        { label: "Numbers", href: "#numbers" },
+        { label: "Mission", href: "#mission" },
+        { label: "Values", href: "#values" },
+        { label: "Clients", href: "#clients" },
+      ],
+      numbers: {
+        eyebrow: "Numbers",
+        heading: "Compact team, measured output",
+        items: [
+          { value: "12+", label: "Focused launch sprints per quarter" },
+          { value: "4", label: "Core disciplines in every project" },
+          { value: "96%", label: "Partner retention across active work" },
+        ],
+      },
+      mission: {
+        eyebrow: "Mission",
+        heading: "Make complex launches feel clear before they move fast.",
+        body: "We use placeholder strategy, design and build tracks to turn broad ambition into a focused digital system with fewer handoff gaps.",
+      },
+      values: {
+        eyebrow: "Values",
+        heading: "Operating principles",
+        items: [
+          {
+            title: "Signal first",
+            body: "Every page, motion choice and component should make the next user decision easier to read.",
+          },
+          {
+            title: "Small loops",
+            body: "We keep feedback cycles compact so direction, content and code mature together.",
+          },
+          {
+            title: "Launch quality",
+            body: "Performance, accessibility and maintainability stay part of the work from the first pass.",
+          },
+        ],
+      },
+      clients: {
+        eyebrow: "Clients",
+        heading: "Placeholder partners",
+        items: ["Northline", "Forma Lab", "Atlas Grid", "Signal One", "Nova Works", "Brightpath"],
+      },
     },
     contact: {
       eyebrow: "Contact",
       title: "Start a focused project conversation",
       intro: "Placeholder contact intro before the form is built in FASE 4.",
+      form: {
+        ariaLabel: "Project aanvraag",
+        submitLabel: "Verstuur aanvraag",
+        success: "Dank je. We nemen contact op met een gerichte volgende stap.",
+        fields: {
+          name: {
+            label: "Naam",
+            placeholder: "Je naam",
+          },
+          email: {
+            label: "E-mail",
+            placeholder: "naam@bedrijf.nl",
+          },
+          company: {
+            label: "Bedrijf",
+            placeholder: "Bedrijfsnaam",
+          },
+          budget: {
+            label: "Budget",
+            placeholder: "Kies een budgetrange",
+            options: ["€5k-€10k", "€10k-€25k", "€25k-€50k", "€50k+"],
+          },
+          message: {
+            label: "Bericht",
+            placeholder: "Vertel kort wat je wilt lanceren.",
+          },
+        },
+        errors: {
+          name: "Vul je naam in.",
+          email: "Vul een geldig e-mailadres in.",
+          budget: "Kies een budgetrange.",
+          message: "Vertel kort waar je hulp bij nodig hebt.",
+        },
+      },
     },
   },
   cookie: {

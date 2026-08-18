@@ -1,3 +1,5 @@
+import { AboutSections } from "@/components/sections/AboutSections";
+import { PageHero } from "@/components/sections/PageHero";
 import { site } from "@/content/site";
 
 export default function AboutPage() {
@@ -5,11 +7,8 @@ export default function AboutPage() {
 
   return (
     <main>
-      <section className="page-shell">
-        <p className="eyebrow">{page.eyebrow}</p>
-        <h1>{page.title}</h1>
-        <p className="lead">{page.intro}</p>
-      </section>
+      <PageHero content={page} id="about-page-title" />
+      <AboutSections content={page} />
     </main>
   );
 }
