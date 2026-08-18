@@ -853,6 +853,89 @@ h1 {
   object-fit: cover;
 }
 
+.logo-marquee-section {
+  --marquee-duration: 30s;
+  position: relative;
+  padding-block: var(--space-8);
+  background: var(--color-bg);
+  border-block: 1px solid var(--color-line);
+  overflow: hidden;
+}
+
+.logo-marquee-viewport {
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
+}
+
+.logo-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: logo-marquee-loop var(--marquee-duration) linear infinite;
+  will-change: transform;
+}
+
+.logo-marquee-viewport:hover .logo-marquee-track {
+  animation-play-state: paused;
+}
+
+.logo-marquee-set {
+  display: flex;
+  flex: 0 0 auto;
+  gap: var(--space-4);
+  padding-inline: calc(var(--space-4) / 2);
+}
+
+.logo-marquee-item {
+  flex: 0 0 auto;
+  width: 14rem;
+  height: 5.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-inline: var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  background: #ffffff08;
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+
+.logo-marquee-item__mark {
+  flex: 0 0 auto;
+  width: 2.3rem;
+  height: 2.3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+}
+
+.logo-marquee-item__mark svg {
+  width: 100%;
+  height: 100%;
+}
+
+.logo-marquee-item:nth-child(2n) .logo-marquee-item__mark {
+  color: var(--color-accent-soft);
+}
+
+.logo-marquee-item__name {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--color-ink);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-tight);
+  letter-spacing: 0;
+  text-overflow: ellipsis;
+}
+
+.logo-marquee-section[data-reduced-motion="true"] .logo-marquee-track {
+  animation: none;
+  transform: none;
+}
+
 @keyframes hero-tag-border {
   from {
     background-position: 0% 50%;
@@ -860,6 +943,16 @@ h1 {
 
   to {
     background-position: 240% 50%;
+  }
+}
+
+@keyframes logo-marquee-loop {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
@@ -1109,6 +1202,24 @@ h1 {
     width: 32%;
     min-width: 7.5rem;
   }
+
+  .logo-marquee-section {
+    padding-block: var(--space-6);
+  }
+
+  .logo-marquee-set {
+    gap: var(--space-3);
+  }
+
+  .logo-marquee-item {
+    width: 12rem;
+    height: 4.75rem;
+    padding-inline: var(--space-3);
+  }
+
+  .logo-marquee-item__name {
+    font-size: var(--fs-body);
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -1341,6 +1452,21 @@ h1 {
 
   .service-panel__video {
     width: 38%;
+  }
+
+  .logo-marquee-section {
+    padding-block: var(--space-5);
+  }
+
+  .logo-marquee-item {
+    width: 10.5rem;
+    height: 4.25rem;
+    gap: var(--space-2);
+  }
+
+  .logo-marquee-item__mark {
+    width: 1.9rem;
+    height: 1.9rem;
   }
 
   .page-shell {

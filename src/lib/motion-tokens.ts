@@ -155,6 +155,15 @@ export const serviceMotion = {
   },
 } as const;
 
+export const marqueeMotion = {
+  baseDuration: "30s",
+  downDuration: "21.428s",
+  upDuration: "50s",
+  resetDelay: 220,
+  triggerStart: "top bottom",
+  triggerEnd: "bottom top",
+} as const;
+
 export const webflowEaseMap = {
   ease: "power1.inOut",
   easeOut: "power2.out",

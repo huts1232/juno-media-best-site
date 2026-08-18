@@ -78,6 +78,19 @@ export const site = {
           },
         ],
       },
+      logoMarquee: {
+        ariaLabel: "Selected client placeholders",
+        items: [
+          { name: "Northline" },
+          { name: "Forma Lab" },
+          { name: "Atlas Grid" },
+          { name: "Signal One" },
+          { name: "Nova Works" },
+          { name: "Brightpath" },
+          { name: "Coredesk" },
+          { name: "Field & Flow" },
+        ],
+      },
     },
     cases: {
       eyebrow: "Cases",

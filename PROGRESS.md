@@ -84,3 +84,11 @@
 - Motion: actieve servicenaam wisselt via ScrollTrigger per blok; inline SVG-lijnen gebruiken `pathLength="1"` en scrubbed dashoffset-timelines voor basis- en kleurpad.
 - Responsief: onder 1024px schakelt sticky uit en stapelen de blokken met standaard reveal; Mobile Apps heeft een lazy video-frame met verplichte posterplaceholder.
 - Verificatie: `npm run lint`, `npm run build` en lokale 200-check slagen.
+
+## FASE 3.7 — Logo-marquee
+
+- Status: afgerond.
+- Structuur: full-width logo-marquee met twee identieke sets, waarbij de tweede set `aria-hidden` is en alle labels uit `src/content/site.ts` komen.
+- Motion: CSS-keyframe loopt lineair van `translate3d(0, 0, 0)` naar `translate3d(-50%, 0, 0)` over 30s; hover pauzeert de animatie.
+- Scrollgedrag: ScrollTrigger stuurt `--marquee-duration` naar sneller bij down-scroll en langzamer bij up-scroll; reduced motion schakelt de loop uit.
+- Verificatie: `npm run lint`, `npm run build` en lokale 200-check slagen.

@@ -3,6 +3,7 @@ import { Statement } from "@/components/sections/Statement";
 import { Stats } from "@/components/sections/Stats";
 import { Stages } from "@/components/sections/Stages";
 import { Services } from "@/components/sections/Services";
+import { LogoMarquee } from "@/components/sections/LogoMarquee";
 import { services } from "@/content/services";
 import { site } from "@/content/site";
 
@@ -14,6 +15,7 @@ export default function Home() {
       <Stats content={site.pages.home.stats} />
       <Stages content={site.pages.home.stages} />
       <Services content={services} />
+      <LogoMarquee content={site.pages.home.logoMarquee} />
     </main>
   );
 }
