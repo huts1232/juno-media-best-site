@@ -161,7 +161,7 @@ export const site = {
   footer: {
     email: "hello@junomedia.example",
     location: "Amsterdam",
-    copyright: "Juno Media",
+    copyright: "© 2026 Juno Media",
     columns: [
       {
         title: "Cases",

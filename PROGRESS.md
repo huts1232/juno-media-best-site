@@ -140,3 +140,11 @@
 - Motion: achtergrondvlak revealt via `clipPath: inset(100% 0 0 0) -> inset(0%)` vanaf `top 80%`; rechter inline SVG-decor krijgt y-parallax met scrub.
 - Responsief: desktop gebruikt 12-koloms plaatsing met decor rechts; mobiel stapelt copy, buttons en decor zonder overlap.
 - Verificatie: `npm run lint`, `npm run build` en lokale homepage 200-check slagen.
+
+## FASE 3.14 — Footer
+
+- Status: afgerond.
+- Structuur: globale footer met 4 content-gestuurde kolommen, grote mail-link, 5 social icon links, copyright en vestigingsplaats.
+- Motion: footerkolommen revealen met `top 88%` trigger en `0.06s` stagger; reduced motion zet direct de eindstaat.
+- Interactie: footerlinks hebben hover-underlines; social icons gebruiken magnetic hover en toegankelijke `aria-label`s.
+- Verificatie: `npm run lint`, `npm run build` en lokale homepage 200-check slagen.

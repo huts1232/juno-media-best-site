@@ -67,7 +67,11 @@ export default function RootLayout({
             socialLinks={site.socialLinks}
           />
           {children}
-          <Footer content={site.footer} />
+          <Footer
+            content={site.footer}
+            socialLabel={site.navLabels.social}
+            socialLinks={site.socialLinks}
+          />
           <CookieBar copy={site.cookie} />
           <Cursor />
         </SmoothScroll>

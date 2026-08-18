@@ -213,6 +213,14 @@ export const ctaMotion = {
   decorScrub: 1,
 } as const;
 
+export const footerMotion = {
+  triggerStart: "top 88%",
+  columnY: 28,
+  columnDuration: 0.8,
+  columnEase: "power2.out",
+  columnStagger: 0.06,
+} as const;
+
 export const webflowEaseMap = {
   ease: "power1.inOut",
   easeOut: "power2.out",

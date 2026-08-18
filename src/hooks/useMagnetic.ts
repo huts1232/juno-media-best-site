@@ -5,7 +5,7 @@ import { gsap } from "@/lib/gsap";
 import { magnetic } from "@/lib/motion-tokens";
 import { useReducedMotion } from "./useReducedMotion";
 
-export function useMagnetic<T extends HTMLElement>(strength = magnetic.strength) {
+export function useMagnetic<T extends HTMLElement>(strength: number = magnetic.strength) {
   const ref = useRef<T | null>(null);
   const reducedMotion = useReducedMotion();
 
