@@ -116,3 +116,11 @@
 - Layout: 4 kolommen desktop, 2 kolommen tablet en 1 kolom mobiel, met referentie-padding voor sectie en items waar toepasbaar.
 - Motion: cards revealen op grid-index met `top 85%` en 0.08s stagger; hover tilt 6px omhoog met `shadow-float`.
 - Verificatie: `npm run lint`, `npm run build` en lokale 200-check slagen.
+
+## FASE 3.11 — News
+
+- Status: afgerond.
+- Structuur: 3 content-gestuurde artikelen met titel, categorie, datum, thumbnail en link naar `/blog`.
+- Layout: referentieachtige blogspacing met feature-item links en twee compacte items rechts op desktop; tablet en mobiel stapelen responsief.
+- Interactie: titel-underline schuift in op hover, thumbnails schalen naar `1.04` en de `Bekijk meer`-link wijst naar `/blog`.
+- Verificatie: `npm run lint`, `npm run build` en lokale 200-check slagen.

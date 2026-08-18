@@ -12,6 +12,7 @@ import { testimonials } from "@/content/testimonials";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { awards } from "@/content/awards";
 import { Awards } from "@/components/sections/Awards";
+import { News } from "@/components/sections/News";
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
       <CasesGrid content={casesSection} items={cases} />
       <Testimonials content={testimonials} />
       <Awards content={awards} />
+      <News content={site.pages.home.news} />
     </main>
   );
 }

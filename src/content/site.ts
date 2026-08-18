@@ -91,6 +91,35 @@ export const site = {
           { name: "Field & Flow" },
         ],
       },
+      news: {
+        eyebrow: "News",
+        heading: "Notes from the studio",
+        viewMore: { label: "Bekijk meer", href: "/blog" },
+        ariaLabel: "Latest articles",
+        items: [
+          {
+            title: "How launch teams can make product value easier to scan",
+            category: "Strategy",
+            date: "18 Aug 2026",
+            href: "/blog",
+            accent: "#fe4a23",
+          },
+          {
+            title: "A practical motion checklist for conversion-focused websites",
+            category: "Motion",
+            date: "04 Aug 2026",
+            href: "/blog",
+            accent: "#8a5cff",
+          },
+          {
+            title: "What to decide before a homepage build enters production",
+            category: "Build",
+            date: "21 Jul 2026",
+            href: "/blog",
+            accent: "#ffffff",
+          },
+        ],
+      },
     },
     cases: {
       eyebrow: "Cases",
