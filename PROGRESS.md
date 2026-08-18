@@ -124,3 +124,11 @@
 - Layout: referentieachtige blogspacing met feature-item links en twee compacte items rechts op desktop; tablet en mobiel stapelen responsief.
 - Interactie: titel-underline schuift in op hover, thumbnails schalen naar `1.04` en de `Bekijk meer`-link wijst naar `/blog`.
 - Verificatie: `npm run lint`, `npm run build` en lokale 200-check slagen.
+
+## FASE 3.12 — FAQ
+
+- Status: afgerond.
+- Structuur: 11 content-gestuurde FAQ-items via gedeelde `Accordion`, met `<button aria-expanded>` en `<div role="region" aria-labelledby>`.
+- Interactie: maximaal één item tegelijk open; ArrowUp, ArrowDown, Home en End verplaatsen focus tussen vragen.
+- Motion: hoogte via CSS `grid-template-rows: 0fr -> 1fr`, antwoordcontent met `overflow: hidden`, plus roteert 45 graden en de verticale streep schaalt weg.
+- Verificatie: `npm run lint` en `npm run build` slagen.

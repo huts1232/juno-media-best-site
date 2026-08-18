@@ -13,6 +13,8 @@ import { Testimonials } from "@/components/sections/Testimonials";
 import { awards } from "@/content/awards";
 import { Awards } from "@/components/sections/Awards";
 import { News } from "@/components/sections/News";
+import { faq } from "@/content/faq";
+import { Faq } from "@/components/sections/Faq";
 
 export default function Home() {
   return (
@@ -27,6 +29,7 @@ export default function Home() {
       <Testimonials content={testimonials} />
       <Awards content={awards} />
       <News content={site.pages.home.news} />
+      <Faq content={faq} />
     </main>
   );
 }

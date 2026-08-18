@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { type KeyboardEvent, useRef, useState } from "react";
 
 export type AccordionItem = {
   id: string;
@@ -10,35 +10,71 @@ export type AccordionItem = {
 
 type AccordionProps = {
   items: readonly AccordionItem[];
+  className?: string;
 };
 
-export function Accordion({ items }: AccordionProps) {
+export function Accordion({ items, className }: AccordionProps) {
   const [openId, setOpenId] = useState<string | null>(items[0]?.id ?? null);
+  const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  const focusButton = (index: number) => {
+    const nextIndex = (index + items.length) % items.length;
+    buttonRefs.current[nextIndex]?.focus();
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      focusButton(index + 1);
+    }
+
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      focusButton(index - 1);
+    }
+
+    if (event.key === "Home") {
+      event.preventDefault();
+      focusButton(0);
+    }
+
+    if (event.key === "End") {
+      event.preventDefault();
+      focusButton(items.length - 1);
+    }
+  };
 
   return (
-    <div>
-      {items.map((item) => {
+    <div className={className}>
+      {items.map((item, index) => {
         const open = openId === item.id;
+        const buttonId = `${item.id}-button`;
+        const panelId = `${item.id}-panel`;
+
         return (
-          <div key={item.id} className="border-b border-hairline">
+          <div key={item.id} className="faq-row" data-open={open ? "true" : "false"}>
             <button
-              aria-controls={`${item.id}-panel`}
+              ref={(node) => {
+                buttonRefs.current[index] = node;
+              }}
+              aria-controls={panelId}
               aria-expanded={open}
-              className="flex w-full items-center justify-between py-5 text-left"
-              id={`${item.id}-button`}
+              className="faq-trigger"
+              id={buttonId}
               onClick={() => setOpenId(open ? null : item.id)}
+              onKeyDown={(event) => handleKeyDown(event, index)}
             >
-              <span>{item.question}</span>
-              <span aria-hidden="true">{open ? "-" : "+"}</span>
+              <span className="faq-question">{item.question}</span>
+              <span className="faq-plus" aria-hidden="true" />
             </button>
             <div
-              aria-labelledby={`${item.id}-button`}
-              className={open ? "grid grid-rows-[1fr]" : "grid grid-rows-[0fr]"}
-              id={`${item.id}-panel`}
+              aria-labelledby={buttonId}
+              className="faq-panel"
+              id={panelId}
               role="region"
             >
-              <div className="overflow-hidden">
-                <p className="pb-5 text-copy-muted">{item.answer}</p>
+              <div className="faq-panel__inner">
+                <p className="faq-answer">{item.answer}</p>
               </div>
             </div>
           </div>
