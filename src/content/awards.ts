@@ -1,8 +1,64 @@
-export const awards = [
-  {
-    platform: "Platform",
-    project: "Project",
-    prize: "Recognition",
-    date: "2026",
-  },
-] as const;
+export const awards = {
+  eyebrow: "Awards",
+  heading: "Recognition for launch systems",
+  ariaLabel: "Award recognitions",
+  certificateLabel: "Certificate placeholder",
+  items: [
+    {
+      platform: "Awwwards",
+      project: "Atlas Grid",
+      prize: "Site of the Day",
+      date: "Aug 18, 2026",
+      accent: "#fe4a23",
+    },
+    {
+      platform: "The FWA",
+      project: "Nimbus Cloud",
+      prize: "FWA of the Day",
+      date: "Jul 12, 2026",
+      accent: "#8a5cff",
+    },
+    {
+      platform: "CSSDA",
+      project: "Orbit Pay",
+      prize: "Website of the Day",
+      date: "May 22, 2026",
+      accent: "#ffffff",
+    },
+    {
+      platform: "Awwwards",
+      project: "Forma Lab",
+      prize: "Honorable Mention",
+      date: "Mar 04, 2026",
+      accent: "#fe4a23",
+    },
+    {
+      platform: "CSSDA",
+      project: "Signal One",
+      prize: "UX Design Award",
+      date: "Nov 19, 2025",
+      accent: "#8a5cff",
+    },
+    {
+      platform: "The FWA",
+      project: "Brightpath",
+      prize: "Mobile Excellence",
+      date: "Oct 07, 2025",
+      accent: "#ffffff",
+    },
+    {
+      platform: "Awwwards",
+      project: "Coredesk",
+      prize: "Developer Award",
+      date: "Sep 15, 2025",
+      accent: "#fe4a23",
+    },
+    {
+      platform: "CSSDA",
+      project: "Northline",
+      prize: "Innovation Award",
+      date: "Jun 28, 2025",
+      accent: "#8a5cff",
+    },
+  ],
+} as const;

@@ -108,3 +108,11 @@
 - Slider: scroll-snap met 380px cards desktop en 85vw mobiel, pointer-drag, `power2.out` inertia-snap naar de dichtstbijzijnde card en custom dragcursor op pointer-fine.
 - Interactie: vorige/volgende knoppen hebben disabled-states aan de uiteinden; slider reageert ook op ArrowLeft en ArrowRight.
 - Verificatie: `npm run lint`, `npm run build` en lokale 200-check slagen.
+
+## FASE 3.10 — Awards
+
+- Status: afgerond.
+- Structuur: 8 content-gestuurde awards met platform, projectnaam, prijsnaam, datum en inline SVG-certificaatplaceholder.
+- Layout: 4 kolommen desktop, 2 kolommen tablet en 1 kolom mobiel, met referentie-padding voor sectie en items waar toepasbaar.
+- Motion: cards revealen op grid-index met `top 85%` en 0.08s stagger; hover tilt 6px omhoog met `shadow-float`.
+- Verificatie: `npm run lint`, `npm run build` en lokale 200-check slagen.

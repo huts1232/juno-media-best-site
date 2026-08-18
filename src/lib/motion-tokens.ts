@@ -188,6 +188,16 @@ export const testimonialMotion = {
   triggerStart: "top 82%",
 } as const;
 
+export const awardsMotion = {
+  revealY: 36,
+  revealDuration: 0.8,
+  revealEase: "power2.out",
+  revealStagger: 0.08,
+  triggerStart: "top 85%",
+  hoverLift: -6,
+  hoverDuration: 0.4,
+} as const;
+
 export const webflowEaseMap = {
   ease: "power1.inOut",
   easeOut: "power2.out",
