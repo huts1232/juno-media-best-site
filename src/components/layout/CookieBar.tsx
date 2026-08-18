@@ -3,10 +3,16 @@
 import { useEffect, useState } from "react";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 
+const CONSENT_STORAGE_KEY = "juno-cookie-consent";
+const EXIT_DURATION = 500;
+
+type ConsentValue = "denied" | "granted";
+
 type CookieCopy = {
   message: string;
   rejectLabel: string;
   acceptLabel: string;
+  ariaLabel: string;
 };
 
 type CookieBarProps = {
@@ -14,39 +20,77 @@ type CookieBarProps = {
 };
 
 export function CookieBar({ copy }: CookieBarProps) {
+  const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (window.localStorage.getItem("juno-cookie-consent")) return;
+    if (readStoredConsent()) return;
 
-    const timeout = window.setTimeout(() => setVisible(true), 1200);
-    return () => window.clearTimeout(timeout);
+    setMounted(true);
+    const showTimeout = window.setTimeout(() => setVisible(true), 1200);
+    return () => window.clearTimeout(showTimeout);
   }, []);
 
-  const updateConsent = (value: "denied" | "granted") => {
-    window.localStorage.setItem("juno-cookie-consent", value);
-    window.gtag?.("consent", "update", {
-      ad_storage: value,
-      ad_user_data: value,
-      ad_personalization: value,
-      analytics_storage: value,
-    });
+  const updateConsent = (value: ConsentValue) => {
+    storeConsent(value);
+    updateGtagConsent(value);
     setVisible(false);
+    window.setTimeout(() => setMounted(false), EXIT_DURATION);
   };
 
-  if (!visible) return null;
+  if (!mounted) return null;
 
   return (
-    <div className="fixed inset-x-4 bottom-4 z-[100] rounded-card border border-hairline bg-page-alt p-4 shadow-card md:left-auto md:max-w-md">
-      <p className="text-sm text-copy-muted">{copy.message}</p>
-      <div className="mt-4 flex gap-3">
-        <button className="rounded-full border border-hairline px-4 py-2 text-sm" onClick={() => updateConsent("denied")}>
+    <section
+      aria-label={copy.ariaLabel}
+      aria-live="polite"
+      className="cookie-bar"
+      data-visible={visible ? "true" : "false"}
+    >
+      <p className="cookie-bar__message">{copy.message}</p>
+      <div className="cookie-bar__actions">
+        <button
+          className="cookie-bar__button cookie-bar__button--reject"
+          type="button"
+          onClick={() => updateConsent("denied")}
+        >
           {copy.rejectLabel}
         </button>
-        <MagneticButton className="px-4 py-2" onClick={() => updateConsent("granted")}>
+        <MagneticButton
+          className="cookie-bar__button cookie-bar__button--accept"
+          onClick={() => updateConsent("granted")}
+        >
           {copy.acceptLabel}
         </MagneticButton>
       </div>
-    </div>
+    </section>
   );
+}
+
+function readStoredConsent() {
+  try {
+    return window.localStorage.getItem(CONSENT_STORAGE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function storeConsent(value: ConsentValue) {
+  try {
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, value);
+  } catch {
+    // Consent still updates for the current page view when storage is unavailable.
+  }
+}
+
+function updateGtagConsent(value: ConsentValue) {
+  window.gtag?.("consent", "update", {
+    ad_storage: value,
+    ad_user_data: value,
+    ad_personalization: value,
+    analytics_storage: value,
+    functionality_storage: value,
+    personalization_storage: value,
+    security_storage: "granted",
+  });
 }

@@ -148,3 +148,11 @@
 - Motion: footerkolommen revealen met `top 88%` trigger en `0.06s` stagger; reduced motion zet direct de eindstaat.
 - Interactie: footerlinks hebben hover-underlines; social icons gebruiken magnetic hover en toegankelijke `aria-label`s.
 - Verificatie: `npm run lint`, `npm run build` en lokale homepage 200-check slagen.
+
+## FASE 3.15 — Cookiebar
+
+- Status: afgerond.
+- Structuur: vaste cookiebar onderin met content-gestuurde boodschap en twee knoppen voor weigeren/accepteren.
+- Interactie: verschijnt na 1.2s, schrijft de keuze naar `localStorage` en sluit met CSS slide/fade-out.
+- Consent: Consent Mode v2-update via `gtag('consent', 'update', ...)` met advertentie-, analytics- en personalisatievelden.
+- Verificatie: `npm run lint`, `npm run build` en lokale homepage 200-check slagen.

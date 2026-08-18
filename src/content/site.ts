@@ -157,6 +157,7 @@ export const site = {
     message: "We gebruiken cookies om de site te verbeteren.",
     rejectLabel: "Weigeren",
     acceptLabel: "Accepteren",
+    ariaLabel: "Cookievoorkeuren",
   },
   footer: {
     email: "hello@junomedia.example",
