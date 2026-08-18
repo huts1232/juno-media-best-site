@@ -33,3 +33,12 @@
 - Cursor: referentie bevat custom cursorlagen; globale `mix-blend-mode: difference` dot toegevoegd, met lerp 0.15, 3x interactieve scale en touch-hide.
 - Magnetic hover: `useMagnetic()` gebruikt GSAP `quickTo` met duration 0.4 en `power3.out`, en wordt gebruikt op primaire buttons.
 - Verificatie: `npm run lint` en `npm run build` slagen zonder warnings.
+
+## FASE 3.1 — Nav
+
+- Status: afgerond.
+- Structuur: fixed full-width header met gecentreerde referentie-nav, content-gestuurde links, CTA en mobiele overlay.
+- Motion: scroll > 80px activeert blur/bg/border, ScrollTrigger verbergt bij down-scroll, mobiele menu-reveal gebruikt clip-path circle vanaf hamburger met 0.06s link-stagger.
+- Interactie: desktop-links hebben scaleX-underline, CTA heeft magnetic hover en arrow-shift, body scroll-lock actief bij mobiel menu.
+- Afwijkingen: social-icons zijn neutrale inline SVG-placeholders tot FASE 6 assets.
+- Verificatie: `npm run lint` en `npm run build` slagen zonder warnings.

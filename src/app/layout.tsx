@@ -58,7 +58,14 @@ export default function RootLayout({
     <html lang={site.locale}>
       <body className={`${avantGarde.variable} ${avantGardeCondensed.variable}`}>
         <SmoothScroll>
-          <Nav links={site.navigation} cta={site.primaryCta} />
+          <Nav
+            brand={site.brand}
+            links={site.navigation}
+            cta={site.primaryCta}
+            email={site.footer.email}
+            labels={site.navLabels}
+            socialLinks={site.socialLinks}
+          />
           {children}
           <Footer content={site.footer} />
           <CookieBar copy={site.cookie} />

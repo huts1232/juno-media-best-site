@@ -147,6 +147,24 @@ h1 {
   line-height: var(--lh-normal);
 }
 
+.nav-link-underline::after {
+  position: absolute;
+  right: 0;
+  bottom: -0.45rem;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-out-expo);
+}
+
+.nav-link-underline:hover::after,
+.nav-link-underline[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
 .split-text {
   position: relative;
   display: inline-block;

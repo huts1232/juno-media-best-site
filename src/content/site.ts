@@ -4,6 +4,16 @@ export const site = {
     title: "Juno Media Best Site",
     description: "A motion-led digital studio site for Juno Media.",
   },
+  brand: {
+    name: "Juno Media",
+    href: "/",
+  },
+  navLabels: {
+    primary: "Primaire navigatie",
+    openMenu: "Menu openen",
+    closeMenu: "Menu sluiten",
+    social: "Social links",
+  },
   navigation: [
     { label: "Cases", href: "/cases" },
     { label: "Services", href: "/services" },
@@ -11,6 +21,13 @@ export const site = {
     { label: "Over ons", href: "/over-ons" },
   ],
   primaryCta: { label: "Plan een call", href: "/contact" },
+  socialLinks: [
+    { label: "Dribbble", href: "https://dribbble.com/" },
+    { label: "Behance", href: "https://www.behance.net/" },
+    { label: "Instagram", href: "https://www.instagram.com/" },
+    { label: "X", href: "https://x.com/" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/" },
+  ],
   pages: {
     home: {
       eyebrow: "Juno Media",
