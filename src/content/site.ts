@@ -43,6 +43,9 @@ export const site = {
         },
         scrollLabel: "Scroll",
       },
+      statement: {
+        text: "We turn messy growth goals into focused digital systems that launch fast and keep compounding.",
+      },
     },
     cases: {
       eyebrow: "Cases",

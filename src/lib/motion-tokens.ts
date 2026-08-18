@@ -100,6 +100,24 @@ export const heroMouse = {
   ease: "power2.out",
 } as const;
 
+export const statementMotion = {
+  triggerStart: "top 75%",
+  line: {
+    yPercent: 100,
+    clipPath: "inset(0 0 100% 0)",
+    duration: 1,
+    ease: "expo.out",
+    stagger: 0.08,
+  },
+  floating: {
+    speed: 0.2,
+    yPercent: -20,
+    scrub: 1,
+    start: "top bottom",
+    end: "bottom top",
+  },
+} as const;
+
 export const webflowEaseMap = {
   ease: "power1.inOut",
   easeOut: "power2.out",

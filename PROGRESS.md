@@ -51,3 +51,12 @@
 - Responsief: desktop volgt Webflow-maatvoering; mobiel schakelt sticky uit, verkleint H1 en behoudt veilige spacing rond video en lagen.
 - Afwijkingen: video en parallax-assets zijn neutrale placeholders; er is geen Outcrowd-video of illustratie gekopieerd.
 - Verificatie: `npm run lint`, `npm run build`, lokale 200-check en desktop/mobiele headless screenshots uitgevoerd.
+
+## FASE 3.3 — Statement
+
+- Status: afgerond.
+- Structuur: één content-gestuurde H2 van 15 woorden in een full-width statement-sectie met 12-koloms plaatsing.
+- Motion: per visuele regel `yPercent: 100 -> 0` met clip-mask, trigger `top 75%`, plus decoratief rechterelement met subtiele y-parallax.
+- Responsief: regels worden na resize opnieuw gemeten; mobiel gebruikt compactere type-scale en 4-koloms layout.
+- Afwijkingen: floating element is een neutrale inline SVG-placeholder.
+- Verificatie: `npm run lint` en `npm run build` slagen zonder warnings.
