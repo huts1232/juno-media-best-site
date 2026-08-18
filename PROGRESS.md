@@ -23,3 +23,13 @@
 - Smooth scroll: Lenis helper en `<SmoothScroll>` client wrapper gekoppeld aan GSAP ScrollTrigger.
 - Verificatie: `npm run lint` en `npm run build` slagen zonder warnings.
 - Open punt: `npm install` meldt 3 high-severity audit findings in de dependency tree; niet automatisch geforceerd gefixt om breaking upgrades te vermijden.
+
+## FASE 2 — Globale systemen
+
+- Status: afgerond voor akkoord.
+- Grid: `.site-container` en `.grid-12` vastgelegd met exact overgenomen Webflow breakpoints 479 / 767 / 991 / 1280 / 1440 / 1920.
+- Motion: `motion-tokens.ts` uitgebreid met reveal, split-text, cursor, magnetic en Webflow-ease mapping.
+- SplitText: client component splitst woorden naar gemeten regels, resplit bij resize met 150ms debounce, en respecteert reduced motion.
+- Cursor: referentie bevat custom cursorlagen; globale `mix-blend-mode: difference` dot toegevoegd, met lerp 0.15, 3x interactieve scale en touch-hide.
+- Magnetic hover: `useMagnetic()` gebruikt GSAP `quickTo` met duration 0.4 en `power3.out`, en wordt gebruikt op primaire buttons.
+- Verificatie: `npm run lint` en `npm run build` slagen zonder warnings.

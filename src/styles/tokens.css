@@ -44,6 +44,16 @@
   --space-12: 10rem;
   --container-max: 90rem;
   --gutter: 1.25rem;
+  --breakpoint-tiny-max: 479px;
+  --breakpoint-small-min: 480px;
+  --breakpoint-small-max: 767px;
+  --breakpoint-medium-min: 768px;
+  --breakpoint-medium-max: 991px;
+  --breakpoint-main-min: 992px;
+  --breakpoint-main-max: 10000px;
+  --breakpoint-xl-min: 1280px;
+  --breakpoint-2xl-min: 1440px;
+  --breakpoint-3xl-min: 1920px;
 
   --radius-sm: .56rem;
   --radius-md: 1.25rem;

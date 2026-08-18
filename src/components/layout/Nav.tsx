@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/Button";
 
 type NavLink = {
   label: string;
@@ -12,7 +13,7 @@ type NavProps = {
 
 export function Nav({ links, cta }: NavProps) {
   return (
-    <header className="fixed inset-x-0 top-0 z-100 border-b border-hairline/0">
+    <header className="fixed inset-x-0 top-0 z-[100] border-b border-hairline/0">
       <div className="site-container flex h-20 items-center justify-between">
         <Link href="/" className="font-condensed text-xl uppercase leading-none">
           Juno Media
@@ -24,9 +25,7 @@ export function Nav({ links, cta }: NavProps) {
             </Link>
           ))}
         </nav>
-        <Link href={cta.href} className="rounded-full bg-copy px-5 py-3 text-sm text-page">
-          {cta.label}
-        </Link>
+        <Button href={cta.href}>{cta.label}</Button>
       </div>
     </header>
   );

@@ -2,18 +2,30 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
+import { magnetic } from "@/lib/motion-tokens";
 import { useReducedMotion } from "./useReducedMotion";
 
-export function useMagnetic<T extends HTMLElement>(strength = 0.3) {
+export function useMagnetic<T extends HTMLElement>(strength = magnetic.strength) {
   const ref = useRef<T | null>(null);
   const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const element = ref.current;
-    if (!element || reducedMotion) return;
+    if (!element) return;
 
-    const xTo = gsap.quickTo(element, "x", { duration: 0.4, ease: "power3.out" });
-    const yTo = gsap.quickTo(element, "y", { duration: 0.4, ease: "power3.out" });
+    if (reducedMotion || window.matchMedia("(pointer: coarse)").matches) {
+      gsap.set(element, { x: 0, y: 0 });
+      return;
+    }
+
+    const xTo = gsap.quickTo(element, "x", {
+      duration: magnetic.duration,
+      ease: magnetic.ease,
+    });
+    const yTo = gsap.quickTo(element, "y", {
+      duration: magnetic.duration,
+      ease: magnetic.ease,
+    });
 
     const onMove = (event: MouseEvent) => {
       const rect = element.getBoundingClientRect();
@@ -34,6 +46,7 @@ export function useMagnetic<T extends HTMLElement>(strength = 0.3) {
     return () => {
       element.removeEventListener("mousemove", onMove);
       element.removeEventListener("mouseleave", onLeave);
+      gsap.set(element, { x: 0, y: 0 });
     };
   }, [reducedMotion, strength]);
 

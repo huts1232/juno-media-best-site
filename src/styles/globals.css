@@ -16,6 +16,13 @@
   --text-body: var(--fs-body);
   --radius-card: var(--radius-md);
   --shadow-card: var(--shadow-card);
+  --breakpoint-wf-tiny: 479px;
+  --breakpoint-wf-small: 480px;
+  --breakpoint-wf-medium: 768px;
+  --breakpoint-wf-main: 992px;
+  --breakpoint-wf-xl: 1280px;
+  --breakpoint-wf-2xl: 1440px;
+  --breakpoint-wf-3xl: 1920px;
 }
 
 * {
@@ -86,6 +93,16 @@ canvas {
   padding-inline: var(--gutter);
 }
 
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--gutter);
+}
+
+.grid-12 > * {
+  min-width: 0;
+}
+
 .page-shell {
   width: 100%;
   max-width: var(--container-max);
@@ -130,11 +147,95 @@ h1 {
   line-height: var(--lh-normal);
 }
 
+.split-text {
+  position: relative;
+  display: inline-block;
+}
+
+.split-text__measure {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.split-text__lines,
+.split-text__line,
+.split-text__line-inner,
+.split-text__word,
+.split-text__word-inner {
+  display: inline-block;
+}
+
+.split-text__lines {
+  width: 100%;
+}
+
+.split-text__line {
+  display: block;
+  overflow: hidden;
+}
+
+.split-text__word {
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2147483647;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  pointer-events: none;
+  background: var(--color-ink);
+  mix-blend-mode: difference;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-out-expo);
+  will-change: transform;
+}
+
+.custom-cursor-dot[data-visible="true"] {
+  opacity: 1;
+}
+
+@media (pointer: coarse) {
+  .custom-cursor-dot {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  :root {
+    --container-max: 90rem;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  :root {
+    --container-max: 95rem;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  :root {
+    --container-max: 100rem;
+  }
+}
+
 @media screen and (max-width: 991px) {
   :root {
     --container-max: 100%;
     --fs-h1: 5rem;
     --fs-hero: 5rem;
+  }
+
+  .grid-12 {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
   }
 }
 
@@ -148,12 +249,20 @@ h1 {
   .page-shell {
     padding-top: calc(var(--space-10) + var(--space-5));
   }
+
+  .grid-12 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 @media screen and (max-width: 479px) {
   :root {
     --fs-h1: 3.1rem;
     --fs-hero: 3.1rem;
+  }
+
+  .grid-12 {
+    grid-template-columns: 1fr;
   }
 }
 

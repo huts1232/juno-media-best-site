@@ -4,6 +4,7 @@ import { CookieBar } from "@/components/layout/CookieBar";
 import { Footer } from "@/components/layout/Footer";
 import { Nav } from "@/components/layout/Nav";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
+import { Cursor } from "@/components/ui/Cursor";
 import { site } from "@/content/site";
 import "@/styles/globals.css";
 
@@ -61,6 +62,7 @@ export default function RootLayout({
           {children}
           <Footer content={site.footer} />
           <CookieBar copy={site.cookie} />
+          <Cursor />
         </SmoothScroll>
       </body>
     </html>

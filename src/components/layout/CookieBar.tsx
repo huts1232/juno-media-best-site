@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { MagneticButton } from "@/components/ui/MagneticButton";
 
 type CookieCopy = {
   message: string;
@@ -36,15 +37,15 @@ export function CookieBar({ copy }: CookieBarProps) {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-x-4 bottom-4 z-100 rounded-card border border-hairline bg-page-alt p-4 shadow-card md:left-auto md:max-w-md">
+    <div className="fixed inset-x-4 bottom-4 z-[100] rounded-card border border-hairline bg-page-alt p-4 shadow-card md:left-auto md:max-w-md">
       <p className="text-sm text-copy-muted">{copy.message}</p>
       <div className="mt-4 flex gap-3">
         <button className="rounded-full border border-hairline px-4 py-2 text-sm" onClick={() => updateConsent("denied")}>
           {copy.rejectLabel}
         </button>
-        <button className="rounded-full bg-copy px-4 py-2 text-sm text-page" onClick={() => updateConsent("granted")}>
+        <MagneticButton className="px-4 py-2" onClick={() => updateConsent("granted")}>
           {copy.acceptLabel}
-        </button>
+        </MagneticButton>
       </div>
     </div>
   );
