@@ -1,0 +1,8 @@
+:root {
+  font-synthesis-style: none;
+  font-synthesis-weight: none;
+}
+
+.font-condensed {
+  font-family: var(--font-itc-avant-garde-cn), var(--font-display);
+}

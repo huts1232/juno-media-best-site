@@ -13,3 +13,13 @@
 ## Volgende stap na akkoord
 
 - FASE 1: Next.js 15 project setup in deze map.
+
+## FASE 1 — Project setup
+
+- Status: afgerond voor akkoord.
+- Scaffold: Next.js 15.5.23, App Router, TypeScript, Tailwind v4, ESLint.
+- Fonts: exacte ITC Avant Garde bronnen uit de Webflow CSS lokaal opgeslagen en via `next/font/local` geladen.
+- Tokens: `src/styles/tokens.css` gegenereerd uit de Webflow CSS, met semantische tokens en raw `--ref-*` waarden.
+- Smooth scroll: Lenis helper en `<SmoothScroll>` client wrapper gekoppeld aan GSAP ScrollTrigger.
+- Verificatie: `npm run lint` en `npm run build` slagen zonder warnings.
+- Open punt: `npm install` meldt 3 high-severity audit findings in de dependency tree; niet automatisch geforceerd gefixt om breaking upgrades te vermijden.
