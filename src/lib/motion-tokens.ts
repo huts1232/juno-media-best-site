@@ -248,7 +248,9 @@ export const showreelMotion = {
 } as const;
 
 export const scrollStatementMotion = {
-  from: 0.18,
+  /** 0.36 is de laagste gedempte waarde die nog 3:1 contrast haalt voor grote
+   *  tekst (wit op #080808). Lager leest niet meer en faalt de audit. */
+  from: 0.36,
   stagger: 0.5,
   start: "top 75%",
   end: "bottom 55%",

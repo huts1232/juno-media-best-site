@@ -321,7 +321,7 @@ export function Nav({ brand, links, cta, email, labels, socialLinks }: NavProps)
         >
           <Link
             href={brand.href}
-            className="site-nav-brand flex h-full min-w-[7.25rem] items-center px-4 font-[var(--font-display)] text-[.97222rem] uppercase leading-none text-copy"
+            className="site-nav-brand flex h-full min-h-6 min-w-[7.25rem] items-center px-4 font-[var(--font-display)] text-[.97222rem] uppercase leading-none text-copy"
             onClick={closeMenu}
           >
             {brand.name}

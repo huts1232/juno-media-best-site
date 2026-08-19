@@ -128,7 +128,10 @@ export function CasesGrid({ content, items }: CasesGridProps) {
                 }}
                 className="case-card"
               >
-                <Link href={`/cases/${item.slug}`} className="case-card__link" aria-label={`${content.linkLabel}: ${item.client}`}>
+                {/* Geen aria-label: die verving de zichtbare tekst, wat de accessible
+                    name laat afwijken van wat er staat. De inhoud van de link
+                    (client, titel, "Case study") benoemt hem al. */}
+                <Link href={`/cases/${item.slug}`} className="case-card__link">
                   <m.div layoutId={`case-thumbnail-${item.slug}`} className="case-card__thumb">
                     <CaseThumbnail item={item} index={index} />
                     <div className="case-card__overlay">

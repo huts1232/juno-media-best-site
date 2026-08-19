@@ -579,10 +579,16 @@ h1 {
   line-height: var(--lh-normal);
 }
 
+.nav-link-underline {
+  /* Zelfde reden als .site-footer__link: 24px raakvlak. */
+  padding-block: 0.2rem;
+}
+
 .nav-link-underline::after {
   position: absolute;
   right: 0;
-  bottom: -0.45rem;
+  /* Gecompenseerd voor de padding hierboven, zodat de streep niet verschuift. */
+  bottom: -0.25rem;
   left: 0;
   height: 1px;
   background: currentColor;
@@ -2499,6 +2505,8 @@ h1 {
 
 .site-footer__link {
   display: inline;
+  /* 18px regelhoogte + padding = 24px raakvlak (WCAG 2.5.8 target size). */
+  padding-block: 0.2rem;
   width: fit-content;
   color: var(--color-ink-muted);
   font-size: var(--fs-body);
@@ -3986,7 +3994,9 @@ h1 {
 
 .scroll-statement__word {
   display: inline-block;
-  opacity: 0.18;
+  /* Gelijk aan scrollStatementMotion.from: laagste waarde die 3:1 contrast
+     haalt voor grote tekst. */
+  opacity: 0.36;
   will-change: opacity;
 }
 
