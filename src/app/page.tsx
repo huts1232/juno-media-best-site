@@ -1,6 +1,6 @@
 import { ExpandingShowreel } from "@/components/sections/ExpandingShowreel";
 import { Hero } from "@/components/sections/Hero";
-import { Statement } from "@/components/sections/Statement";
+import { ScrollStatement } from "@/components/sections/ScrollStatement";
 import { Stats } from "@/components/sections/Stats";
 import { Stages } from "@/components/sections/Stages";
 import { Services } from "@/components/sections/Services";
@@ -23,7 +23,7 @@ export default function Home() {
     <main>
       <Hero content={site.pages.home.hero} />
       <ExpandingShowreel content={site.pages.home.showreel} />
-      <Statement content={site.pages.home.statement} />
+      <ScrollStatement content={site.pages.home.statement} />
       <Stats content={site.pages.home.stats} />
       <Stages content={site.pages.home.stages} />
       <Services content={services} />

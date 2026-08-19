@@ -246,3 +246,10 @@ export const showreelMotion = {
     position: 0.45,
   },
 } as const;
+
+export const scrollStatementMotion = {
+  from: 0.18,
+  stagger: 0.5,
+  start: "top 75%",
+  end: "bottom 55%",
+} as const;
