@@ -1,6 +1,6 @@
-import { CasesGrid } from "@/components/sections/CasesGrid";
+import { CaseStack } from "@/components/sections/CaseStack";
 import { PageHero } from "@/components/sections/PageHero";
-import { cases, casesSection } from "@/content/cases";
+import { cases, casesPage } from "@/content/cases";
 import { site } from "@/content/site";
 
 export default function CasesPage() {
@@ -9,7 +9,9 @@ export default function CasesPage() {
   return (
     <main>
       <PageHero content={page} id="cases-page-title" variant="full" scrollLabel={page.scrollLabel} />
-      <CasesGrid content={casesSection} items={cases} />
+      <section aria-label={casesPage.listLabel}>
+        <CaseStack items={cases} copy={casesPage} />
+      </section>
     </main>
   );
 }

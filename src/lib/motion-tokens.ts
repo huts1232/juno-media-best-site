@@ -192,6 +192,27 @@ export const casesMotion = {
   mobileQuery: "(max-width: 767px)",
 } as const;
 
+export const caseStackMotion = {
+  /** Onder 900px vervalt de stack; de kaarten worden een gewone lijst. */
+  stackQuery: "(min-width: 900px)",
+  listQuery: "(max-width: 899px)",
+  /** Wegschalen van de kaart die blijft plakken terwijl de volgende eroverheen komt. */
+  outgoing: {
+    scale: 0.92,
+    yPercent: -4,
+    brightness: 0.55,
+    start: "top bottom",
+    end: "top top",
+  },
+  /** Mobiele fallback-reveal. */
+  listReveal: {
+    y: 40,
+    duration: 0.8,
+    ease: "expo.out",
+    start: "top 85%",
+  },
+} as const;
+
 export const testimonialMotion = {
   cardWidthDesktop: 380,
   cardWidthMobile: "85vw",
