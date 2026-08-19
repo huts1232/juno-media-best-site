@@ -102,7 +102,7 @@ export function Awards({ content }: AwardsProps) {
 }
 
 function AwardCertificate({ item, label, index }: { item: AwardItem; label: string; index: number }) {
-  const secondary = index % 3 === 0 ? "#8a5cff" : index % 3 === 1 ? "#fe4a23" : "#ffffff";
+  const secondary = index % 3 === 0 ? "#1f7fb8" : index % 3 === 1 ? "#43b1d6" : "#ffffff";
 
   return (
     <svg viewBox="0 0 420 300" role="img" aria-label={`${label}: ${item.project}`} focusable="false">

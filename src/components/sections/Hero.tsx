@@ -29,7 +29,7 @@ type HeroProps = {
 };
 
 const heroPosterSvg =
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 9"><rect width="16" height="9" fill="#101010"/><path d="M0 7 16 2v7H0z" fill="#080808"/><circle cx="10" cy="4" r="4" fill="#fe4a23" opacity=".28"/><circle cx="6" cy="5" r="3" fill="#8a5cff" opacity=".28"/></svg>';
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 9"><rect width="16" height="9" fill="#101010"/><path d="M0 7 16 2v7H0z" fill="#080808"/><circle cx="10" cy="4" r="4" fill="#43b1d6" opacity=".28"/><circle cx="6" cy="5" r="3" fill="#1f7fb8" opacity=".28"/></svg>';
 const heroPosterDataUri = `data:image/svg+xml,${encodeURIComponent(heroPosterSvg)}`;
 
 export function Hero({ content }: HeroProps) {
