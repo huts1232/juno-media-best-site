@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useParallaxLayers } from "@/hooks/useParallaxLayers";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
-import { whenIntroDone } from "@/lib/intro";
 import {
   heroLoad,
   heroMouse,
@@ -210,14 +209,14 @@ export function Hero({ content }: HeroProps) {
       }
     };
 
-    // Bij een eerste bezoek wacht de timeline op het einde van de intro-overlay,
-    // daarna start hij direct.
-    const stopWaitingForIntro = whenIntroDone(startAfterFonts);
+    // Bewust niet wachten op de intro-overlay: het LCP-element is een woord uit
+    // deze kop en dat blijft geclipt tot de timeline draait. De hero animeert
+    // dus onder de overlay door en staat klaar zodra die openschuift.
+    startAfterFonts();
 
     return () => {
       cancelled = true;
       window.clearTimeout(fontWait);
-      stopWaitingForIntro();
       ctx.revert();
     };
   }, [reducedMotion]);
