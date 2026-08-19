@@ -72,7 +72,7 @@ export function Footer({ content, socialLabel, socialLinks }: FooterProps) {
   }, [reducedMotion]);
 
   return (
-    <footer ref={rootRef} className="site-footer">
+    <footer ref={rootRef} className="site-footer" data-cta-zone="footer">
       <div className="site-container">
         <div className="site-footer__columns">
           {content.columns.map((column, index) => {

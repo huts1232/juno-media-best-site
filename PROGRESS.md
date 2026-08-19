@@ -244,3 +244,13 @@
 - Bevestigen via `/digest/bevestigen?token=..`. Dat gaat door de security definer functie `confirm_digest_subscriber`, zodat anon geen update-rechten op de tabel nodig heeft.
 - Openstaand: er is nog geen mailprovider gekoppeld, dus de bevestigingsmail wordt niet verstuurd. Het token staat wel in de tabel en de link wordt buiten productie gelogd, zodat de dubbele opt-in te testen is. De afmeldlink hoort in die mail te staan; de voetnoot zegt dat nu ook zo.
 - Migratie: `supabase/migrations/20260819130000_digest_subscribers.sql`.
+
+### Stap 8 — StickyCta
+
+- Status: afgerond.
+- `FloatingCta` is opgegaan in `StickyCta`; twee vaste pillen naast elkaar zou dubbel zijn. CSS-klassen mee hernoemd naar `.sticky-cta`.
+- Staat direct in `layout.tsx`, `position: fixed`, `z-index: 90`, verschijnt voorbij 90vh.
+- Tekst per zone via `data-cta-zone` op hero, showreel, before/after, configurator, ROI, cases en footer. Wissel: oude tekst `y: -12` met `autoAlpha` eruit, nieuwe `y: 12 -> 0` erin, 0,3s. De breedte animeert mee met `gsap.to(pill, { width: "auto" })`, dus geen sprong.
+- In de footer gaat de pill uit, bij terugscrollen weer aan. Op- en neerwaarts getest met echte wheel-scroll.
+- Onder 768px volle breedte, `bottom: calc(16px + env(safe-area-inset-bottom))`.
+- Contrast: het lichte logoblauw draagt geen witte tekst. Nav-CTA, avatarinitialen en alle knoppen op accent staan nu op `--color-bg`. De nav-CTA kreeg daarvoor een eigen klasse: Tailwind-utilities staan in `@layer utilities` en verliezen van de ongelaagde `a`-reset.

@@ -4186,6 +4186,8 @@ h1 {
 
 .avatar-row__item:nth-child(2) {
   background: var(--color-accent);
+  /* Donkere letters: het lichte logoblauw draagt geen wit. */
+  color: var(--color-bg);
 }
 
 .avatar-row__item:nth-child(3) {
@@ -4704,7 +4706,7 @@ h1 {
 /* ── Floating CTA ──────────────────────────────────────────────────────────
    Vaste pill rechtsonder. De entree zit op de wrapper, de magnetic hover op de
    pill: anders schrijven beide naar dezelfde x/y. */
-.floating-cta {
+.sticky-cta {
   position: fixed;
   right: var(--gutter);
   bottom: var(--space-5);
@@ -4713,9 +4715,15 @@ h1 {
   visibility: hidden;
   opacity: 0;
   will-change: transform, opacity;
+  transition: opacity var(--dur-fast) var(--ease-out-quart);
 }
 
-.floating-cta__pill {
+.sticky-cta[data-hidden] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sticky-cta__pill {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
@@ -4727,30 +4735,55 @@ h1 {
   box-shadow:
     0 0 0 2px var(--color-bg),
     var(--shadow-float);
-  color: var(--color-ink);
+  color: var(--color-bg);
   font-size: var(--fs-caption);
   line-height: 1;
   white-space: nowrap;
 }
 
-.floating-cta__arrow {
+/* Eigen laag voor de tekst: het uitfaden mag de pijl niet meenemen. */
+.sticky-cta__label {
+  display: inline-block;
+}
+
+.sticky-cta__arrow {
   width: 0.9rem;
   height: 0.9rem;
+  flex-shrink: 0;
   transition: transform 0.3s var(--ease-out-expo);
 }
 
-.floating-cta__pill:hover .floating-cta__arrow,
-.floating-cta__pill:focus-visible .floating-cta__arrow {
+.sticky-cta__pill:hover .sticky-cta__arrow,
+.sticky-cta__pill:focus-visible .sticky-cta__arrow {
   transform: translateX(4px);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .floating-cta {
-    visibility: visible;
-    opacity: 1;
+@media (max-width: 767px) {
+  /* Volle breedte onderaan, met ruimte voor de iOS-balk. */
+  .sticky-cta {
+    right: var(--gutter);
+    left: var(--gutter);
+    bottom: calc(16px + env(safe-area-inset-bottom));
   }
 
-  .floating-cta__arrow {
+  .sticky-cta__pill {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticky-cta {
+    visibility: visible;
+    opacity: 1;
+    transition: none;
+  }
+
+  .sticky-cta[data-hidden] {
+    opacity: 0;
+  }
+
+  .sticky-cta__arrow {
     transition: none;
   }
 }
@@ -5146,6 +5179,13 @@ html[data-intro="play"] .intro-overlay [data-logo-path] {
 }
 
 /* CertificationBar -------------------------------------------------------- */
+
+/* Tailwind-utilities staan in @layer utilities en verliezen daarmee van de
+   ongelaagde a-reset hierboven. Daarom staat de tekstkleur van de nav-CTA hier
+   en niet als text-page in de className: het lichte logoblauw draagt geen wit. */
+.site-nav-cta {
+  color: var(--color-bg);
+}
 
 .certification-bar {
   border-block: 1px solid var(--color-line);

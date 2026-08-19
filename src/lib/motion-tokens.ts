@@ -341,12 +341,22 @@ export const navShrink = {
   shellWidth: "41.25rem",
 } as const;
 
-export const floatingCtaMotion = {
+export const stickyCtaMotion = {
+  desktopQuery: "(min-width: 768px)",
   y: 60,
   duration: 0.6,
   ease: "expo.out",
-  /** Verschijnt voorbij 90% van de viewporthoogte. */
-  startFactor: 0.9,
+  /** Een zone bepaalt de tekst zolang hij het midden van het scherm raakt. */
+  zoneStart: "top center",
+  zoneEnd: "bottom center",
+  label: {
+    travel: 12,
+    duration: 0.3,
+  },
+  width: {
+    duration: 0.3,
+    ease: "power2.out",
+  },
 } as const;
 
 export const heroScrollIndicator = {

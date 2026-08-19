@@ -375,7 +375,12 @@ export function Hero({ content }: HeroProps) {
 
   return (
     <div ref={rootRef} className="hero-height-new" section-color="black">
-      <section ref={sectionRef} className="section hero home" section-color="black">
+      <section
+        ref={sectionRef}
+        className="section hero home"
+        section-color="black"
+        data-cta-zone="hero"
+      >
         <div className="container is-big full">
           <div ref={headingRef} className="hero-heading">
             <div ref={eyebrowRef} className="hero-tag-wrap">

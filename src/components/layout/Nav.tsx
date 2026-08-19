@@ -351,7 +351,7 @@ export function Nav({ brand, links, cta, email, labels, socialLinks }: NavProps)
           <div className="hidden h-full w-[8.75rem] items-center justify-end overflow-hidden md:flex">
             <Button
               href={cta.href}
-              className="group/button h-full min-w-[8.33rem] whitespace-nowrap rounded-[.5rem] bg-brand px-[1.46rem] pb-[.8rem] pt-[1.01rem] text-[.97222rem] leading-none text-copy"
+              className="site-nav-cta group/button h-full min-w-[8.33rem] whitespace-nowrap rounded-[.5rem] bg-brand px-[1.46rem] pb-[.8rem] pt-[1.01rem] text-[.97222rem] leading-none"
             >
               <span>{cta.label}</span>
               <svg
@@ -441,7 +441,7 @@ export function Nav({ brand, links, cta, email, labels, socialLinks }: NavProps)
               </div>
               <Button
                 href={cta.href}
-                className="h-12 rounded-[.5rem] bg-brand px-5 text-[.97222rem] leading-none text-copy"
+                className="site-nav-cta h-12 rounded-[.5rem] bg-brand px-5 text-[.97222rem] leading-none"
               >
                 {cta.label}
               </Button>
