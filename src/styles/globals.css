@@ -790,68 +790,191 @@ h1 {
     radial-gradient(circle at 50% 100%, #fe4a2355, transparent 62%),
     linear-gradient(180deg, transparent, #080808 90%);
 }
-
-.mob-paralax {
+/* ── Hero floaters ─────────────────────────────────────────────────────────
+   Zes mini-UI kaarten rond de hero. Positie in percentages, breedte in vw met
+   een cap op de ontwerpbreedte: onder 1440px schalen ze mee, erboven blijven ze
+   op ontwerpformaat. --fw is de ontwerpbreedte in px (referentie 1440px).
+   De buitenste laag is het parallax-doel (transform), de inner doet de entree. */
+.hero-floaters {
+  /* Boven .show-wrap (z-index 10), anders verdwijnen de kaarten die het
+     videoframe raken. Vormt tegelijk het stacking context voor de floaters
+     onderling, zodat de z-indexen hieronder lokaal blijven. */
   position: absolute;
+  z-index: 11;
   inset: 0;
   pointer-events: none;
 }
 
-.hero-paralax {
-  display: block;
+.hero-floater {
   position: absolute;
+  width: calc(var(--fw) / 1440 * 100vw);
+  max-width: calc(var(--fw) * 1px);
+  will-change: transform;
+}
+
+.hero-floater svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Beginwaarde óók in CSS: anders flitsen de kaarten voordat GSAP draait. */
+.hero-floater__inner {
   opacity: 0;
-  pointer-events: none;
   will-change: transform, opacity;
 }
 
-.hero-paralax svg {
-  width: 100%;
-  height: auto;
-}
-
-.hero-paralax.set-1 {
-  width: 16vw;
-  inset: -28.3vw 3.2vw 0 auto;
-}
-
-.hero-paralax.set-2 {
+.hero-floater--ring {
+  --fw: 145;
   z-index: 1;
-  width: 10.4861vw;
-  inset: 23.9vw 14.7rem auto auto;
+  top: 24%;
+  left: 2%;
 }
 
-.hero-paralax.set-3 {
-  width: 11.9444vw;
-  inset: 40.7vw 8.7rem 0 auto;
+.hero-floater--installs {
+  --fw: 320;
+  z-index: 3;
+  top: 28%;
+  right: 2%;
 }
 
-.hero-paralax.set-4 {
-  z-index: 12;
-  width: 17.6vw;
-  top: 26.9vw;
-  left: 13rem;
-  transition: z-index 2.4s;
+.hero-floater--launch {
+  --fw: 180;
+  z-index: 5;
+  top: 34%;
+  left: 14%;
 }
 
-.hero-paralax.set-5 {
-  width: 4.6116rem;
-  top: 21.1vw;
-  left: 15vw;
+.hero-floater--revenue {
+  --fw: 340;
+  z-index: 4;
+  top: 46%;
+  left: 1.5%;
 }
 
-.hero-paralax.set-6 {
+.hero-floater--curve {
+  --fw: 90;
   z-index: 2;
-  width: 9.375vw;
-  top: 12.8rem;
-  left: 5vw;
+  top: 19%;
+  left: 14%;
 }
 
-.hero-paralax.set-7 {
-  z-index: 1;
-  width: 7.43056vw;
-  top: 8.2rem;
-  left: 11vw;
+.hero-floater--metric {
+  --fw: 200;
+  z-index: 3;
+  top: 68%;
+  right: 6%;
+}
+
+.hero-floater text {
+  font-family: var(--font-body);
+}
+
+.hf-label {
+  fill: var(--color-ink-muted);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+}
+
+.hf-value {
+  fill: var(--color-ink);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.hf-badge {
+  fill: var(--color-ink);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.hf-axis {
+  fill: var(--color-ink-muted);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.hf-tooltip {
+  fill: var(--color-bg);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.hf-pill {
+  fill: var(--color-ink);
+  font-size: 14px;
+}
+
+.hf-metric {
+  fill: var(--color-ink);
+  font-size: 52px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.hf-metric-label {
+  fill: #ffffffd9;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.hf-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: hero-floater-draw 0.9s var(--ease-out-expo) 1s forwards;
+}
+
+.hf-draw--tip {
+  animation-duration: 0.35s;
+  animation-delay: 1.6s;
+}
+
+@keyframes hero-floater-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  /* Onder 768px alleen revenue en metric, als band onder de hero. */
+  .hero-floaters {
+    inset: auto 0 0;
+    height: 24rem;
+  }
+
+  .hero-floater--ring,
+  .hero-floater--installs,
+  .hero-floater--launch,
+  .hero-floater--curve {
+    display: none;
+  }
+
+  .hero-floater--revenue {
+    width: 19rem;
+    max-width: none;
+    top: 1.5rem;
+    left: 1rem;
+  }
+
+  .hero-floater--metric {
+    width: 8rem;
+    max-width: none;
+    top: 13.5rem;
+    right: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-floater__inner {
+    opacity: 1;
+  }
+
+  .hf-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
 }
 
 .hero-scroll-indicator {
@@ -2695,11 +2818,6 @@ h1 {
   .page-hero__intro {
     grid-column: 3 / span 5;
   }
-
-  .hero-paralax.set-2 {
-    inset: 23rem 8rem auto auto;
-  }
-
   .blog-index__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -3248,47 +3366,6 @@ h1 {
   .lap-top-bg {
     border-radius: .68rem .68rem 0 0;
   }
-
-  .mob-paralax {
-    height: 27rem;
-    inset: auto 0 0;
-  }
-
-  .hero-paralax.set-1 {
-    width: 7.97656rem;
-    top: 0;
-    right: 3.5rem;
-    bottom: auto;
-    left: auto;
-  }
-
-  .hero-paralax.set-1.hide-mob,
-  .hero-paralax.set-4.hide-mob,
-  .hero-paralax.set-6.hide-mob,
-  .hero-paralax.set-7.hide-mob {
-    display: none;
-  }
-
-  .hero-paralax.set-2 {
-    width: 5.16938rem;
-    top: 17.5rem;
-    right: 1.25rem;
-    bottom: auto;
-    left: auto;
-  }
-
-  .hero-paralax.set-3 {
-    z-index: 12;
-    width: 5.88831rem;
-    inset: auto -.6rem 1rem auto;
-  }
-
-  .hero-paralax.set-5 {
-    width: 4.6116rem;
-    top: 10rem;
-    left: 7rem;
-  }
-
   .hero-scroll-indicator {
     display: none;
   }
@@ -3717,11 +3794,6 @@ h1 {
     --fs-h1: 3.1rem;
     --fs-hero: 3.1rem;
   }
-
-  .mob-paralax {
-    height: 22.1rem;
-  }
-
   .stats-value {
     font-size: 3.1rem;
   }

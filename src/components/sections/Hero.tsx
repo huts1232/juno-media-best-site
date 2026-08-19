@@ -4,7 +4,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
-import { heroLayerSpeeds, heroLoad, heroMouse, heroScroll, parallax } from "@/lib/motion-tokens";
+import { heroLoad, heroMouse, heroScroll, parallax } from "@/lib/motion-tokens";
+import { heroFloaters } from "@/components/hero/heroFloaters";
 
 type HeroContent = {
   eyebrow: string;
@@ -20,16 +21,6 @@ type HeroContent = {
 type HeroProps = {
   content: HeroContent;
 };
-
-const heroLayers = [
-  { className: "set-1 hide-mob", variant: "orbit" },
-  { className: "set-2", variant: "window" },
-  { className: "set-3", variant: "wave" },
-  { className: "set-4 hide-mob", variant: "stack" },
-  { className: "set-5", variant: "spark" },
-  { className: "set-6 hide-mob", variant: "ring" },
-  { className: "set-7 hide-mob", variant: "badge" },
-] as const;
 
 const heroPosterSvg =
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 9"><rect width="16" height="9" fill="#101010"/><path d="M0 7 16 2v7H0z" fill="#080808"/><circle cx="10" cy="4" r="4" fill="#fe4a23" opacity=".28"/><circle cx="6" cy="5" r="3" fill="#8a5cff" opacity=".28"/></svg>';
@@ -101,13 +92,13 @@ export function Hero({ content }: HeroProps) {
 
       ctx = gsap.context(() => {
         const words = gsap.utils.toArray<HTMLElement>("[data-hero-word]");
-        const layers = gsap.utils.toArray<HTMLElement>("[data-hero-layer]");
+        const floaters = gsap.utils.toArray<HTMLElement>("[data-hero-floater]");
         const eyebrow = eyebrowRef.current;
         const videoFrame = videoFrameRef.current;
         const scrollIndicator = scrollIndicatorRef.current;
 
         if (reducedMotion) {
-          gsap.set([eyebrow, videoFrame, scrollIndicator, ...layers], {
+          gsap.set([eyebrow, videoFrame, scrollIndicator, ...floaters], {
             opacity: 1,
             y: 0,
             scale: 1,
@@ -130,7 +121,11 @@ export function Hero({ content }: HeroProps) {
         gsap.set(videoFrame, {
           scale: heroLoad.video.scale,
         });
-        gsap.set(layers, { opacity: heroLoad.layer.opacity });
+        gsap.set(floaters, {
+          opacity: heroLoad.layer.opacity,
+          y: heroLoad.layer.y,
+          scale: heroLoad.layer.scale,
+        });
         gsap.set(scrollIndicator, { opacity: heroLoad.scrollIndicator.opacity });
 
         gsap
@@ -162,9 +157,11 @@ export function Hero({ content }: HeroProps) {
             "-=0.78",
           )
           .to(
-            layers,
+            floaters,
             {
               opacity: 1,
+              y: 0,
+              scale: 1,
               duration: heroLoad.layer.duration,
               ease: heroLoad.layer.ease,
               stagger: heroLoad.layer.stagger,
@@ -414,15 +411,17 @@ export function Hero({ content }: HeroProps) {
             </div>
           </div>
 
-          <div className="mob-paralax" aria-hidden="true">
-            {heroLayers.map((layer, index) => (
+          <div className="hero-floaters" aria-hidden="true">
+            {heroFloaters.map(({ key, Component, speed }) => (
               <div
-                key={layer.className}
-                className={`hero-paralax ${layer.className}`}
+                key={key}
+                className={`hero-floater hero-floater--${key}`}
                 data-hero-layer
-                data-speed={heroLayerSpeeds[index]}
+                data-speed={speed}
               >
-                <HeroLayerGraphic variant={layer.variant} />
+                <div className="hero-floater__inner" data-hero-floater>
+                  <Component />
+                </div>
               </div>
             ))}
           </div>
@@ -434,75 +433,5 @@ export function Hero({ content }: HeroProps) {
         </div>
       </section>
     </div>
-  );
-}
-
-function HeroLayerGraphic({ variant }: { variant: (typeof heroLayers)[number]["variant"] }) {
-  if (variant === "orbit") {
-    return (
-      <svg viewBox="0 0 210 210" aria-hidden="true" focusable="false">
-        <path d="M39 121C68 34 147 24 180 75c33 52-15 103-82 105-62 2-83-33-59-59Z" fill="#fe4a23" />
-        <path d="M62 96c38-38 89-44 113-15" fill="none" stroke="#fff" strokeWidth="9" strokeLinecap="round" />
-      </svg>
-    );
-  }
-
-  if (variant === "window") {
-    return (
-      <svg viewBox="0 0 180 180" aria-hidden="true" focusable="false">
-        <rect width="148" height="112" x="16" y="34" fill="#171717" rx="22" />
-        <path d="M34 62h112M34 92h72M34 122h48" stroke="#fff" strokeWidth="10" strokeLinecap="round" />
-        <circle cx="134" cy="119" r="18" fill="#8a5cff" />
-      </svg>
-    );
-  }
-
-  if (variant === "wave") {
-    return (
-      <svg viewBox="0 0 190 190" aria-hidden="true" focusable="false">
-        <path
-          d="M16 116c24-64 51-79 79-43s52 48 79-12"
-          fill="none"
-          stroke="#fe4a23"
-          strokeLinecap="round"
-          strokeWidth="18"
-        />
-        <path d="M48 142h95" stroke="#fff" strokeLinecap="round" strokeWidth="12" />
-      </svg>
-    );
-  }
-
-  if (variant === "stack") {
-    return (
-      <svg viewBox="0 0 260 210" aria-hidden="true" focusable="false">
-        <rect width="166" height="118" x="46" y="50" fill="#fff" rx="22" />
-        <rect width="114" height="34" x="72" y="74" fill="#080808" rx="17" />
-        <rect width="84" height="22" x="72" y="124" fill="#fe4a23" rx="11" />
-      </svg>
-    );
-  }
-
-  if (variant === "spark") {
-    return (
-      <svg viewBox="0 0 90 90" aria-hidden="true" focusable="false">
-        <path d="M45 4 56 34l30 11-30 11-11 30-11-30L4 45l30-11Z" fill="#8a5cff" />
-      </svg>
-    );
-  }
-
-  if (variant === "ring") {
-    return (
-      <svg viewBox="0 0 170 170" aria-hidden="true" focusable="false">
-        <circle cx="85" cy="85" r="60" fill="none" stroke="#fff" strokeWidth="16" />
-        <circle cx="85" cy="85" r="28" fill="#fe4a23" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 140 140" aria-hidden="true" focusable="false">
-      <rect width="98" height="98" x="21" y="21" fill="#171717" rx="28" />
-      <path d="M44 73h52M70 47v52" stroke="#fff" strokeLinecap="round" strokeWidth="12" />
-    </svg>
   );
 }

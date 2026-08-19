@@ -58,11 +58,14 @@ export const heroLoad = {
     duration: 0.65,
     ease: "expo.out",
   },
+  /** Entree van de hero-floaters (targets: [data-hero-floater]). */
   layer: {
     opacity: 0,
-    stagger: 0.04,
-    duration: 0.38,
-    ease: "power2.out",
+    y: 24,
+    scale: 0.94,
+    stagger: 0.08,
+    duration: 0.9,
+    ease: "expo.out",
   },
   scrollIndicator: {
     opacity: 0,
@@ -75,7 +78,7 @@ export const heroScroll = {
   start: "top top",
   end: "bottom top",
   scrub: 1,
-  layerMultiplier: -100,
+  layerMultiplier: -60,
   desktopHeadingY: "-30vw",
   desktopShowY: "-34.5rem",
   desktopVideoFrom: "97.5%",
@@ -91,11 +94,9 @@ export const heroScroll = {
   },
 } as const;
 
-export const heroLayerSpeeds = [0.15, 0.3, 0.42, 0.55, 0.67, 0.78, 0.85] as const;
-
 export const heroMouse = {
   minWidth: 1024,
-  maxOffset: 20,
+  maxOffset: 18,
   duration: 0.8,
   ease: "power2.out",
 } as const;
