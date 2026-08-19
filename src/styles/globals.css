@@ -3995,3 +3995,230 @@ h1 {
     opacity: 1;
   }
 }
+
+/* ── Stats cards ───────────────────────────────────────────────────────────
+   Kaarten komen schuin van de zijkanten in en blijven licht geroteerd staan.
+   GSAP bezit de transform van .stat-card; de hover zit op .stat-card__inner,
+   zodat hover en entree niet om dezelfde property vechten. */
+.stats-cards {
+  padding-block: var(--space-11) var(--space-12);
+  background: var(--color-bg);
+}
+
+.stats-cards__grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0;
+}
+
+.stat-card {
+  /* Statische rastercel: geen transform, zodat dit een betrouwbaar meetanker
+     blijft voor de ScrollTrigger van CountUp. */
+  position: relative;
+  display: flex;
+}
+
+.stat-card__motion {
+  --rest-rotate: 0deg;
+  flex: 1;
+  transform: rotate(var(--rest-rotate));
+  /* autoAlpha-startwaarde ook in CSS, anders flitsen de kaarten bij page load. */
+  visibility: hidden;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.stats-cards__grid > .stat-card:nth-child(1) {
+  grid-column: span 4;
+}
+
+.stats-cards__grid > .stat-card:nth-child(2) {
+  grid-column: span 2;
+  margin-top: var(--space-8);
+}
+
+.stats-cards__grid > .stat-card:nth-child(3) {
+  grid-column: span 2;
+  margin-top: var(--space-6);
+}
+
+.stats-cards__grid > .stat-card:nth-child(4) {
+  grid-column: span 4;
+}
+
+.stat-card__inner {
+  display: flex;
+  min-height: 18rem;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-4);
+  height: 100%;
+  padding: var(--space-5) var(--space-6);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-alt);
+  box-shadow: var(--shadow-float);
+  transition:
+    transform 0.4s var(--ease-out-quart),
+    box-shadow 0.4s var(--ease-out-quart);
+}
+
+.stat-card__inner:hover,
+.stat-card__inner:focus-within {
+  transform: translateY(-6px);
+  box-shadow:
+    0 2rem 4rem #00000066,
+    0 0 0 1px #ffffff2e;
+}
+
+.stat-card__head {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.stat-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.stats-cards__grid > .stat-card:nth-child(even) .stat-card__head {
+  justify-content: flex-end;
+}
+
+.stat-card__value {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+  font-size: clamp(3rem, 5.6vw, 5.5rem);
+  font-variant-numeric: tabular-nums;
+  line-height: 0.9;
+  white-space: nowrap;
+}
+
+.stat-card__label {
+  max-width: 18rem;
+  margin: 0;
+  color: var(--color-ink-muted);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-normal);
+}
+
+.stat-pill,
+.stat-trend,
+.avatar-row {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-ink-muted);
+  font-size: var(--fs-caption);
+  line-height: 1;
+}
+
+.stat-pill {
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  background: #ffffff0a;
+}
+
+.stat-pill__dot {
+  width: 0.44rem;
+  height: 0.44rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.stat-trend__icon {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+
+.stat-trend__icon svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.avatar-row__stack {
+  display: flex;
+}
+
+.avatar-row__item {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border: 1px solid var(--color-bg-alt);
+  border-radius: 50%;
+  background: #2a2a2a;
+  color: var(--color-ink);
+  font-size: 0.66rem;
+  letter-spacing: 0.02em;
+}
+
+.avatar-row__item + .avatar-row__item {
+  margin-left: -0.6rem;
+}
+
+.avatar-row__item:nth-child(2) {
+  background: var(--color-accent);
+}
+
+.avatar-row__item:nth-child(3) {
+  background: var(--color-accent-soft);
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .stats-cards__grid > .stat-card:nth-child(1),
+  .stats-cards__grid > .stat-card:nth-child(2),
+  .stats-cards__grid > .stat-card:nth-child(3),
+  .stats-cards__grid > .stat-card:nth-child(4) {
+    grid-column: span 3;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .stats-cards {
+    padding-block: var(--space-8) var(--space-10);
+  }
+
+  .stats-cards__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  /* Gestapeld, recht en zonder versprongen marges. */
+  .stats-cards__grid > .stat-card:nth-child(1),
+  .stats-cards__grid > .stat-card:nth-child(2),
+  .stats-cards__grid > .stat-card:nth-child(3),
+  .stats-cards__grid > .stat-card:nth-child(4) {
+    grid-column: 1 / -1;
+    margin-top: 0;
+  }
+
+  .stat-card__motion {
+    --rest-rotate: 0deg;
+  }
+
+  .stat-card__inner {
+    min-height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stat-card__motion {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .stat-card__inner {
+    transition: none;
+  }
+}

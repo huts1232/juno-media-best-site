@@ -120,7 +120,7 @@ export const statementMotion = {
 } as const;
 
 export const statsMotion = {
-  triggerStart: "top 70%",
+  triggerStart: "top 75%",
   count: {
     duration: 1.6,
     ease: "power2.out",
@@ -252,4 +252,24 @@ export const scrollStatementMotion = {
   stagger: 0.5,
   start: "top 75%",
   end: "bottom 55%",
+} as const;
+
+export const statsCardsMotion = {
+  desktopQuery: "(min-width: 768px)",
+  mobileQuery: "(max-width: 767px)",
+  triggerStart: "top 88%",
+  /** Ruststand per kaart, ook als --rest-rotate op het element gezet. */
+  restRotate: [-1.5, 1, -2, 2.5],
+  desktop: {
+    x: 180,
+    y: 60,
+    rotate: 10,
+    duration: 1.2,
+    ease: "expo.out",
+  },
+  mobile: {
+    y: 40,
+    duration: 0.9,
+    ease: "expo.out",
+  },
 } as const;

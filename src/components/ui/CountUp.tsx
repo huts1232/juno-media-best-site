@@ -48,14 +48,19 @@ export function CountUp({ value }: CountUpProps) {
       },
     });
 
+    // Meet op een vast anker als de omliggende kaart zelf geanimeerd wordt:
+    // een element dat bij creatie verplaatst staat levert een verschoven
+    // startpositie op, waardoor de teller te laat of niet afgaat.
+    const anchor = element.closest<HTMLElement>("[data-count-anchor]") ?? element;
+
     const trigger = ScrollTrigger.create({
-      trigger: element,
+      trigger: anchor,
       start: statsMotion.triggerStart,
       once: true,
       onEnter: () => tween.play(0),
     });
 
-    if (element.getBoundingClientRect().top <= window.innerHeight * 0.7) {
+    if (anchor.getBoundingClientRect().top <= window.innerHeight * 0.7) {
       tween.play(0);
     }
 

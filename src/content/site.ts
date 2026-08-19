@@ -58,10 +58,26 @@ export const site = {
       stats: {
         heading: "Studio stats",
         items: [
-          { value: "48+", label: "Launch systems shipped" },
-          { value: "96%", label: "Retention across active partners" },
-          { value: "$12M", label: "Pipeline influenced by launches" },
-          { value: "7+", label: "Focused launch squads" },
+          {
+            value: "48+",
+            label: "Launch systems shipped",
+            badge: { kind: "pill", label: "Since 2019" },
+          },
+          {
+            value: "96%",
+            label: "Retention across active partners",
+            badge: { kind: "avatars", label: "4 partner squads", initials: ["AB", "MK", "JD", "RS"] },
+          },
+          {
+            value: "$12M",
+            label: "Pipeline influenced by launches",
+            badge: { kind: "trend", label: "+34% YoY" },
+          },
+          {
+            value: "7+",
+            label: "Focused launch squads",
+            badge: { kind: "pill", label: "3 timezones" },
+          },
         ],
       },
       stages: {
