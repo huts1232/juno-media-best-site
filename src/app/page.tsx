@@ -1,4 +1,5 @@
 import { IntroOverlay } from "@/components/layout/IntroOverlay";
+import { BeforeAfter } from "@/components/sections/BeforeAfter";
 import { CertificationBar } from "@/components/sections/CertificationBar";
 import { ExpandingShowreel } from "@/components/sections/ExpandingShowreel";
 import { Hero } from "@/components/sections/Hero";
@@ -29,6 +30,7 @@ export default function Home() {
       <ScrollStatement content={site.pages.home.statement} />
       <CertificationBar />
       <StatsCards content={site.pages.home.stats} />
+      <BeforeAfter />
       <Stages content={site.pages.home.stages} />
       <ServicesBento content={services} />
       <LogoMarquee content={site.pages.home.logoMarquee} />

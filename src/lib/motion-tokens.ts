@@ -362,3 +362,20 @@ export const certificationBarMotion = {
   ease: "expo.out",
   stagger: 0.06,
 } as const;
+
+export const beforeAfterMotion = {
+  triggerStart: "top 75%",
+  /** Scheidingslijn schuift van 100% naar 50%, zodat slepen zich aandient. */
+  divider: {
+    from: 100,
+    to: 50,
+    duration: 1.2,
+    ease: "expo.out",
+  },
+  keyboardStep: 4,
+  count: {
+    manualDuration: 6,
+    agentDuration: 1,
+    ease: "power1.out",
+  },
+} as const;

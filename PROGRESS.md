@@ -194,3 +194,12 @@
 - Reveal: `y 20 -> 0` met `autoAlpha`, stagger 0.06, trigger `top 88%`, `once: true`.
 - Hover per badge: rand naar accent in 0.3s.
 - Onder 768px scrollt de badgerij horizontaal met snap, tot aan de schermrand.
+
+### Stap 3 — BeforeAfter
+
+- Status: afgerond.
+- Twee proceskolommen achter een sleepbare scheidingslijn, geen afbeeldingen. Zes stappen met cumulatieve tijden tot `4u 20m` links en `3m 12s` rechts.
+- De agentkolom is gespiegeld (kop rechts, rij omgekeerd), zodat bij een halfopen lijn beide kanten leesbaar blijven.
+- Bij binnenkomst schuift de lijn van 100% naar 50% in 1,2s `expo.out`; de tellers lopen mee, links traag (6s) en rechts binnen 1s.
+- Toetsenbord: `role="slider"` met pijltjes links en rechts in stappen van 4%.
+- Onder 768px zet CSS de clip met `!important` uit en stapelt de kolommen, handmatig eerst. Eén DOM, dus geen media query in JavaScript en geen hydratieverschil.
