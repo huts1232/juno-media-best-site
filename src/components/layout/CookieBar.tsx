@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 
 const CONSENT_STORAGE_KEY = "juno-cookie-consent";
-const EXIT_DURATION = 500;
+const EXIT_DURATION = 250;
 
 type ConsentValue = "denied" | "granted";
 

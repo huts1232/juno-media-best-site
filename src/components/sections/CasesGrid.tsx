@@ -1,11 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { LazyMotion } from "framer-motion";
+import * as m from "framer-motion/m";
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { gsap } from "@/lib/gsap";
 import { casesMotion } from "@/lib/motion-tokens";
+
+const loadFramerFeatures = () => import("@/lib/framer-features").then((mod) => mod.default);
 
 type CaseItem = {
   slug: string;
@@ -115,46 +118,48 @@ export function CasesGrid({ content, items }: CasesGridProps) {
           </h2>
         </div>
 
-        <div className="cases-grid" aria-label={content.ariaLabel}>
-          {items.map((item, index) => (
-            <article
-              key={item.slug}
-              ref={(node) => {
-                cardRefs.current[index] = node;
-              }}
-              className="case-card"
-            >
-              <Link href={`/cases/${item.slug}`} className="case-card__link" aria-label={`${content.linkLabel}: ${item.client}`}>
-                <motion.div layoutId={`case-thumbnail-${item.slug}`} className="case-card__thumb">
-                  <CaseThumbnail item={item} index={index} />
-                  <div className="case-card__overlay">
-                    <span>{item.title}</span>
+        <LazyMotion features={loadFramerFeatures} strict>
+          <div className="cases-grid" aria-label={content.ariaLabel}>
+            {items.map((item, index) => (
+              <article
+                key={item.slug}
+                ref={(node) => {
+                  cardRefs.current[index] = node;
+                }}
+                className="case-card"
+              >
+                <Link href={`/cases/${item.slug}`} className="case-card__link" aria-label={`${content.linkLabel}: ${item.client}`}>
+                  <m.div layoutId={`case-thumbnail-${item.slug}`} className="case-card__thumb">
+                    <CaseThumbnail item={item} index={index} />
+                    <div className="case-card__overlay">
+                      <span>{item.title}</span>
+                    </div>
+                  </m.div>
+                  <div className="case-card__meta">
+                    <div className="case-card__client-row">
+                      <CaseLogo item={item} index={index} />
+                      <h3 className="case-card__client">{item.client}</h3>
+                    </div>
+                    <p className="case-card__summary">{item.summary}</p>
+                    <span className="case-card__cta">
+                      <span>{content.linkLabel}</span>
+                      <svg aria-hidden="true" viewBox="0 0 16 16" focusable="false">
+                        <path
+                          d="M3 8h9M8.5 3.5 13 8l-4.5 4.5"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.8"
+                        />
+                      </svg>
+                    </span>
                   </div>
-                </motion.div>
-                <div className="case-card__meta">
-                  <div className="case-card__client-row">
-                    <CaseLogo item={item} index={index} />
-                    <h3 className="case-card__client">{item.client}</h3>
-                  </div>
-                  <p className="case-card__summary">{item.summary}</p>
-                  <span className="case-card__cta">
-                    <span>{content.linkLabel}</span>
-                    <svg aria-hidden="true" viewBox="0 0 16 16" focusable="false">
-                      <path
-                        d="M3 8h9M8.5 3.5 13 8l-4.5 4.5"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.8"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </Link>
-            </article>
-          ))}
-        </div>
+                </Link>
+              </article>
+            ))}
+          </div>
+        </LazyMotion>
       </div>
     </section>
   );

@@ -406,7 +406,7 @@ function PlatformLogo() {
 
 function Stars({ score, label }: { score: number; label: string }) {
   return (
-    <span className="testimonial-card__stars" aria-label={label}>
+    <span className="testimonial-card__stars" role="img" aria-label={label}>
       {Array.from({ length: 5 }).map((_, index) => (
         <svg key={index} viewBox="0 0 20 20" aria-hidden="true" focusable="false" data-filled={index < score}>
           <path d="m10 1.8 2.48 5.02 5.54.8-4.01 3.91.95 5.52L10 14.44l-4.96 2.61.95-5.52-4.01-3.91 5.54-.8Z" />

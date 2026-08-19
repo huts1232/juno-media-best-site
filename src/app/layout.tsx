@@ -24,6 +24,7 @@ const avantGarde = localFont({
   ],
   variable: "--font-itc-avant-garde-md",
   display: "swap",
+  preload: false,
   adjustFontFallback: "Arial",
 });
 
@@ -42,6 +43,7 @@ const avantGardeCondensed = localFont({
   ],
   variable: "--font-itc-avant-garde-cn",
   display: "swap",
+  preload: false,
   adjustFontFallback: "Arial",
 });
 

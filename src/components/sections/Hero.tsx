@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { heroLayerSpeeds, heroLoad, heroMouse, heroScroll, parallax } from "@/lib/motion-tokens";
@@ -29,6 +30,10 @@ const heroLayers = [
   { className: "set-6 hide-mob", variant: "ring" },
   { className: "set-7 hide-mob", variant: "badge" },
 ] as const;
+
+const heroPosterSvg =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 9"><rect width="16" height="9" fill="#101010"/><path d="M0 7 16 2v7H0z" fill="#080808"/><circle cx="10" cy="4" r="4" fill="#fe4a23" opacity=".28"/><circle cx="6" cy="5" r="3" fill="#8a5cff" opacity=".28"/></svg>';
+const heroPosterDataUri = `data:image/svg+xml,${encodeURIComponent(heroPosterSvg)}`;
 
 export function Hero({ content }: HeroProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -88,9 +93,11 @@ export function Hero({ content }: HeroProps) {
 
     let ctx: gsap.Context | undefined;
     let cancelled = false;
+    let started = false;
 
     const startTimeline = () => {
-      if (cancelled || !rootRef.current) return;
+      if (cancelled || started || !rootRef.current) return;
+      started = true;
 
       ctx = gsap.context(() => {
         const words = gsap.utils.toArray<HTMLElement>("[data-hero-word]");
@@ -121,7 +128,6 @@ export function Hero({ content }: HeroProps) {
           clipPath: heroLoad.word.clipPath,
         });
         gsap.set(videoFrame, {
-          opacity: heroLoad.video.opacity,
           scale: heroLoad.video.scale,
         });
         gsap.set(layers, { opacity: heroLoad.layer.opacity });
@@ -144,17 +150,16 @@ export function Hero({ content }: HeroProps) {
               ease: heroLoad.word.ease,
               stagger: heroLoad.word.stagger,
             },
-            "-=0.1",
+            "-=0.28",
           )
           .to(
             videoFrame,
             {
-              opacity: 1,
               scale: 1,
               duration: heroLoad.video.duration,
               ease: heroLoad.video.ease,
             },
-            "-=0.55",
+            "-=0.78",
           )
           .to(
             layers,
@@ -164,7 +169,7 @@ export function Hero({ content }: HeroProps) {
               ease: heroLoad.layer.ease,
               stagger: heroLoad.layer.stagger,
             },
-            "-=0.7",
+            "-=0.35",
           )
           .to(
             scrollIndicator,
@@ -173,13 +178,17 @@ export function Hero({ content }: HeroProps) {
               duration: heroLoad.scrollIndicator.duration,
               ease: heroLoad.scrollIndicator.ease,
             },
-            "-=0.35",
+            "-=0.2",
           );
       }, root);
     };
 
     if (document.fonts?.ready) {
-      void document.fonts.ready.then(startTimeline);
+      const fontWait = window.setTimeout(startTimeline, 250);
+      void document.fonts.ready.then(() => {
+        window.clearTimeout(fontWait);
+        startTimeline();
+      });
     } else {
       requestAnimationFrame(startTimeline);
     }
@@ -369,22 +378,37 @@ export function Hero({ content }: HeroProps) {
             <div className="showreal-home">
               <div ref={laptopBgRef} className="lap-top-bg" aria-hidden="true" />
               <div ref={videoFrameRef} className="show-real-video">
-                <div className="w-background-video w-background-video-atom hero-video-atom">
-                  <video
-                    ref={videoRef}
-                    aria-label={content.video.ariaLabel}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="none"
-                    poster={content.video.poster}
-                    width={1280}
-                    height={720}
-                  >
-                    {shouldLoadVideo && content.video.src ? <source src={content.video.src} type="video/mp4" /> : null}
-                  </video>
-                </div>
+                <Image
+                  className="hero-video-poster"
+                  src={heroPosterDataUri}
+                  alt={content.video.src ? "" : content.video.ariaLabel}
+                  width={1280}
+                  height={720}
+                  priority
+                  unoptimized
+                  fetchPriority="high"
+                  sizes="(max-width: 767px) 86vw, 60vw"
+                  aria-hidden={content.video.src ? "true" : undefined}
+                  draggable={false}
+                />
+                {content.video.src ? (
+                  <div className="w-background-video w-background-video-atom hero-video-atom">
+                    <video
+                      ref={videoRef}
+                      aria-label={content.video.ariaLabel}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="none"
+                      poster={content.video.poster}
+                      width={1280}
+                      height={720}
+                    >
+                      {shouldLoadVideo ? <source src={content.video.src} type="video/mp4" /> : null}
+                    </video>
+                  </div>
+                ) : null}
               </div>
               <div className="stats-card-gradient hero-gradient" aria-hidden="true" />
             </div>

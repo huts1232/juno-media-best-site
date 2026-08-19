@@ -24,7 +24,18 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
+    // Fout #4: triggers staan te hoog zolang fonts en beelden nog binnenkomen.
+    let disposed = false;
+    const refresh = () => {
+      if (!disposed) ScrollTrigger.refresh();
+    };
+
+    window.addEventListener("load", refresh);
+    document.fonts?.ready.then(refresh);
+
     return () => {
+      disposed = true;
+      window.removeEventListener("load", refresh);
       lenis.off("scroll", update);
       gsap.ticker.remove(tick);
       setActiveLenis(null);

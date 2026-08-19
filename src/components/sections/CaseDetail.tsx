@@ -1,7 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { LazyMotion } from "framer-motion";
+import * as m from "framer-motion/m";
+
+const loadFramerFeatures = () => import("@/lib/framer-features").then((mod) => mod.default);
 
 type CaseDetailItem = {
   slug: string;
@@ -31,9 +34,11 @@ export function CaseDetail({ item, backLabel }: CaseDetailProps) {
             <p className="lead">{item.summary}</p>
             <p className="case-detail-description">{item.description}</p>
           </div>
-          <motion.div layoutId={`case-thumbnail-${item.slug}`} className="case-detail-thumb">
-            <CaseDetailVisual item={item} />
-          </motion.div>
+          <LazyMotion features={loadFramerFeatures} strict>
+            <m.div layoutId={`case-thumbnail-${item.slug}`} className="case-detail-thumb">
+              <CaseDetailVisual item={item} />
+            </m.div>
+          </LazyMotion>
         </div>
       </section>
     </main>
