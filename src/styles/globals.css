@@ -870,7 +870,8 @@ h1 {
   --fw: 200;
   z-index: 3;
   top: 68%;
-  right: 6%;
+  /* Ruimte houden voor de .hero-scroll-indicator, die fixed in dezelfde hoek staat. */
+  right: 9%;
 }
 
 .hero-floater text {
