@@ -354,3 +354,11 @@ export const heroScrollIndicator = {
   startFactor: 0.6,
   duration: 0.3,
 } as const;
+
+export const certificationBarMotion = {
+  triggerStart: "top 88%",
+  y: 20,
+  duration: 0.7,
+  ease: "expo.out",
+  stagger: 0.06,
+} as const;

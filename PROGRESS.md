@@ -185,3 +185,12 @@
 - LCP: de hero staat al in het document onder de overlay. Een inline script zet `html[data-intro="play"]` nog tijdens het parsen, dus geen flits in beide richtingen.
 - Noodrem: harde timeout op 2,4s sluit de overlay ook als de hero-afbeelding nog niet binnen is; `whenIntroDone()` heeft daarnaast een eigen failsafe zodat de hero-timeline altijd start.
 - Scroll-lock via het bestaande `body[data-scroll-locked]`, plus `lenis.stop()` in de frame erna omdat Lenis in een parent-effect wordt opgezet.
+
+### Stap 2 — CertificationBar
+
+- Status: afgerond.
+- Smalle balk tussen `ScrollStatement` en `StatsCards`, maximaal 120px hoog, geen sectiekop.
+- Links de certificering met icoon, rechts vijf partnerbadges uit `agency.ts`.
+- Reveal: `y 20 -> 0` met `autoAlpha`, stagger 0.06, trigger `top 88%`, `once: true`.
+- Hover per badge: rand naar accent in 0.3s.
+- Onder 768px scrollt de badgerij horizontaal met snap, tot aan de schermrand.

@@ -1,4 +1,5 @@
 import { IntroOverlay } from "@/components/layout/IntroOverlay";
+import { CertificationBar } from "@/components/sections/CertificationBar";
 import { ExpandingShowreel } from "@/components/sections/ExpandingShowreel";
 import { Hero } from "@/components/sections/Hero";
 import { ScrollStatement } from "@/components/sections/ScrollStatement";
@@ -26,6 +27,7 @@ export default function Home() {
       <Hero content={site.pages.home.hero} />
       <ExpandingShowreel content={site.pages.home.showreel} />
       <ScrollStatement content={site.pages.home.statement} />
+      <CertificationBar />
       <StatsCards content={site.pages.home.stats} />
       <Stages content={site.pages.home.stages} />
       <ServicesBento content={services} />
