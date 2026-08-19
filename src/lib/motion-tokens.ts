@@ -379,3 +379,23 @@ export const beforeAfterMotion = {
     ease: "power1.out",
   },
 } as const;
+
+export const stepMotion = {
+  initial: { x: 30, opacity: 0 },
+  animate: { x: 0, opacity: 1, transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] } },
+  exit: { x: -30, opacity: 0, transition: { duration: 0.35, ease: [0.65, 0, 0.35, 1] } },
+} as const;
+
+export const agentFlowMotion = {
+  horizontalQuery: "(min-width: 768px)",
+  stagger: 0.15,
+  node: {
+    y: 16,
+    duration: 0.5,
+    ease: "expo.out",
+  },
+  line: {
+    duration: 0.5,
+    ease: "power2.out",
+  },
+} as const;

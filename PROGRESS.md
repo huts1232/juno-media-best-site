@@ -203,3 +203,13 @@
 - Bij binnenkomst schuift de lijn van 100% naar 50% in 1,2s `expo.out`; de tellers lopen mee, links traag (6s) en rechts binnen 1s.
 - Toetsenbord: `role="slider"` met pijltjes links en rechts in stappen van 4%.
 - Onder 768px zet CSS de clip met `!important` uit en stapelt de kolommen, handmatig eerst. Eén DOM, dus geen media query in JavaScript en geen hydratieverschil.
+
+### Stap 4 — AgentConfigurator
+
+- Status: afgerond.
+- Drie stappen (branche, taak, volume) en een uitkomst, volledig client-side. Stapwissel met Framer Motion: uit `x: -30`, in `x: 30 -> 0`, 0.35s, via `AnimatePresence mode="wait"`.
+- Rekenmodel in `src/lib/agent-model.ts`, puur en zonder netwerk. Zeven tests via `npm test` (`node --test`, geen extra dependency).
+- Flowdiagram: vijf nodes met verbindingslijnen die zich tekenen via `stroke-dashoffset`, stagger 0.15. Horizontaal op desktop, verticaal onder 768px; alleen de zichtbare richting wordt geanimeerd en na afloop staan beide getekend.
+- Deelbare URL `?b=..&t=..&v=..` vult de staat bij het laden en wordt bij de uitkomst met `replaceState` bijgewerkt. `useSearchParams` staat in een `<Suspense>`.
+- E-mailveld schrijft naar `agent_leads` met validatie client-side, honeypot en een eigen statusregel per uitkomst.
+- Openstaand: de tabel moet nog in Supabase komen. SQL staat in `supabase/migrations/20260819120000_agent_leads.sql`, met RLS aan en alleen een insert-policy voor `anon`.

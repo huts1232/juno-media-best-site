@@ -596,7 +596,6 @@ export const configurator = {
   nav: {
     back: "Terug",
     next: "Volgende",
-    restart: "Opnieuw beginnen",
   },
   flow: {
     label: "Zo loopt de flow",

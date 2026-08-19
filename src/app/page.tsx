@@ -1,4 +1,5 @@
 import { IntroOverlay } from "@/components/layout/IntroOverlay";
+import { AgentConfigurator } from "@/components/sections/AgentConfigurator";
 import { BeforeAfter } from "@/components/sections/BeforeAfter";
 import { CertificationBar } from "@/components/sections/CertificationBar";
 import { ExpandingShowreel } from "@/components/sections/ExpandingShowreel";
@@ -32,6 +33,7 @@ export default function Home() {
       <StatsCards content={site.pages.home.stats} />
       <BeforeAfter />
       <Stages content={site.pages.home.stages} />
+      <AgentConfigurator />
       <ServicesBento content={services} />
       <LogoMarquee content={site.pages.home.logoMarquee} />
       <CasesGrid content={casesSection} items={cases} />
