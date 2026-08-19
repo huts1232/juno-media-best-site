@@ -5088,3 +5088,59 @@ h1 {
     transition: none;
   }
 }
+
+/* IntroOverlay ------------------------------------------------------------ */
+
+/* Standaard weg. Het inline script in de component zet html[data-intro="play"]
+   nog tijdens het parsen, dus voor de eerste paint. */
+.intro-overlay {
+  display: none;
+}
+
+html[data-intro="play"] .intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  background: var(--color-bg);
+  clip-path: inset(0);
+}
+
+/* Beginstand van de tekening staat in CSS en niet alleen in GSAP: anders zie je
+   het gevulde logo nog even voordat de hydratie de starttoestand zet. */
+html[data-intro="play"] .intro-overlay [data-logo-path] {
+  fill-opacity: 0;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.intro-overlay__mark {
+  width: min(38vw, 13rem);
+  will-change: transform;
+}
+
+.intro-overlay__skip {
+  position: absolute;
+  bottom: var(--space-6);
+  left: 50%;
+  translate: -50% 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-ink-muted);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  transition: color var(--dur-fast) var(--ease-out-quart);
+}
+
+.intro-overlay__skip:hover,
+.intro-overlay__skip:focus-visible {
+  color: var(--color-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-overlay {
+    display: none !important;
+  }
+}

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useParallaxLayers } from "@/hooks/useParallaxLayers";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { whenIntroDone } from "@/lib/intro";
 import {
   heroLoad,
   heroMouse,
@@ -95,117 +96,129 @@ export function Hero({ content }: HeroProps) {
     const root = rootRef.current;
     if (!root) return;
 
-    let ctx: gsap.Context | undefined;
     let cancelled = false;
-    let started = false;
+    let fontWait = 0;
+    let play: (() => void) | undefined;
 
-    const startTimeline = () => {
-      if (cancelled || started || !rootRef.current) return;
-      started = true;
+    // De starttoestand wordt meteen gezet, ook als de intro-overlay er nog over
+    // ligt: anders staat de hero tijdens het openen van de overlay al in zijn
+    // eindstand en springt hij daarna terug.
+    const ctx = gsap.context(() => {
+      const words = gsap.utils.toArray<HTMLElement>("[data-hero-word]");
+      const floaters = gsap.utils.toArray<HTMLElement>("[data-hero-floater]");
+      const eyebrow = eyebrowRef.current;
+      const videoFrame = videoFrameRef.current;
+      const scrollIndicator = scrollIndicatorRef.current;
 
-      ctx = gsap.context(() => {
-        const words = gsap.utils.toArray<HTMLElement>("[data-hero-word]");
-        const floaters = gsap.utils.toArray<HTMLElement>("[data-hero-floater]");
-        const eyebrow = eyebrowRef.current;
-        const videoFrame = videoFrameRef.current;
-        const scrollIndicator = scrollIndicatorRef.current;
+      if (reducedMotion) {
+        gsap.set([eyebrow, videoFrame, scrollIndicator, ...floaters], {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+        });
+        gsap.set(words, {
+          yPercent: 0,
+          clipPath: "inset(0% 0% 0% 0%)",
+        });
+        return;
+      }
 
-        if (reducedMotion) {
-          gsap.set([eyebrow, videoFrame, scrollIndicator, ...floaters], {
+      gsap.set(eyebrow, {
+        y: heroLoad.eyebrow.y,
+        opacity: heroLoad.eyebrow.opacity,
+      });
+      gsap.set(words, {
+        yPercent: heroLoad.word.yPercent,
+        clipPath: heroLoad.word.clipPath,
+      });
+      gsap.set(videoFrame, {
+        scale: heroLoad.video.scale,
+      });
+      gsap.set(floaters, {
+        opacity: heroLoad.layer.opacity,
+        y: heroLoad.layer.y,
+        scale: heroLoad.layer.scale,
+      });
+      gsap.set(scrollIndicator, { opacity: heroLoad.scrollIndicator.opacity });
+
+      const timeline = gsap
+        .timeline({ paused: true })
+        .to(eyebrow, {
+          y: 0,
+          opacity: 1,
+          duration: heroLoad.eyebrow.duration,
+          ease: heroLoad.eyebrow.ease,
+        })
+        .to(
+          words,
+          {
+            yPercent: 0,
+            clipPath: "inset(0% 0% 0% 0%)",
+            duration: heroLoad.word.duration,
+            ease: heroLoad.word.ease,
+            stagger: heroLoad.word.stagger,
+          },
+          "-=0.28",
+        )
+        .to(
+          videoFrame,
+          {
+            scale: 1,
+            duration: heroLoad.video.duration,
+            ease: heroLoad.video.ease,
+          },
+          "-=0.78",
+        )
+        .to(
+          floaters,
+          {
             opacity: 1,
             y: 0,
             scale: 1,
-          });
-          gsap.set(words, {
-            yPercent: 0,
-            clipPath: "inset(0% 0% 0% 0%)",
-          });
-          return;
-        }
-
-        gsap.set(eyebrow, {
-          y: heroLoad.eyebrow.y,
-          opacity: heroLoad.eyebrow.opacity,
-        });
-        gsap.set(words, {
-          yPercent: heroLoad.word.yPercent,
-          clipPath: heroLoad.word.clipPath,
-        });
-        gsap.set(videoFrame, {
-          scale: heroLoad.video.scale,
-        });
-        gsap.set(floaters, {
-          opacity: heroLoad.layer.opacity,
-          y: heroLoad.layer.y,
-          scale: heroLoad.layer.scale,
-        });
-        gsap.set(scrollIndicator, { opacity: heroLoad.scrollIndicator.opacity });
-
-        gsap
-          .timeline()
-          .to(eyebrow, {
-            y: 0,
+            duration: heroLoad.layer.duration,
+            ease: heroLoad.layer.ease,
+            stagger: heroLoad.layer.stagger,
+          },
+          "-=0.35",
+        )
+        .to(
+          scrollIndicator,
+          {
             opacity: 1,
-            duration: heroLoad.eyebrow.duration,
-            ease: heroLoad.eyebrow.ease,
-          })
-          .to(
-            words,
-            {
-              yPercent: 0,
-              clipPath: "inset(0% 0% 0% 0%)",
-              duration: heroLoad.word.duration,
-              ease: heroLoad.word.ease,
-              stagger: heroLoad.word.stagger,
-            },
-            "-=0.28",
-          )
-          .to(
-            videoFrame,
-            {
-              scale: 1,
-              duration: heroLoad.video.duration,
-              ease: heroLoad.video.ease,
-            },
-            "-=0.78",
-          )
-          .to(
-            floaters,
-            {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              duration: heroLoad.layer.duration,
-              ease: heroLoad.layer.ease,
-              stagger: heroLoad.layer.stagger,
-            },
-            "-=0.35",
-          )
-          .to(
-            scrollIndicator,
-            {
-              opacity: 1,
-              duration: heroLoad.scrollIndicator.duration,
-              ease: heroLoad.scrollIndicator.ease,
-            },
-            "-=0.2",
-          );
-      }, root);
+            duration: heroLoad.scrollIndicator.duration,
+            ease: heroLoad.scrollIndicator.ease,
+          },
+          "-=0.2",
+        );
+
+      play = () => {
+        if (!cancelled) timeline.play();
+      };
+    }, root);
+
+    const startAfterFonts = () => {
+      if (cancelled) return;
+
+      if (document.fonts?.ready) {
+        fontWait = window.setTimeout(() => play?.(), 250);
+        void document.fonts.ready.then(() => {
+          window.clearTimeout(fontWait);
+          play?.();
+        });
+      } else {
+        requestAnimationFrame(() => play?.());
+      }
     };
 
-    if (document.fonts?.ready) {
-      const fontWait = window.setTimeout(startTimeline, 250);
-      void document.fonts.ready.then(() => {
-        window.clearTimeout(fontWait);
-        startTimeline();
-      });
-    } else {
-      requestAnimationFrame(startTimeline);
-    }
+    // Bij een eerste bezoek wacht de timeline op het einde van de intro-overlay,
+    // daarna start hij direct.
+    const stopWaitingForIntro = whenIntroDone(startAfterFonts);
 
     return () => {
       cancelled = true;
-      ctx?.revert();
+      window.clearTimeout(fontWait);
+      stopWaitingForIntro();
+      ctx.revert();
     };
   }, [reducedMotion]);
 

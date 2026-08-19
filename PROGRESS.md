@@ -165,3 +165,23 @@
 - Contact: formulier met naam, e-mail, bedrijf, budget-select en bericht; client-side validatie toont inline foutmeldingen en succesvolle verzending toont een inline bevestiging.
 - Afwijkingen: subpagina-copy en thumbnails blijven neutrale placeholders conform FASE 6 assetbeleid.
 - Verificatie: `npm run lint`, `npm run build` en 200-checks voor `/cases`, `/services`, `/blog`, `/over-ons` en `/contact` slagen.
+
+## FASE A — AI-agency features
+
+### Stap 0 — Voorbereiding
+
+- Status: afgerond.
+- Accent: logoblauw. `--color-accent: #43b1d6`, `--color-accent-soft: #1f7fb8`, nieuw `--color-accent-deep: #015c92`. Het middenblauw is de soft-waarde omdat `--color-accent-soft` op twee plekken tekstkleur is en `#015c92` daar te donker uitvalt.
+- Alle hardcoded `#fe4a23` en `#8a5cff` in components en content meegenomen; de `--ref-*` waarden blijven de ruwe Webflow-extractie.
+- `.env.local` met lege `NEXT_PUBLIC_SUPABASE_URL` en `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+- `src/content/agency.ts` bevat alle copy en rekenparameters van de acht features.
+
+### Stap 1 — IntroOverlay
+
+- Status: afgerond.
+- Openstaand: `public/assets/logo.png` ontbreekt in de repo. `LogoMark.tsx` bevat twee curves in de merkkleuren als tijdelijke stand-in; alleen de twee `d`-attributen hoeven vervangen te worden.
+- Timeline 2,4s: licht pad 0.2s, donker pad 0.5s, fill 1.1s, scale en y 1.5s, clipPath open 1.9s tot 2.4s.
+- Eén keer per sessie via `sessionStorage`, overslaan met klik of Escape, uit bij `prefers-reduced-motion`.
+- LCP: de hero staat al in het document onder de overlay. Een inline script zet `html[data-intro="play"]` nog tijdens het parsen, dus geen flits in beide richtingen.
+- Noodrem: harde timeout op 2,4s sluit de overlay ook als de hero-afbeelding nog niet binnen is; `whenIntroDone()` heeft daarnaast een eigen failsafe zodat de hero-timeline altijd start.
+- Scroll-lock via het bestaande `body[data-scroll-locked]`, plus `lenis.stop()` in de frame erna omdat Lenis in een parent-effect wordt opgezet.

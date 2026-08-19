@@ -1,3 +1,4 @@
+import { IntroOverlay } from "@/components/layout/IntroOverlay";
 import { ExpandingShowreel } from "@/components/sections/ExpandingShowreel";
 import { Hero } from "@/components/sections/Hero";
 import { ScrollStatement } from "@/components/sections/ScrollStatement";
@@ -21,6 +22,7 @@ import { CtaBanner } from "@/components/sections/CtaBanner";
 export default function Home() {
   return (
     <main>
+      <IntroOverlay />
       <Hero content={site.pages.home.hero} />
       <ExpandingShowreel content={site.pages.home.showreel} />
       <ScrollStatement content={site.pages.home.statement} />
