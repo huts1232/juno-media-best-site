@@ -34,9 +34,9 @@ html {
   background: var(--color-bg);
   color: var(--color-ink);
   scroll-behavior: auto;
-  /* clip i.p.v. hidden: hidden op html/body maakt van de root een scrollport
-     en breekt position: sticky en ScrollTrigger-pinning. */
-  overflow-x: clip;
+  /* Bewust geen overflow op html/body: hidden breekt sticky en pinning, en clip
+     laat overflow-y naar hidden computen waardoor de root alsnog een scrollport
+     wordt (Chrome scrollt dan horizontaal). Secties clippen zelf. */
 }
 
 body {
@@ -4001,6 +4001,10 @@ h1 {
    GSAP bezit de transform van .stat-card; de hover zit op .stat-card__inner,
    zodat hover en entree niet om dezelfde property vechten. */
 .stats-cards {
+  /* De entree komt van x: ±180 buiten de kaart; lokaal clippen houdt dat binnen
+     de sectie in plaats van er een horizontale scroll van te maken. Deze sectie
+     bevat niets sticky of gepind, dus clippen is hier veilig. */
+  overflow-x: clip;
   padding-block: var(--space-11) var(--space-12);
   background: var(--color-bg);
 }
@@ -4219,6 +4223,467 @@ h1 {
   }
 
   .stat-card__inner {
+    transition: none;
+  }
+}
+
+/* ── Services bento ────────────────────────────────────────────────────────
+   Twee kolommen met versprongen kaarthoogtes. .bento-card is de statische
+   rastercel en dient als trigger; __inner is het GSAP-doel én de hoverlaag
+   (alleen border-color, dus geen conflict met de transform). */
+.bento {
+  padding-block: var(--space-11) var(--space-12);
+  background: var(--color-bg);
+}
+
+.bento__head {
+  max-width: 46rem;
+  margin-bottom: var(--space-9);
+}
+
+.bento__heading {
+  margin: var(--space-3) 0 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.4vw, 4.44444rem);
+  font-weight: 500;
+  line-height: 1.02;
+}
+
+.bento__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.bento-card {
+  display: flex;
+  /* min-width: 0, anders tilt de min-content van het codeblok de rasterkolom
+     breder dan de container. */
+  min-width: 0;
+}
+
+.bento-card__inner {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-5) var(--space-5);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-alt);
+  /* autoAlpha-startwaarde ook in CSS, anders flitsen de kaarten bij page load. */
+  visibility: hidden;
+  opacity: 0;
+  transition: border-color 0.3s var(--ease-out-quart);
+  will-change: transform, opacity;
+}
+
+.bento-card__inner:hover,
+.bento-card__inner:focus-within {
+  border-color: var(--color-accent);
+}
+
+.bento-card__title {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+  font-weight: 500;
+  line-height: 1.08;
+  text-align: center;
+}
+
+.bento-card__body {
+  display: -webkit-box;
+  max-width: 30rem;
+  margin: 0 auto;
+  overflow: hidden;
+  color: var(--color-ink-muted);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-normal);
+  text-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.bento-card__visual {
+  position: relative;
+  display: grid;
+  flex: 1;
+  min-height: 15rem;
+  margin-top: var(--space-4);
+  place-items: center;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: #0b0b0b;
+}
+
+/* Versprongen hoogtes tussen de kolommen. */
+.bento__grid > .bento-card:nth-child(odd) .bento-card__visual {
+  min-height: 17rem;
+}
+
+.bento__grid > .bento-card:nth-child(even) {
+  margin-top: var(--space-8);
+}
+
+/* — 1. Brand Strategy — */
+.sv-strategy {
+  width: 100%;
+  height: 100%;
+}
+
+.sv-strategy__spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sv-spin 20s linear infinite;
+}
+
+.sv-strategy text {
+  font-family: var(--font-body);
+}
+
+.sv-strategy__label {
+  fill: var(--color-ink);
+  font-size: 17px;
+}
+
+.sv-strategy__sub {
+  fill: var(--color-ink-muted);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+.sv-strategy__orbit {
+  fill: var(--color-ink-muted);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@keyframes sv-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* — 2. Brand Visual — */
+.sv-tiles {
+  display: grid;
+  width: 100%;
+  max-width: 26rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  padding: var(--space-4);
+}
+
+.sv-tiles__tile {
+  display: grid;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  background: #ffffff08;
+  color: var(--color-ink-muted);
+  /* GSAP-startwaarde ook hier, tegen een flits bij page load. */
+  visibility: hidden;
+  opacity: 0;
+  animation: sv-tile-accent 12s linear infinite;
+}
+
+.sv-tiles__tile svg {
+  width: 55%;
+  height: 55%;
+}
+
+/* Accentvenster van 3s in een cyclus van 12s; met -1.5s stappen dragen er
+   altijd precies twee tegelijk de accentkleur, en wisselt dat elke 1,5s door. */
+@keyframes sv-tile-accent {
+  0%,
+  25% {
+    border-color: var(--color-accent);
+    background: #fe4a2326;
+    color: var(--color-accent);
+  }
+  25.01%,
+  100% {
+    border-color: var(--color-line);
+    background: #ffffff08;
+    color: var(--color-ink-muted);
+  }
+}
+
+/* — 3. Platforms — */
+.sv-platforms {
+  width: 100%;
+  height: 100%;
+}
+
+/* — 4. Website — */
+.sv-website {
+  width: min(100%, 26rem);
+  margin: var(--space-4);
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-alt);
+  visibility: hidden;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.sv-website__chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 0.7rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.sv-website__dot {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: #ffffff2e;
+}
+
+.sv-website__bar {
+  height: 0.62rem;
+  flex: 1;
+  margin-left: 0.4rem;
+  border-radius: var(--radius-pill);
+  background: #ffffff14;
+}
+
+.sv-website__viewport {
+  height: 9.5rem;
+  overflow: hidden;
+}
+
+.sv-website__page {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.85rem;
+  animation: sv-page-scroll 14s ease-in-out infinite alternate;
+}
+
+.sv-website__block {
+  flex: none;
+  border-radius: 0.3rem;
+}
+
+.sv-website__block--strong {
+  background: #ffffff59;
+}
+
+.sv-website__block--muted {
+  background: #ffffff21;
+}
+
+.sv-website__block--panel {
+  background: #ffffff0f;
+}
+
+.sv-website__block--accent {
+  background: var(--color-accent);
+}
+
+@keyframes sv-page-scroll {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-42%);
+  }
+}
+
+/* — 5. Mobile Apps — */
+.sv-mobile {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+}
+
+.sv-mobile__device {
+  position: relative;
+  z-index: 1;
+  width: 8.5rem;
+  aspect-ratio: 9 / 17;
+  overflow: hidden;
+  border: 2px solid #2a2a2a;
+  border-radius: 1.4rem;
+  background: var(--color-bg);
+  box-shadow: var(--shadow-float);
+}
+
+.sv-mobile__notch {
+  position: absolute;
+  top: 0.4rem;
+  left: 50%;
+  z-index: 2;
+  width: 2.6rem;
+  height: 0.34rem;
+  border-radius: var(--radius-pill);
+  background: #ffffff2e;
+  transform: translateX(-50%);
+}
+
+.sv-mobile__video,
+.sv-mobile__placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sv-mobile__placeholder {
+  background:
+    radial-gradient(circle at 50% 30%, #fe4a2359, transparent 62%),
+    linear-gradient(180deg, #171717, #0b0b0b);
+}
+
+.sv-mobile__glow {
+  position: absolute;
+  z-index: 0;
+  width: 12rem;
+  height: 12rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, #8a5cff33, transparent 70%);
+}
+
+/* — 6. Development — */
+.sv-code {
+  display: flex;
+  width: min(100%, 26rem);
+  gap: 0.8rem;
+  margin: var(--space-4);
+  padding: var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: #0a0a0a;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.7;
+}
+
+.sv-code__gutter {
+  display: flex;
+  flex-direction: column;
+  color: #ffffff3d;
+  text-align: right;
+}
+
+.sv-code__body {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  margin: 0;
+  overflow: hidden;
+}
+
+.sv-code__line {
+  display: block;
+  white-space: pre;
+  /* GSAP-startwaarde ook hier: anders staat de code al volledig getypt. */
+  clip-path: inset(0 100% 0 0);
+}
+
+.sv-code__token--keyword {
+  color: var(--color-accent-soft);
+}
+
+.sv-code__token--fn {
+  color: var(--color-accent);
+}
+
+.sv-code__token--string {
+  color: #7fd6a3;
+}
+
+.sv-code__token--name {
+  color: var(--color-ink);
+}
+
+.sv-code__token--plain {
+  color: var(--color-ink-muted);
+}
+
+.sv-code__cursor {
+  display: inline-block;
+  width: 0.42rem;
+  height: 0.9em;
+  margin-left: 0.15rem;
+  background: var(--color-accent);
+  vertical-align: text-bottom;
+  animation: sv-cursor 1.05s steps(1) infinite;
+}
+
+@keyframes sv-cursor {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: 899px) {
+  .bento {
+    padding-block: var(--space-8) var(--space-10);
+  }
+
+  .bento__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+
+  .bento__grid > .bento-card:nth-child(even) {
+    margin-top: 0;
+  }
+
+  .bento__grid > .bento-card:nth-child(odd) .bento-card__visual {
+    min-height: 15rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bento-card__inner,
+  .sv-tiles__tile,
+  .sv-website {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .sv-code__line {
+    clip-path: none;
+  }
+
+  .sv-strategy__spin,
+  .sv-tiles__tile,
+  .sv-website__page,
+  .sv-code__cursor {
+    animation: none;
+  }
+
+  .sv-tiles__tile {
+    border-color: var(--color-line);
+    background: #ffffff08;
+    color: var(--color-ink-muted);
+  }
+
+  [data-strategy-segment] {
+    stroke-dashoffset: 0;
+  }
+
+  .bento-card__inner {
     transition: none;
   }
 }

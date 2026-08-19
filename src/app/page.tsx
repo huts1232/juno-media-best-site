@@ -3,7 +3,7 @@ import { Hero } from "@/components/sections/Hero";
 import { ScrollStatement } from "@/components/sections/ScrollStatement";
 import { StatsCards } from "@/components/sections/StatsCards";
 import { Stages } from "@/components/sections/Stages";
-import { Services } from "@/components/sections/Services";
+import { ServicesBento } from "@/components/sections/ServicesBento";
 import { LogoMarquee } from "@/components/sections/LogoMarquee";
 import { CasesGrid } from "@/components/sections/CasesGrid";
 import { cases, casesSection } from "@/content/cases";
@@ -26,7 +26,7 @@ export default function Home() {
       <ScrollStatement content={site.pages.home.statement} />
       <StatsCards content={site.pages.home.stats} />
       <Stages content={site.pages.home.stages} />
-      <Services content={services} />
+      <ServicesBento content={services} />
       <LogoMarquee content={site.pages.home.logoMarquee} />
       <CasesGrid content={casesSection} items={cases} />
       <Testimonials content={testimonials} />

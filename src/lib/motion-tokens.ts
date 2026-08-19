@@ -273,3 +273,20 @@ export const statsCardsMotion = {
     ease: "expo.out",
   },
 } as const;
+
+export const servicesBentoMotion = {
+  triggerStart: "top 85%",
+  card: {
+    y: 50,
+    duration: 1,
+    ease: "expo.out",
+  },
+  /** Interne visual-animatie start iets na de kaartreveal. */
+  innerDelay: 0.2,
+  platformParallax: {
+    travel: 26,
+    start: "top bottom",
+    end: "bottom top",
+    scrub: 1,
+  },
+} as const;
