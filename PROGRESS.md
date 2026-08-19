@@ -234,3 +234,13 @@
 - Interne links: elke branchepagina wijst naar twee cases en naar de configurator met `?b=..&t=..#configurator` voorgevuld.
 - `src/app/sitemap.ts` toegevoegd met statische routes, cases en use cases. Basis-URL via `NEXT_PUBLIC_SITE_URL`, met fallback.
 - `FlowDiagram` is uit de configurator gehaald naar `components/ui`, zodat de use-casepagina's hem hergebruiken. De tekenanimatie hangt nu aan een ScrollTrigger.
+
+### Stap 7 — DigestSignup
+
+- Status: afgerond, met één openstaand punt.
+- Blok boven de CTA-banner met kop, uitleg, e-mailveld en knop.
+- `POST /api/digest` valideert, controleert de honeypot, houdt een rate limit aan van vijf per IP per uur en genereert het token. De teller staat in het geheugen van de instantie: genoeg om een formulier dicht te houden, geen verdediging tegen een verdeelde aanval.
+- Statusregels: laden, gelukt, al ingeschreven, rate limit en mislukt, elk met een eigen zin.
+- Bevestigen via `/digest/bevestigen?token=..`. Dat gaat door de security definer functie `confirm_digest_subscriber`, zodat anon geen update-rechten op de tabel nodig heeft.
+- Openstaand: er is nog geen mailprovider gekoppeld, dus de bevestigingsmail wordt niet verstuurd. Het token staat wel in de tabel en de link wordt buiten productie gelogd, zodat de dubbele opt-in te testen is. De afmeldlink hoort in die mail te staan; de voetnoot zegt dat nu ook zo.
+- Migratie: `supabase/migrations/20260819130000_digest_subscribers.sql`.

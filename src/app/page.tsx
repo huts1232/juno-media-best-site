@@ -23,6 +23,7 @@ import { News } from "@/components/sections/News";
 import { faq } from "@/content/faq";
 import { Faq } from "@/components/sections/Faq";
 import { CtaBanner } from "@/components/sections/CtaBanner";
+import { DigestSignup } from "@/components/sections/DigestSignup";
 
 export default function Home() {
   return (
@@ -45,6 +46,7 @@ export default function Home() {
       <Awards content={awards} />
       <News content={site.pages.home.news} />
       <Faq content={faq} />
+      <DigestSignup />
       <CtaBanner content={site.pages.home.ctaBanner} />
     </main>
   );
