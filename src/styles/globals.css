@@ -5941,3 +5941,253 @@ html[data-intro="play"] .intro-overlay [data-logo-path] {
     stroke-dashoffset: 0;
   }
 }
+
+/* RoiCalculator ----------------------------------------------------------- */
+
+.roi {
+  padding-block: var(--space-10);
+}
+
+.roi__heading {
+  max-width: 20ch;
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 500;
+  line-height: var(--lh-tight);
+}
+
+.roi__panel {
+  display: grid;
+  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+  gap: var(--space-5);
+  margin-top: var(--space-6);
+  padding: var(--space-5);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-alt);
+}
+
+.roi__inputs {
+  display: flex;
+  /* Twee rijen hoog: anders staat de grafiek pas onder de hele invoerkolom en
+     valt er een gat onder de uitkomsten. */
+  grid-row: 1 / span 2;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.roi-field__label {
+  display: block;
+  color: var(--color-ink-muted);
+  font-size: var(--fs-caption);
+}
+
+.roi-field__value {
+  margin-top: .25rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+}
+
+.roi-field__affix {
+  margin-inline: .25rem;
+  color: var(--color-ink-muted);
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+}
+
+.roi-field__slider {
+  width: 100%;
+  margin-top: .5rem;
+  accent-color: var(--color-accent);
+}
+
+.roi__outputs {
+  display: grid;
+  grid-column: 2;
+  grid-row: 1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+  align-self: start;
+}
+
+.roi-output {
+  padding: var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+}
+
+.roi-output dt {
+  color: var(--color-ink-muted);
+  font-size: var(--fs-caption);
+}
+
+.roi-output dd {
+  margin: .5rem 0 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  color: var(--color-accent);
+}
+
+.roi-chart {
+  grid-column: 2;
+  grid-row: 2;
+  /* Zonder bovengrens rekt de grafiek mee met het paneel en worden de labels
+     mee opgeschaald. */
+  max-width: 46rem;
+  margin: 0;
+}
+
+.roi-chart__caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  color: var(--color-ink-muted);
+  font-size: var(--fs-caption);
+}
+
+.roi-chart__legend {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.roi-chart__key {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.roi-chart__key::before {
+  width: 1.25rem;
+  height: 2px;
+  content: "";
+}
+
+.roi-chart__key--without::before {
+  background: var(--color-ink-muted);
+}
+
+.roi-chart__key--with::before {
+  background: var(--color-accent);
+}
+
+.roi-chart__svg {
+  width: 100%;
+  height: auto;
+  margin-top: var(--space-2);
+}
+
+.roi-chart__grid {
+  stroke: var(--color-line);
+  stroke-width: 1;
+}
+
+.roi-chart__tick {
+  fill: var(--color-ink-muted);
+  font-size: 11px;
+}
+
+.roi-chart__line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.roi-chart__line--without {
+  stroke: var(--color-ink-muted);
+  stroke-dasharray: 4 4;
+}
+
+.roi-chart__line--with {
+  stroke: var(--color-accent);
+}
+
+.roi-chart__crossing line {
+  stroke: var(--color-accent);
+  stroke-dasharray: 2 4;
+  stroke-width: 1;
+}
+
+.roi-chart__crossing circle {
+  fill: var(--color-accent);
+}
+
+.roi-chart__crossing text {
+  fill: var(--color-accent);
+  font-size: 11px;
+}
+
+.roi-chart__summary {
+  margin-top: .5rem;
+  color: var(--color-ink-muted);
+  font-size: var(--fs-caption);
+}
+
+.roi__assumptions {
+  grid-column: 1 / -1;
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--color-line);
+  color: var(--color-ink-muted);
+  font-size: var(--fs-caption);
+}
+
+.roi__assumptions summary {
+  cursor: pointer;
+  color: var(--color-ink);
+}
+
+.roi__assumptions ul {
+  margin: var(--space-2) 0 0;
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+
+.roi__footer {
+  display: flex;
+  grid-column: 1 / -1;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.roi__bridge-question {
+  font-size: var(--fs-h5);
+}
+
+.roi__bridge-body {
+  margin-top: .35rem;
+  color: var(--color-ink-muted);
+  font-size: var(--fs-caption);
+}
+
+@media (max-width: 991px) {
+  .roi__panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .roi__inputs,
+  .roi__outputs,
+  .roi-chart {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .roi__panel {
+    padding: var(--space-3);
+  }
+
+  .roi__outputs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

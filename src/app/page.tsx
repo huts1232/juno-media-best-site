@@ -4,6 +4,7 @@ import { BeforeAfter } from "@/components/sections/BeforeAfter";
 import { CertificationBar } from "@/components/sections/CertificationBar";
 import { ExpandingShowreel } from "@/components/sections/ExpandingShowreel";
 import { Hero } from "@/components/sections/Hero";
+import { RoiCalculator } from "@/components/sections/RoiCalculator";
 import { ScrollStatement } from "@/components/sections/ScrollStatement";
 import { StatsCards } from "@/components/sections/StatsCards";
 import { Stages } from "@/components/sections/Stages";
@@ -35,6 +36,7 @@ export default function Home() {
       <Stages content={site.pages.home.stages} />
       <AgentConfigurator />
       <ServicesBento content={services} />
+      <RoiCalculator />
       <LogoMarquee content={site.pages.home.logoMarquee} />
       <CasesGrid content={casesSection} items={cases} />
       <Testimonials content={testimonials} />

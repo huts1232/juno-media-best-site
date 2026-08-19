@@ -27,6 +27,13 @@ export function formatEuroRange(from: number, to: number): string {
   return `${euroFormat.format(Math.round(from))} - ${euroFormat.format(Math.round(to))}`;
 }
 
+/** Korte notatie voor asjes: 486346 -> "486k". */
+export function formatEuroCompact(value: number): string {
+  const rounded = Math.round(value);
+  if (Math.abs(rounded) >= 1000) return `${euroFormat.format(Math.round(rounded / 1000))}k`;
+  return euroFormat.format(rounded);
+}
+
 /** 15600 -> "4u 20m", 192 -> "3m 12s", 45 -> "45s". */
 export function formatDuration(totalSeconds: number): string {
   const seconds = Math.max(0, Math.round(totalSeconds));

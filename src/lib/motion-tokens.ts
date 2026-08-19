@@ -399,3 +399,8 @@ export const agentFlowMotion = {
     ease: "power2.out",
   },
 } as const;
+
+export const animatedNumberMotion = {
+  duration: 0.5,
+  ease: "power2.out",
+} as const;

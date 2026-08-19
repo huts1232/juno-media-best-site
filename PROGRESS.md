@@ -213,3 +213,13 @@
 - Deelbare URL `?b=..&t=..&v=..` vult de staat bij het laden en wordt bij de uitkomst met `replaceState` bijgewerkt. `useSearchParams` staat in een `<Suspense>`.
 - E-mailveld schrijft naar `agent_leads` met validatie client-side, honeypot en een eigen statusregel per uitkomst.
 - Openstaand: de tabel moet nog in Supabase komen. SQL staat in `supabase/migrations/20260819120000_agent_leads.sql`, met RLS aan en alleen een insert-policy voor `anon`.
+
+### Stap 5 — RoiCalculator
+
+- Status: afgerond.
+- Vier invoervelden met standaardwaarden, uitkomst rekent live mee zonder verzendknop.
+- Rekenmodel in `src/lib/roi-model.ts`, acht tests. Uitkomsten: besparing per maand en jaar, terugverdientijd, vrijgekomen uren per jaar.
+- Grafiek is een eigen SVG met twaalf maanden, twee lijnen en een gemarkeerd kruispunt. Geen chartlibrary. Breedte begrensd op 46rem, anders schalen de labels mee met het paneel.
+- Cijfers animeren bij wijziging via `AnimatedNumber` (gsap-proxy, 0.5s) met `tabular-nums`.
+- Deelbare URL `?h=..&r=..&p=..&a=..`, gedempt naar de adresbalk geschreven en met kopieerknop. `share-url.ts` voegt sleutels samen, zodat de configurator en de calculator elkaars parameters niet wissen.
+- Aannames staan in een `<details>`; bij het openen draait `ScrollTrigger.refresh()` (fout #5).

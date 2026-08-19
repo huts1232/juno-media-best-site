@@ -21,6 +21,7 @@ import { isValidEmail, normalizeEmail } from "@/lib/email";
 import { formatDecimal, formatDuration, formatEuroRange } from "@/lib/format";
 import { gsap } from "@/lib/gsap";
 import { agentFlowMotion, stepMotion } from "@/lib/motion-tokens";
+import { buildShareUrl, syncParams } from "@/lib/share-url";
 import { getSupabaseClient, UNIQUE_VIOLATION } from "@/lib/supabase";
 
 const loadFramerFeatures = () => import("@/lib/framer-features").then((mod) => mod.default);
@@ -78,23 +79,22 @@ function ConfiguratorFlow() {
     [task, state.volume],
   );
 
-  const shareUrl = useMemo(() => {
-    if (typeof window === "undefined" || !branche || !task) return "";
-    const url = new URL(window.location.href);
-    url.hash = configurator.id;
-    url.search = new URLSearchParams({
-      b: branche.slug,
-      t: task.slug,
-      v: String(state.volume),
-    }).toString();
-    return url.toString();
-  }, [branche, task, state.volume]);
+  const shareValues = useMemo(
+    () =>
+      branche && task
+        ? { b: branche.slug, t: task.slug, v: String(state.volume) }
+        : null,
+    [branche, task, state.volume],
+  );
+
+  const [shareUrl, setShareUrl] = useState("");
 
   // De adresbalk volgt de uitkomst, zodat delen en herladen dezelfde staat geeft.
   useEffect(() => {
-    if (state.step !== RESULT_STEP || !shareUrl) return;
-    window.history.replaceState(null, "", shareUrl);
-  }, [shareUrl, state.step]);
+    if (state.step !== RESULT_STEP || !shareValues) return;
+    syncParams(shareValues);
+    setShareUrl(buildShareUrl(shareValues, configurator.id));
+  }, [shareValues, state.step]);
 
   useEffect(() => {
     if (!copied) return;
