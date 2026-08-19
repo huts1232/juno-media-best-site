@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { CookieBar } from "@/components/layout/CookieBar";
+import { FloatingCta } from "@/components/layout/FloatingCta";
 import { Footer } from "@/components/layout/Footer";
 import { Nav } from "@/components/layout/Nav";
 import { PageTransition } from "@/components/layout/PageTransition";
@@ -75,6 +76,9 @@ export default function RootLayout({
             socialLabel={site.navLabels.social}
             socialLinks={site.socialLinks}
           />
+          {/* Direct in de layout, niet in een sectie: binnen een gepinde sectie
+              beweegt position: fixed mee met de pin. */}
+          <FloatingCta cta={site.primaryCta} />
           <CookieBar copy={site.cookie} />
           <Cursor />
         </SmoothScroll>

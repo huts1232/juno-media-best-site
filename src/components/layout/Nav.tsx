@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/lib/cn";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { navShrink } from "@/lib/motion-tokens";
 
 type NavLink = {
   label: string;
@@ -38,6 +39,8 @@ export function Nav({ brand, links, cta, email, labels, socialLinks }: NavProps)
   const headerRef = useRef<HTMLElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
+  const shellRef = useRef<HTMLElement | null>(null);
+  const linksRef = useRef<HTMLDivElement | null>(null);
   const burgerRef = useRef<HTMLButtonElement | null>(null);
   const firstLineRef = useRef<HTMLSpanElement | null>(null);
   const secondLineRef = useRef<HTMLSpanElement | null>(null);
@@ -89,6 +92,56 @@ export function Nav({ brand, links, cta, email, labels, socialLinks }: NavProps)
 
     return () => trigger.kill();
   }, [isMenuOpen, reducedMotion]);
+
+  // Voorbij 400px krimpt de nav: de menulinks klappen dicht, logo en CTA
+  // blijven. Alleen desktop, want mobiel staan de links al in het overlay.
+  useEffect(() => {
+    const shell = shellRef.current;
+    const links = linksRef.current;
+    if (!shell || !links) return;
+
+    let matchMedia: gsap.MatchMedia | undefined;
+
+    const ctx = gsap.context(() => {
+      matchMedia = gsap.matchMedia();
+
+      matchMedia.add(navShrink.desktopQuery, () => {
+        const settings = reducedMotion
+          ? { duration: 0 }
+          : { duration: navShrink.duration, ease: navShrink.ease };
+
+        const setState = (collapsed: boolean) => {
+          gsap.to(links, {
+            autoAlpha: collapsed ? 0 : 1,
+            width: collapsed ? 0 : "auto",
+            overwrite: true,
+            ...settings,
+          });
+          gsap.to(shell, {
+            width: collapsed ? "auto" : navShrink.shellWidth,
+            overwrite: true,
+            ...settings,
+          });
+        };
+
+        ScrollTrigger.create({
+          start: navShrink.start,
+          end: "max",
+          onEnter: () => setState(true),
+          onLeaveBack: () => setState(false),
+        });
+
+        return () => {
+          gsap.set([links, shell], { clearProps: "width,opacity,visibility" });
+        };
+      });
+    }, shell);
+
+    return () => {
+      matchMedia?.revert();
+      ctx.revert();
+    };
+  }, [reducedMotion]);
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -262,6 +315,7 @@ export function Nav({ brand, links, cta, email, labels, socialLinks }: NavProps)
         className="site-nav-wrapper pointer-events-none mx-auto flex h-20 w-full justify-center px-[var(--gutter)] pt-[1.11rem]"
       >
         <nav
+          ref={shellRef}
           aria-label={labels.primary}
           className="site-nav-shell pointer-events-auto flex h-[3.47222rem] w-[41.25rem] max-w-full flex-none items-center justify-between overflow-hidden rounded-[.83333rem] bg-[#191919] p-[.28rem]"
         >
@@ -272,7 +326,10 @@ export function Nav({ brand, links, cta, email, labels, socialLinks }: NavProps)
           >
             {brand.name}
           </Link>
-          <div className="mt-[.2rem] hidden flex-none items-center gap-[2.36rem] overflow-hidden md:flex">
+          <div
+            ref={linksRef}
+            className="mt-[.2rem] hidden flex-none items-center gap-[2.36rem] overflow-hidden md:flex"
+          >
             {links.map((link) => {
               const isActive = pathname === link.href;
 

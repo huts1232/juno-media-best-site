@@ -4687,3 +4687,57 @@ h1 {
     transition: none;
   }
 }
+
+/* ── Floating CTA ──────────────────────────────────────────────────────────
+   Vaste pill rechtsonder. De entree zit op de wrapper, de magnetic hover op de
+   pill: anders schrijven beide naar dezelfde x/y. */
+.floating-cta {
+  position: fixed;
+  right: var(--gutter);
+  bottom: var(--space-5);
+  z-index: 90;
+  /* autoAlpha-startwaarde ook in CSS, anders staat de pill er bij page load al. */
+  visibility: hidden;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.floating-cta__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.4rem;
+  border-radius: var(--radius-pill);
+  /* Ring in de paginakleur, zodat de pill ook loskomt van een accentkleurige
+     achtergrond (bijvoorbeeld de MetricBubble in de hero). */
+  background: var(--color-accent);
+  box-shadow:
+    0 0 0 2px var(--color-bg),
+    var(--shadow-float);
+  color: var(--color-ink);
+  font-size: var(--fs-caption);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.floating-cta__arrow {
+  width: 0.9rem;
+  height: 0.9rem;
+  transition: transform 0.3s var(--ease-out-expo);
+}
+
+.floating-cta__pill:hover .floating-cta__arrow,
+.floating-cta__pill:focus-visible .floating-cta__arrow {
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-cta {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .floating-cta__arrow {
+    transition: none;
+  }
+}

@@ -4,7 +4,13 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
-import { heroLoad, heroMouse, heroScroll, parallax } from "@/lib/motion-tokens";
+import {
+  heroLoad,
+  heroMouse,
+  heroScroll,
+  heroScrollIndicator,
+  parallax,
+} from "@/lib/motion-tokens";
 import { heroFloaters } from "@/components/hero/heroFloaters";
 
 type HeroContent = {
@@ -217,6 +223,26 @@ export function Hero({ content }: HeroProps) {
             scrub: parallax.scrub,
           },
         });
+      });
+
+      // De indicator staat fixed in dezelfde hoek als de floating CTA; voorbij
+      // 60vh heeft hij zijn werk gedaan en maakt hij plaats.
+      ScrollTrigger.create({
+        start: () => window.innerHeight * heroScrollIndicator.startFactor,
+        end: "max",
+        invalidateOnRefresh: true,
+        onEnter: () =>
+          gsap.to(scrollIndicatorRef.current, {
+            autoAlpha: 0,
+            duration: heroScrollIndicator.duration,
+            overwrite: true,
+          }),
+        onLeaveBack: () =>
+          gsap.to(scrollIndicatorRef.current, {
+            autoAlpha: 1,
+            duration: heroScrollIndicator.duration,
+            overwrite: true,
+          }),
       });
 
       matchMedia = gsap.matchMedia();

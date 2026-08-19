@@ -290,3 +290,27 @@ export const servicesBentoMotion = {
     scrub: 1,
   },
 } as const;
+
+export const navShrink = {
+  desktopQuery: "(min-width: 768px)",
+  /** Scrollpositie in px waarna de nav krimpt. */
+  start: 400,
+  duration: 0.4,
+  ease: "power2.out",
+  /** Ontwerpbreedte van de nav-shell in ruststand. */
+  shellWidth: "41.25rem",
+} as const;
+
+export const floatingCtaMotion = {
+  y: 60,
+  duration: 0.6,
+  ease: "expo.out",
+  /** Verschijnt voorbij 90% van de viewporthoogte. */
+  startFactor: 0.9,
+} as const;
+
+export const heroScrollIndicator = {
+  /** Verdwijnt voorbij 60vh, zodat hij de floating CTA niet overlapt. */
+  startFactor: 0.6,
+  duration: 0.3,
+} as const;
