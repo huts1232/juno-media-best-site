@@ -43,6 +43,8 @@
   --space-11: 8rem;
   --space-12: 10rem;
   --container-max: 90rem;
+  /* Hoogte van de vaste nav-wrapper; page-hero--full trekt die van 100svh af. */
+  --nav-height: 5rem;
   --gutter: 1.25rem;
   --breakpoint-tiny-max: 479px;
   --breakpoint-small-min: 480px;

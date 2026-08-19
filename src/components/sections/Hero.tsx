@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import { useParallaxLayers } from "@/hooks/useParallaxLayers";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import {
@@ -9,7 +10,6 @@ import {
   heroMouse,
   heroScroll,
   heroScrollIndicator,
-  parallax,
 } from "@/lib/motion-tokens";
 import { heroFloaters } from "@/components/hero/heroFloaters";
 
@@ -50,6 +50,13 @@ export function Hero({ content }: HeroProps) {
     [content.titleLines],
   );
   const titleLabel = content.titleLines.join(" ");
+
+  useParallaxLayers(rootRef, {
+    trigger: sectionRef,
+    multiplier: heroScroll.layerMultiplier,
+    selector: "[data-hero-layer]",
+    enabled: !reducedMotion,
+  });
 
   useEffect(() => {
     const target = videoFrameRef.current;
@@ -209,22 +216,6 @@ export function Hero({ content }: HeroProps) {
 
     let matchMedia: gsap.MatchMedia | undefined;
     const ctx = gsap.context(() => {
-      const layers = gsap.utils.toArray<HTMLElement>("[data-hero-layer]");
-
-      layers.forEach((layer) => {
-        const speed = Number(layer.dataset.speed || 0);
-        gsap.to(layer, {
-          yPercent: heroScroll.layerMultiplier * speed,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: parallax.start,
-            end: parallax.end,
-            scrub: parallax.scrub,
-          },
-        });
-      });
-
       // De indicator staat fixed in dezelfde hoek als de floating CTA; voorbij
       // 60vh heeft hij zijn werk gedaan en maakt hij plaats.
       ScrollTrigger.create({

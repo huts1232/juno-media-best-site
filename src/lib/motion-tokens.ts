@@ -165,6 +165,23 @@ export const marqueeMotion = {
   triggerEnd: "bottom top",
 } as const;
 
+export const pageHeroMotion = {
+  /** Sub-regel onder de H1; de woordreveal zelf komt uit splitTextReveal. */
+  intro: {
+    y: 20,
+    duration: 0.9,
+    delay: 0.4,
+    ease: "expo.out",
+  },
+  /** Parallax-diepte van de decoratieve vormen. */
+  decorMultiplier: -48,
+  hint: {
+    /** Verdwijnt zodra er meer dan 8% van de viewport gescrold is. */
+    startFactor: 0.08,
+    duration: 0.35,
+  },
+} as const;
+
 export const casesMotion = {
   revealY: 60,
   revealDuration: 0.9,

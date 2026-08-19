@@ -154,8 +154,10 @@ export const site = {
     },
     cases: {
       eyebrow: "Cases",
-      title: "Selected work systems",
-      intro: "Placeholder case overview content lives in src/content.",
+      title: "Work that earns its next launch",
+      intro:
+        "Six systems that went from brief to measurable growth. Every case opens with the number it moved.",
+      scrollLabel: "Scroll",
     },
     services: {
       eyebrow: "Services",

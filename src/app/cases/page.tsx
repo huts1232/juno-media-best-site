@@ -8,7 +8,7 @@ export default function CasesPage() {
 
   return (
     <main>
-      <PageHero content={page} id="cases-page-title" />
+      <PageHero content={page} id="cases-page-title" variant="full" scrollLabel={page.scrollLabel} />
       <CasesGrid content={casesSection} items={cases} />
     </main>
   );

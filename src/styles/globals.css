@@ -3172,6 +3172,8 @@ h1 {
     --fs-h1: 3.75rem;
     --fs-hero: 3.75rem;
     --gutter: 1rem;
+    /* De nav-wrapper krimpt hier van 5rem naar 4rem. */
+    --nav-height: 4rem;
   }
 
   .page-hero {
@@ -4750,5 +4752,152 @@ h1 {
 
   .floating-cta__arrow {
     transition: none;
+  }
+}
+
+/* ── Page hero, variant "full" ─────────────────────────────────────────────
+   Vult precies de viewport minus de vaste nav: margin-top schuift de sectie
+   onder de nav, min-height vult de rest. Samen blijft de eerste schermvulling
+   exact 100svh, dus zonder gap of dubbele scrollbar. */
+.page-hero--full {
+  display: flex;
+  align-items: center;
+  min-height: calc(100svh - var(--nav-height));
+  margin-top: var(--nav-height);
+  padding-block: var(--space-8) var(--space-10);
+}
+
+.page-hero--full .page-hero__inner {
+  width: 100%;
+  align-items: center;
+}
+
+.page-hero--full .page-hero__title {
+  /* Op ~17ch valt de kop in twee regels; SplitText meet de regels zelf op. */
+  max-width: 17ch;
+  min-height: 0;
+}
+
+.page-hero--full .page-hero__intro {
+  /* autoAlpha-startwaarde ook in CSS, anders flitst de regel bij page load. */
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* Decor staat achter de tekst en vangt geen clicks; overflow zit op .page-hero. */
+.page-hero__decor {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.page-hero--full .page-hero__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.page-hero__shape {
+  position: absolute;
+  display: block;
+  will-change: transform;
+}
+
+.page-hero__shape--ring {
+  top: 8%;
+  right: 6%;
+  width: 26rem;
+  height: 26rem;
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+}
+
+.page-hero__shape--ring::after {
+  position: absolute;
+  inset: 18%;
+  border: 1px solid #fe4a2333;
+  border-radius: 50%;
+  content: "";
+}
+
+.page-hero__shape--blob {
+  bottom: -14%;
+  left: -6%;
+  width: 34rem;
+  height: 34rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #8a5cff2e, transparent 68%);
+  filter: blur(6px);
+}
+
+.page-hero__shape--bar {
+  top: 46%;
+  right: 22%;
+  width: 12rem;
+  height: 12rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(140deg, #fe4a2320, transparent 62%);
+  transform: rotate(-14deg);
+}
+
+.page-hero__hint {
+  position: absolute;
+  bottom: var(--space-6);
+  left: var(--gutter);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  visibility: hidden;
+  opacity: 0;
+  color: var(--color-ink-muted);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+.page-hero__hint-line {
+  display: block;
+  width: 3.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-ink-muted), transparent);
+}
+
+@media screen and (max-width: 1023px) {
+  .page-hero__shape--ring {
+    width: 18rem;
+    height: 18rem;
+  }
+
+  .page-hero__shape--blob {
+    width: 24rem;
+    height: 24rem;
+  }
+
+  .page-hero__shape--bar {
+    right: 8%;
+    width: 8rem;
+    height: 8rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .page-hero--full {
+    display: block;
+    min-height: calc(100svh - var(--nav-height));
+    padding-block: var(--space-9) var(--space-10);
+  }
+
+  .page-hero--full .page-hero__title {
+    max-width: 12ch;
+    font-size: 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-hero--full .page-hero__intro,
+  .page-hero__hint {
+    visibility: visible;
+    opacity: 1;
   }
 }
