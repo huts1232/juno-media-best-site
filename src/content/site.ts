@@ -43,6 +43,15 @@ export const site = {
         },
         scrollLabel: "Scroll",
       },
+      showreel: {
+        ariaLabel: "Juno Media showreel",
+        poster: "/assets/showreel-poster.svg",
+        src: "",
+        lockup: {
+          eyebrow: "Showreel 2026",
+          title: "Launches die blijven groeien",
+        },
+      },
       statement: {
         text: "We turn messy growth goals into focused digital systems that launch fast and keep compounding.",
       },

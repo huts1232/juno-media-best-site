@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none">
+  <defs>
+    <radialGradient id="sr-accent" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#fe4a23" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#fe4a23" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sr-soft" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#8a5cff" stop-opacity=".5"/>
+      <stop offset="100%" stop-color="#8a5cff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sr-wave" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#fff" stop-opacity=".05"/>
+      <stop offset="45%" stop-color="#fff" stop-opacity=".28"/>
+      <stop offset="100%" stop-color="#fe4a23" stop-opacity=".5"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="#0d0d0d"/>
+  <ellipse cx="1180" cy="470" rx="760" ry="560" fill="url(#sr-accent)"/>
+  <ellipse cx="560" cy="640" rx="700" ry="520" fill="url(#sr-soft)"/>
+  <path d="M-60 700C300 470 620 470 940 596C1260 722 1580 700 1980 420" stroke="url(#sr-wave)" stroke-width="120" stroke-linecap="round"/>
+  <path d="M-60 700C300 470 620 470 940 596C1260 722 1580 700 1980 420" stroke="#fe4a23" stroke-opacity=".7" stroke-width="16" stroke-linecap="round"/>
+  <path d="M-60 830C320 620 640 620 960 742C1280 864 1600 840 1980 560" stroke="#fff" stroke-opacity=".12" stroke-width="10" stroke-linecap="round"/>
+</svg>

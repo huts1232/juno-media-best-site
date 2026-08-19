@@ -1,3 +1,4 @@
+import { ExpandingShowreel } from "@/components/sections/ExpandingShowreel";
 import { Hero } from "@/components/sections/Hero";
 import { Statement } from "@/components/sections/Statement";
 import { Stats } from "@/components/sections/Stats";
@@ -21,6 +22,7 @@ export default function Home() {
   return (
     <main>
       <Hero content={site.pages.home.hero} />
+      <ExpandingShowreel content={site.pages.home.showreel} />
       <Statement content={site.pages.home.statement} />
       <Stats content={site.pages.home.stats} />
       <Stages content={site.pages.home.stages} />
