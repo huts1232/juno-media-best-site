@@ -49,6 +49,7 @@ const avantGardeCondensed = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: site.metadata.title,
   description: site.metadata.description,
 };

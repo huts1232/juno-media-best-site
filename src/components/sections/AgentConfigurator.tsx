@@ -13,14 +13,13 @@ import {
   type ReactNode,
 } from "react";
 import { AgencyIcon } from "@/components/ui/AgencyIcon";
+import { FlowDiagram } from "@/components/ui/FlowDiagram";
 import { branches, configurator, type AgentTask, type Branche } from "@/content/agency";
-import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { calculateAgentPlan, clampVolume } from "@/lib/agent-model";
 import { isValidEmail, normalizeEmail } from "@/lib/email";
 import { formatDecimal, formatDuration, formatEuroRange } from "@/lib/format";
-import { gsap } from "@/lib/gsap";
-import { agentFlowMotion, stepMotion } from "@/lib/motion-tokens";
+import { stepMotion } from "@/lib/motion-tokens";
 import { buildShareUrl, syncParams } from "@/lib/share-url";
 import { getSupabaseClient, UNIQUE_VIOLATION } from "@/lib/supabase";
 
@@ -375,69 +374,6 @@ function ResultStep({
           {copied ? configurator.share.copied : configurator.share.copy}
         </button>
       </div>
-    </div>
-  );
-}
-
-function FlowDiagram({ nodes }: { nodes: readonly string[] }) {
-  const rootRef = useRef<HTMLDivElement | null>(null);
-  const reducedMotion = useReducedMotion();
-
-  useIsomorphicLayoutEffect(() => {
-    const root = rootRef.current;
-    if (!root || reducedMotion) return;
-
-    const ctx = gsap.context(() => {
-      const horizontal = window.matchMedia(agentFlowMotion.horizontalQuery).matches;
-
-      gsap.from("[data-flow-node]", {
-        y: agentFlowMotion.node.y,
-        autoAlpha: 0,
-        duration: agentFlowMotion.node.duration,
-        ease: agentFlowMotion.node.ease,
-        stagger: agentFlowMotion.stagger,
-      });
-
-      gsap.to(`[data-flow-line='${horizontal ? "h" : "v"}']`, {
-        strokeDashoffset: 0,
-        duration: agentFlowMotion.line.duration,
-        ease: agentFlowMotion.line.ease,
-        stagger: agentFlowMotion.stagger,
-        delay: agentFlowMotion.stagger,
-        // Na afloop staan beide richtingen getekend, zodat een draaiend scherm
-        // geen halve lijnen laat zien.
-        onComplete: () => gsap.set("[data-flow-line]", { strokeDashoffset: 0 }),
-      });
-    }, root);
-
-    return () => ctx.revert();
-  }, [nodes, reducedMotion]);
-
-  return (
-    <div ref={rootRef} className="flow-diagram">
-      <p className="flow-diagram__label">{configurator.flow.label}</p>
-      <ol className="flow-diagram__list">
-        {nodes.map((node, index) => (
-          <li key={node} className="flow-diagram__item">
-            {index > 0 ? (
-              <svg
-                className="flow-diagram__link"
-                viewBox="0 0 24 24"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <line data-flow-line="h" pathLength={1} x1="0" y1="12" x2="24" y2="12" />
-                <line data-flow-line="v" pathLength={1} x1="12" y1="0" x2="12" y2="24" />
-              </svg>
-            ) : null}
-            <span className="flow-diagram__node" data-flow-node>
-              {node}
-            </span>
-          </li>
-        ))}
-      </ol>
-      <p className="flow-diagram__caption">{configurator.flow.caption}</p>
     </div>
   );
 }

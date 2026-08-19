@@ -223,3 +223,14 @@
 - Cijfers animeren bij wijziging via `AnimatedNumber` (gsap-proxy, 0.5s) met `tabular-nums`.
 - Deelbare URL `?h=..&r=..&p=..&a=..`, gedempt naar de adresbalk geschreven en met kopieerknop. `share-url.ts` voegt sleutels samen, zodat de configurator en de calculator elkaars parameters niet wissen.
 - Aannames staan in een `<details>`; bij het openen draait `ScrollTrigger.refresh()` (fout #5).
+
+### Stap 6 — UseCasePreview en /use-cases
+
+- Status: afgerond.
+- `src/content/use-cases.ts` per branche: intro, vier probleemstellingen, vier oplossingen, drie cijfers, twee voorbeeldflows, vijf FAQ-items en twee gerelateerde cases. Naam en icoon komen uit `agency.ts`, dus kaart en detailpagina lopen niet uit elkaar.
+- `/use-cases/[branche]`: `generateStaticParams()` levert zes statische pagina's, `generateMetadata()` een eigen titel volgens `AI-agents voor {branche} | JUNO Media` plus unieke omschrijving en canonical.
+- OG-image per branche via `opengraph-image.tsx` (next/og), dus zes echte PNG's in plaats van één gedeelde.
+- JSON-LD `FAQPage` uit dezelfde items als de zichtbare FAQ, geen tweede bron.
+- Interne links: elke branchepagina wijst naar twee cases en naar de configurator met `?b=..&t=..#configurator` voorgevuld.
+- `src/app/sitemap.ts` toegevoegd met statische routes, cases en use cases. Basis-URL via `NEXT_PUBLIC_SITE_URL`, met fallback.
+- `FlowDiagram` is uit de configurator gehaald naar `components/ui`, zodat de use-casepagina's hem hergebruiken. De tekenanimatie hangt nu aan een ScrollTrigger.

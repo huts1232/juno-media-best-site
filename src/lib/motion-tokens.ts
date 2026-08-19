@@ -388,6 +388,7 @@ export const stepMotion = {
 
 export const agentFlowMotion = {
   horizontalQuery: "(min-width: 768px)",
+  triggerStart: "top 85%",
   stagger: 0.15,
   node: {
     y: 16,

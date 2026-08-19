@@ -1,5 +1,7 @@
 export const site = {
   locale: "nl",
+  /** Basis voor sitemap en canonieke URL's. Zet NEXT_PUBLIC_SITE_URL in de omgeving. */
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://junomedia.nl",
   metadata: {
     title: "Juno Media Best Site",
     description: "A motion-led digital studio site for Juno Media.",
