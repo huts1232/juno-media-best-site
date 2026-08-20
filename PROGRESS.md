@@ -254,3 +254,19 @@
 - In de footer gaat de pill uit, bij terugscrollen weer aan. Op- en neerwaarts getest met echte wheel-scroll.
 - Onder 768px volle breedte, `bottom: calc(16px + env(safe-area-inset-bottom))`.
 - Contrast: het lichte logoblauw draagt geen witte tekst. Nav-CTA, avatarinitialen en alle knoppen op accent staan nu op `--color-bg`. De nav-CTA kreeg daarvoor een eigen klasse: Tailwind-utilities staan in `@layer utilities` en verliezen van de ongelaagde `a`-reset.
+
+### Stap 9 — Verificatie
+
+- `npm run build`, `tsc --noEmit` en `eslint` schoon. `npm test`: 15 tests groen (agent-model en roi-model).
+- Intro: draait één keer per sessie, sessionvlag komt na afloop, overslaan met klik en met Escape werkt, scroll-lock gaat weer los.
+- LCP: het LCP-element is een woord uit de hero-kop. Gemeten met echte throttling (4x CPU, traag 4G) 1044 ms mét intro en 1068 ms zonder: de overlay kost niets. Lighthouse mobiel (gesimuleerde throttling) meldt 2,9 tot 3,1 s; dezelfde meting op de commit vóór deze branch geeft ook 2,9 s, dus dat is bestaand gedrag van de hero-animatie en niet van de intro.
+- Configurator en calculator werken met het netwerk uit; alleen het e-mailveld heeft Supabase nodig.
+- Deelbare URL's herstellen beide widgets tegelijk: `?h=..&r=..&p=..&a=..&b=..&t=..&v=..`.
+- Zes statische use-casepagina's met eigen titel, omschrijving, OG-image en FAQ-schema.
+- Digest: honeypot, validatie en rate limit getest via de API. Insert en bevestigen kunnen pas end-to-end met echte Supabase-keys.
+- StickyCta wisselt correct op en neer, getest met echte wheel-scroll.
+- `prefers-reduced-motion`: overlay uit, alle content zichtbaar, geen animaties.
+- Toetsenbord: before/after met pijltjes, beide sliders, stapnavigatie en terugknop volledig bedienbaar.
+- 375 / 768 / 1024 / 1440 in Chromium en WebKit: geen console errors en geen horizontale overflow op acht pagina's. Onderweg gevonden en opgelost: te grote koppen op mobiel, de badgerij tussen 768 en 991, en twee flowdiagrammen naast elkaar op 1024.
+- Lighthouse mobiel: home 94 / 100 / 100 / 100, /use-cases 97 / 100 / 100 / 100, /use-cases/vastgoed 97 / 100 / 100 / 100 (performance, accessibility, best practices, SEO).
+- Accessibility 100 vroeg twee ingrepen: donkere tekst op het lichte logoblauw en `aria-label` van de `SplitText`-span vervangen door een visueel verborgen kopie.

@@ -99,7 +99,11 @@ export function SplitText({ text, className }: SplitTextProps) {
   }, [lines, reducedMotion]);
 
   return (
-    <span ref={rootRef} aria-label={text} className={className ? `split-text ${className}` : "split-text"}>
+    <span ref={rootRef} className={className ? `split-text ${className}` : "split-text"}>
+      {/* aria-label mag niet op een span zonder rol; de leesbare tekst staat
+          daarom in een eigen, visueel verborgen kopie. */}
+      <span className="sr-only">{text}</span>
+
       <span aria-hidden="true" className="split-text__measure">
         {words.map((word, index) => (
           <span

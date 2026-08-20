@@ -5225,10 +5225,29 @@ html[data-intro="play"] .intro-overlay [data-logo-path] {
 
 .certification-bar__badges {
   display: flex;
+  min-width: 0;
   gap: var(--space-1);
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* Tussen 768 en 991 past de rij niet naast de claim: laten scrollen in plaats
+   van de pagina laten uitlopen. */
+@media (max-width: 991px) {
+  .certification-bar__badges {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .certification-bar__badges::-webkit-scrollbar {
+    display: none;
+  }
+
+  .certification-bar__badge {
+    scroll-snap-align: start;
+  }
 }
 
 .certification-bar__badge {
@@ -5295,7 +5314,9 @@ html[data-intro="play"] .intro-overlay [data-logo-path] {
 .before-after__heading {
   max-width: 18ch;
   font-family: var(--font-display);
-  font-size: var(--fs-h2);
+  /* Meeschalen: Nederlandse samenstellingen passen niet in 4,44rem op 375px. */
+  font-size: clamp(2.25rem, 7vw, var(--fs-h2));
+  overflow-wrap: break-word;
   font-weight: 500;
   line-height: var(--lh-tight);
 }
@@ -5522,7 +5543,9 @@ html[data-intro="play"] .intro-overlay [data-logo-path] {
 .agent-configurator__heading {
   max-width: 20ch;
   font-family: var(--font-display);
-  font-size: var(--fs-h2);
+  /* Meeschalen: Nederlandse samenstellingen passen niet in 4,44rem op 375px. */
+  font-size: clamp(2.25rem, 7vw, var(--fs-h2));
+  overflow-wrap: break-word;
   font-weight: 500;
   line-height: var(--lh-tight);
 }
@@ -5779,7 +5802,8 @@ html[data-intro="play"] .intro-overlay [data-logo-path] {
 
 .agent-result__heading {
   font-family: var(--font-display);
-  font-size: var(--fs-h3);
+  font-size: clamp(1.75rem, 5.5vw, var(--fs-h3));
+  overflow-wrap: break-word;
   font-weight: 500;
   line-height: var(--lh-tight);
 }
@@ -5991,7 +6015,9 @@ html[data-intro="play"] .intro-overlay [data-logo-path] {
 .roi__heading {
   max-width: 20ch;
   font-family: var(--font-display);
-  font-size: var(--fs-h2);
+  /* Meeschalen: Nederlandse samenstellingen passen niet in 4,44rem op 375px. */
+  font-size: clamp(2.25rem, 7vw, var(--fs-h2));
+  overflow-wrap: break-word;
   font-weight: 500;
   line-height: var(--lh-tight);
 }
@@ -6230,6 +6256,13 @@ html[data-intro="play"] .intro-overlay [data-logo-path] {
   .roi__outputs {
     grid-template-columns: minmax(0, 1fr);
   }
+
+  /* De grafiek schaalt mee met de viewBox; zonder correctie worden de labels
+     op een telefoon onleesbaar klein. */
+  .roi-chart__tick,
+  .roi-chart__crossing text {
+    font-size: 16px;
+  }
 }
 
 /* Use cases --------------------------------------------------------------- */
@@ -6250,7 +6283,9 @@ html[data-intro="play"] .intro-overlay [data-logo-path] {
 .use-case-index__heading {
   max-width: 20ch;
   font-family: var(--font-display);
-  font-size: var(--fs-h2);
+  /* Meeschalen: Nederlandse samenstellingen passen niet in 4,44rem op 375px. */
+  font-size: clamp(2.25rem, 7vw, var(--fs-h2));
+  overflow-wrap: break-word;
   font-weight: 500;
   line-height: var(--lh-tight);
 }
@@ -6337,7 +6372,7 @@ html[data-intro="play"] .intro-overlay [data-logo-path] {
   margin: .5rem 0 0;
   color: var(--color-accent);
   font-family: var(--font-display);
-  font-size: var(--fs-h3);
+  font-size: clamp(2rem, 6vw, var(--fs-h3));
   line-height: var(--lh-tight);
 }
 
@@ -6394,8 +6429,15 @@ html[data-intro="play"] .intro-overlay [data-logo-path] {
 
 .use-case__flow-grid {
   display: grid;
+  /* Vijf nodes naast elkaar passen pas vanaf 1280px in een halve kolom. */
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-5);
+}
+
+@media (max-width: 1279px) {
+  .use-case__flow-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .use-case__footer-inner {
@@ -6482,7 +6524,6 @@ html[data-intro="play"] .intro-overlay [data-logo-path] {
   }
 
   .use-case__split-inner,
-  .use-case__flow-grid,
   .use-case__footer-inner {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -6526,7 +6567,8 @@ html[data-intro="play"] .intro-overlay [data-logo-path] {
 .digest__heading {
   max-width: 18ch;
   font-family: var(--font-display);
-  font-size: var(--fs-h3);
+  font-size: clamp(2rem, 6vw, var(--fs-h3));
+  overflow-wrap: break-word;
   font-weight: 500;
   line-height: var(--lh-tight);
 }
