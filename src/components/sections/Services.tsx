@@ -34,7 +34,7 @@ type ServiceShellStyle = CSSProperties & {
 const serviceGraphics: Record<ServiceVisual, { path: string; accent: string; nodes: readonly [number, number][] }> = {
   strategy: {
     path: "M74 290C118 132 221 92 298 184s126 78 162-48",
-    accent: "#fe4a23",
+    accent: "#43b1d6",
     nodes: [
       [74, 290],
       [298, 184],
@@ -43,7 +43,7 @@ const serviceGraphics: Record<ServiceVisual, { path: string; accent: string; nod
   },
   visual: {
     path: "M72 242C124 118 204 98 274 174s130 78 176-36",
-    accent: "#8a5cff",
+    accent: "#1f7fb8",
     nodes: [
       [72, 242],
       [274, 174],
@@ -62,7 +62,7 @@ const serviceGraphics: Record<ServiceVisual, { path: string; accent: string; nod
   },
   website: {
     path: "M78 106H442V314H78ZM118 158H396M118 210H282M118 262H346",
-    accent: "#fe4a23",
+    accent: "#43b1d6",
     nodes: [
       [78, 106],
       [442, 314],
@@ -71,7 +71,7 @@ const serviceGraphics: Record<ServiceVisual, { path: string; accent: string; nod
   },
   mobile: {
     path: "M188 64H332C354 64 370 82 370 104V316C370 338 354 356 332 356H188C166 356 150 338 150 316V104C150 82 166 64 188 64ZM204 128H316M204 186H316M204 244H278",
-    accent: "#8a5cff",
+    accent: "#1f7fb8",
     nodes: [
       [188, 64],
       [332, 356],
@@ -80,7 +80,7 @@ const serviceGraphics: Record<ServiceVisual, { path: string; accent: string; nod
   },
   development: {
     path: "M80 144L162 226L80 308M230 310L294 110M328 144L440 226L328 308",
-    accent: "#fe4a23",
+    accent: "#43b1d6",
     nodes: [
       [80, 144],
       [230, 310],

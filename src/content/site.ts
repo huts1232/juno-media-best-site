@@ -1,5 +1,7 @@
 export const site = {
   locale: "nl",
+  /** Basis voor sitemap en canonieke URL's. Zet NEXT_PUBLIC_SITE_URL in de omgeving. */
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://junomedia.nl",
   metadata: {
     title: "Juno Media Best Site",
     description: "A motion-led digital studio site for Juno Media.",
@@ -127,14 +129,14 @@ export const site = {
             category: "Strategy",
             date: "18 Aug 2026",
             href: "/blog",
-            accent: "#fe4a23",
+            accent: "#43b1d6",
           },
           {
             title: "A practical motion checklist for conversion-focused websites",
             category: "Motion",
             date: "04 Aug 2026",
             href: "/blog",
-            accent: "#8a5cff",
+            accent: "#1f7fb8",
           },
           {
             title: "What to decide before a homepage build enters production",
@@ -176,14 +178,14 @@ export const site = {
           category: "Strategy",
           date: "18 Aug 2026",
           href: "/blog",
-          accent: "#fe4a23",
+          accent: "#43b1d6",
         },
         {
           title: "A practical motion checklist for conversion-focused websites",
           category: "Motion",
           date: "04 Aug 2026",
           href: "/blog",
-          accent: "#8a5cff",
+          accent: "#1f7fb8",
         },
         {
           title: "What to decide before a homepage build enters production",

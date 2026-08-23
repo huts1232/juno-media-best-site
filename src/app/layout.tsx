@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { CookieBar } from "@/components/layout/CookieBar";
-import { FloatingCta } from "@/components/layout/FloatingCta";
+import { StickyCta } from "@/components/layout/StickyCta";
 import { Footer } from "@/components/layout/Footer";
 import { Nav } from "@/components/layout/Nav";
 import { PageTransition } from "@/components/layout/PageTransition";
@@ -49,6 +49,7 @@ const avantGardeCondensed = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: site.metadata.title,
   description: site.metadata.description,
 };
@@ -78,7 +79,7 @@ export default function RootLayout({
           />
           {/* Direct in de layout, niet in een sectie: binnen een gepinde sectie
               beweegt position: fixed mee met de pin. */}
-          <FloatingCta cta={site.primaryCta} />
+          <StickyCta />
           <CookieBar copy={site.cookie} />
           <Cursor />
         </SmoothScroll>

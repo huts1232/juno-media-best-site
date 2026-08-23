@@ -109,7 +109,12 @@ export function CasesGrid({ content, items }: CasesGridProps) {
   }, [items, reducedMotion]);
 
   return (
-    <section ref={rootRef} className="cases-section" aria-labelledby="home-cases-title">
+    <section
+      ref={rootRef}
+      className="cases-section"
+      data-cta-zone="cases"
+      aria-labelledby="home-cases-title"
+    >
       <div className="site-container">
         <div className="cases-header">
           <p className="eyebrow">{content.eyebrow}</p>

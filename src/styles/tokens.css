@@ -3,8 +3,9 @@
   --color-bg-alt: #101010;
   --color-ink: #fff;
   --color-ink-muted: #a3a3a3;
-  --color-accent: #fe4a23;
-  --color-accent-soft: #8a5cff;
+  --color-accent: #43b1d6;
+  --color-accent-soft: #1f7fb8;
+  --color-accent-deep: #015c92;
   --color-line: #ffffff1a;
 
   --font-display: var(--font-itc-avant-garde-md), "Itcavantgardestd Md", sans-serif;

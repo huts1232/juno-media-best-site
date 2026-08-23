@@ -123,7 +123,12 @@ export function ExpandingShowreel({ content }: ExpandingShowreelProps) {
   }, [reducedMotion]);
 
   return (
-    <section ref={rootRef} className="showreel-expand" aria-labelledby="home-showreel-title">
+    <section
+      ref={rootRef}
+      className="showreel-expand"
+      data-cta-zone="hero"
+      aria-labelledby="home-showreel-title"
+    >
       <div ref={mediaRef} className="showreel-expand__media">
         <div ref={innerRef} className="showreel-expand__inner">
           <video

@@ -341,16 +341,77 @@ export const navShrink = {
   shellWidth: "41.25rem",
 } as const;
 
-export const floatingCtaMotion = {
+export const stickyCtaMotion = {
+  desktopQuery: "(min-width: 768px)",
   y: 60,
   duration: 0.6,
   ease: "expo.out",
-  /** Verschijnt voorbij 90% van de viewporthoogte. */
-  startFactor: 0.9,
+  /** Een zone bepaalt de tekst zolang hij het midden van het scherm raakt. */
+  zoneStart: "top center",
+  zoneEnd: "bottom center",
+  label: {
+    travel: 12,
+    duration: 0.3,
+  },
+  width: {
+    duration: 0.3,
+    ease: "power2.out",
+  },
 } as const;
 
 export const heroScrollIndicator = {
   /** Verdwijnt voorbij 60vh, zodat hij de floating CTA niet overlapt. */
   startFactor: 0.6,
   duration: 0.3,
+} as const;
+
+export const certificationBarMotion = {
+  triggerStart: "top 88%",
+  y: 20,
+  duration: 0.7,
+  ease: "expo.out",
+  stagger: 0.06,
+} as const;
+
+export const beforeAfterMotion = {
+  triggerStart: "top 75%",
+  /** Scheidingslijn schuift van 100% naar 50%, zodat slepen zich aandient. */
+  divider: {
+    from: 100,
+    to: 50,
+    duration: 1.2,
+    ease: "expo.out",
+  },
+  keyboardStep: 4,
+  count: {
+    manualDuration: 6,
+    agentDuration: 1,
+    ease: "power1.out",
+  },
+} as const;
+
+export const stepMotion = {
+  initial: { x: 30, opacity: 0 },
+  animate: { x: 0, opacity: 1, transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] } },
+  exit: { x: -30, opacity: 0, transition: { duration: 0.35, ease: [0.65, 0, 0.35, 1] } },
+} as const;
+
+export const agentFlowMotion = {
+  horizontalQuery: "(min-width: 768px)",
+  triggerStart: "top 85%",
+  stagger: 0.15,
+  node: {
+    y: 16,
+    duration: 0.5,
+    ease: "expo.out",
+  },
+  line: {
+    duration: 0.5,
+    ease: "power2.out",
+  },
+} as const;
+
+export const animatedNumberMotion = {
+  duration: 0.5,
+  ease: "power2.out",
 } as const;

@@ -25,7 +25,7 @@ export const cases = [
     summary: "A focused product story, conversion site and launch-ready interface system.",
     description:
       "Placeholder detail copy for the case study page. The final case content can replace this without changing the layout.",
-    palette: ["#fe4a23", "#8a5cff", "#ffffff"],
+    palette: ["#43b1d6", "#1f7fb8", "#ffffff"],
     result: "Atlas Grid booked 3.2x more qualified demos in one quarter",
     resultAccent: "3.2x more qualified demos",
     body: "We rebuilt the product story around one job to be done, then shipped a conversion site that sales could steer themselves.",
@@ -53,7 +53,7 @@ export const cases = [
     summary: "A sharper category position and responsive page system for a fast-moving SaaS offer.",
     description:
       "Placeholder detail copy for the case study page. The final case content can replace this without changing the layout.",
-    palette: ["#8a5cff", "#ffffff", "#fe4a23"],
+    palette: ["#1f7fb8", "#ffffff", "#43b1d6"],
     result: "Nimbus Cloud lifted trial signups 68% after the repositioning",
     resultAccent: "68%",
     body: "A crowded category needed one clear claim. We rewrote the position, then designed the pages that prove it.",
@@ -81,7 +81,7 @@ export const cases = [
     summary: "A compact mobile product journey with launch messaging and conversion instrumentation.",
     description:
       "Placeholder detail copy for the case study page. The final case content can replace this without changing the layout.",
-    palette: ["#ffffff", "#fe4a23", "#8a5cff"],
+    palette: ["#ffffff", "#43b1d6", "#1f7fb8"],
     result: "Orbit Pay cut mobile checkout drop-off by 44%",
     resultAccent: "44%",
     body: "Most of the traffic was mobile and most of the losses were too. We rebuilt the flow around the smallest screen first.",
@@ -109,7 +109,7 @@ export const cases = [
     summary: "A visual identity refresh and modular landing system for repeatable service launches.",
     description:
       "Placeholder detail copy for the case study page. The final case content can replace this without changing the layout.",
-    palette: ["#fe4a23", "#ffffff", "#8a5cff"],
+    palette: ["#43b1d6", "#ffffff", "#1f7fb8"],
     result: "Forma Lab ships new service pages 5x faster",
     resultAccent: "5x faster",
     body: "Every launch used to start from scratch. Now it starts from a kit that already carries the brand.",
@@ -137,7 +137,7 @@ export const cases = [
     summary: "A product explanation system that turns complex workflows into a clear demo path.",
     description:
       "Placeholder detail copy for the case study page. The final case content can replace this without changing the layout.",
-    palette: ["#8a5cff", "#fe4a23", "#ffffff"],
+    palette: ["#1f7fb8", "#43b1d6", "#ffffff"],
     result: "Signal One turned a 40-minute demo into a 6-minute walkthrough",
     resultAccent: "6-minute walkthrough",
     body: "The platform was strong and the explanation was not. We built a demo surface that carries the argument on its own.",
@@ -165,7 +165,7 @@ export const cases = [
     summary: "A conversion-focused site structure with strong proof blocks and fast iteration hooks.",
     description:
       "Placeholder detail copy for the case study page. The final case content can replace this without changing the layout.",
-    palette: ["#ffffff", "#8a5cff", "#fe4a23"],
+    palette: ["#ffffff", "#1f7fb8", "#43b1d6"],
     result: "Brightpath doubled inbound leads within 90 days",
     resultAccent: "doubled inbound leads",
     body: "Proof was buried three clicks deep. We pulled it to the surface and gave the team a way to keep adding to it.",

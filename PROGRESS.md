@@ -165,3 +165,108 @@
 - Contact: formulier met naam, e-mail, bedrijf, budget-select en bericht; client-side validatie toont inline foutmeldingen en succesvolle verzending toont een inline bevestiging.
 - Afwijkingen: subpagina-copy en thumbnails blijven neutrale placeholders conform FASE 6 assetbeleid.
 - Verificatie: `npm run lint`, `npm run build` en 200-checks voor `/cases`, `/services`, `/blog`, `/over-ons` en `/contact` slagen.
+
+## FASE A — AI-agency features
+
+### Stap 0 — Voorbereiding
+
+- Status: afgerond.
+- Accent: logoblauw. `--color-accent: #43b1d6`, `--color-accent-soft: #1f7fb8`, nieuw `--color-accent-deep: #015c92`. Het middenblauw is de soft-waarde omdat `--color-accent-soft` op twee plekken tekstkleur is en `#015c92` daar te donker uitvalt.
+- Alle hardcoded `#fe4a23` en `#8a5cff` in components en content meegenomen; de `--ref-*` waarden blijven de ruwe Webflow-extractie.
+- `.env.local` met lege `NEXT_PUBLIC_SUPABASE_URL` en `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+- `src/content/agency.ts` bevat alle copy en rekenparameters van de acht features.
+
+### Stap 1 — IntroOverlay
+
+- Status: afgerond.
+- Openstaand: `public/assets/logo.png` ontbreekt in de repo. `LogoMark.tsx` bevat twee curves in de merkkleuren als tijdelijke stand-in; alleen de twee `d`-attributen hoeven vervangen te worden.
+- Timeline 2,4s: licht pad 0.2s, donker pad 0.5s, fill 1.1s, scale en y 1.5s, clipPath open 1.9s tot 2.4s.
+- Eén keer per sessie via `sessionStorage`, overslaan met klik of Escape, uit bij `prefers-reduced-motion`.
+- LCP: de hero staat al in het document onder de overlay. Een inline script zet `html[data-intro="play"]` nog tijdens het parsen, dus geen flits in beide richtingen.
+- Noodrem: harde timeout op 2,4s sluit de overlay ook als de hero-afbeelding nog niet binnen is; `whenIntroDone()` heeft daarnaast een eigen failsafe zodat de hero-timeline altijd start.
+- Scroll-lock via het bestaande `body[data-scroll-locked]`, plus `lenis.stop()` in de frame erna omdat Lenis in een parent-effect wordt opgezet.
+
+### Stap 2 — CertificationBar
+
+- Status: afgerond.
+- Smalle balk tussen `ScrollStatement` en `StatsCards`, maximaal 120px hoog, geen sectiekop.
+- Links de certificering met icoon, rechts vijf partnerbadges uit `agency.ts`.
+- Reveal: `y 20 -> 0` met `autoAlpha`, stagger 0.06, trigger `top 88%`, `once: true`.
+- Hover per badge: rand naar accent in 0.3s.
+- Onder 768px scrollt de badgerij horizontaal met snap, tot aan de schermrand.
+
+### Stap 3 — BeforeAfter
+
+- Status: afgerond.
+- Twee proceskolommen achter een sleepbare scheidingslijn, geen afbeeldingen. Zes stappen met cumulatieve tijden tot `4u 20m` links en `3m 12s` rechts.
+- De agentkolom is gespiegeld (kop rechts, rij omgekeerd), zodat bij een halfopen lijn beide kanten leesbaar blijven.
+- Bij binnenkomst schuift de lijn van 100% naar 50% in 1,2s `expo.out`; de tellers lopen mee, links traag (6s) en rechts binnen 1s.
+- Toetsenbord: `role="slider"` met pijltjes links en rechts in stappen van 4%.
+- Onder 768px zet CSS de clip met `!important` uit en stapelt de kolommen, handmatig eerst. Eén DOM, dus geen media query in JavaScript en geen hydratieverschil.
+
+### Stap 4 — AgentConfigurator
+
+- Status: afgerond.
+- Drie stappen (branche, taak, volume) en een uitkomst, volledig client-side. Stapwissel met Framer Motion: uit `x: -30`, in `x: 30 -> 0`, 0.35s, via `AnimatePresence mode="wait"`.
+- Rekenmodel in `src/lib/agent-model.ts`, puur en zonder netwerk. Zeven tests via `npm test` (`node --test`, geen extra dependency).
+- Flowdiagram: vijf nodes met verbindingslijnen die zich tekenen via `stroke-dashoffset`, stagger 0.15. Horizontaal op desktop, verticaal onder 768px; alleen de zichtbare richting wordt geanimeerd en na afloop staan beide getekend.
+- Deelbare URL `?b=..&t=..&v=..` vult de staat bij het laden en wordt bij de uitkomst met `replaceState` bijgewerkt. `useSearchParams` staat in een `<Suspense>`.
+- E-mailveld schrijft naar `agent_leads` met validatie client-side, honeypot en een eigen statusregel per uitkomst.
+- Openstaand: de tabel moet nog in Supabase komen. SQL staat in `supabase/migrations/20260819120000_agent_leads.sql`, met RLS aan en alleen een insert-policy voor `anon`.
+
+### Stap 5 — RoiCalculator
+
+- Status: afgerond.
+- Vier invoervelden met standaardwaarden, uitkomst rekent live mee zonder verzendknop.
+- Rekenmodel in `src/lib/roi-model.ts`, acht tests. Uitkomsten: besparing per maand en jaar, terugverdientijd, vrijgekomen uren per jaar.
+- Grafiek is een eigen SVG met twaalf maanden, twee lijnen en een gemarkeerd kruispunt. Geen chartlibrary. Breedte begrensd op 46rem, anders schalen de labels mee met het paneel.
+- Cijfers animeren bij wijziging via `AnimatedNumber` (gsap-proxy, 0.5s) met `tabular-nums`.
+- Deelbare URL `?h=..&r=..&p=..&a=..`, gedempt naar de adresbalk geschreven en met kopieerknop. `share-url.ts` voegt sleutels samen, zodat de configurator en de calculator elkaars parameters niet wissen.
+- Aannames staan in een `<details>`; bij het openen draait `ScrollTrigger.refresh()` (fout #5).
+
+### Stap 6 — UseCasePreview en /use-cases
+
+- Status: afgerond.
+- `src/content/use-cases.ts` per branche: intro, vier probleemstellingen, vier oplossingen, drie cijfers, twee voorbeeldflows, vijf FAQ-items en twee gerelateerde cases. Naam en icoon komen uit `agency.ts`, dus kaart en detailpagina lopen niet uit elkaar.
+- `/use-cases/[branche]`: `generateStaticParams()` levert zes statische pagina's, `generateMetadata()` een eigen titel volgens `AI-agents voor {branche} | JUNO Media` plus unieke omschrijving en canonical.
+- OG-image per branche via `opengraph-image.tsx` (next/og), dus zes echte PNG's in plaats van één gedeelde.
+- JSON-LD `FAQPage` uit dezelfde items als de zichtbare FAQ, geen tweede bron.
+- Interne links: elke branchepagina wijst naar twee cases en naar de configurator met `?b=..&t=..#configurator` voorgevuld.
+- `src/app/sitemap.ts` toegevoegd met statische routes, cases en use cases. Basis-URL via `NEXT_PUBLIC_SITE_URL`, met fallback.
+- `FlowDiagram` is uit de configurator gehaald naar `components/ui`, zodat de use-casepagina's hem hergebruiken. De tekenanimatie hangt nu aan een ScrollTrigger.
+
+### Stap 7 — DigestSignup
+
+- Status: afgerond, met één openstaand punt.
+- Blok boven de CTA-banner met kop, uitleg, e-mailveld en knop.
+- `POST /api/digest` valideert, controleert de honeypot, houdt een rate limit aan van vijf per IP per uur en genereert het token. De teller staat in het geheugen van de instantie: genoeg om een formulier dicht te houden, geen verdediging tegen een verdeelde aanval.
+- Statusregels: laden, gelukt, al ingeschreven, rate limit en mislukt, elk met een eigen zin.
+- Bevestigen via `/digest/bevestigen?token=..`. Dat gaat door de security definer functie `confirm_digest_subscriber`, zodat anon geen update-rechten op de tabel nodig heeft.
+- Openstaand: er is nog geen mailprovider gekoppeld, dus de bevestigingsmail wordt niet verstuurd. Het token staat wel in de tabel en de link wordt buiten productie gelogd, zodat de dubbele opt-in te testen is. De afmeldlink hoort in die mail te staan; de voetnoot zegt dat nu ook zo.
+- Migratie: `supabase/migrations/20260819130000_digest_subscribers.sql`.
+
+### Stap 8 — StickyCta
+
+- Status: afgerond.
+- `FloatingCta` is opgegaan in `StickyCta`; twee vaste pillen naast elkaar zou dubbel zijn. CSS-klassen mee hernoemd naar `.sticky-cta`.
+- Staat direct in `layout.tsx`, `position: fixed`, `z-index: 90`, verschijnt voorbij 90vh.
+- Tekst per zone via `data-cta-zone` op hero, showreel, before/after, configurator, ROI, cases en footer. Wissel: oude tekst `y: -12` met `autoAlpha` eruit, nieuwe `y: 12 -> 0` erin, 0,3s. De breedte animeert mee met `gsap.to(pill, { width: "auto" })`, dus geen sprong.
+- In de footer gaat de pill uit, bij terugscrollen weer aan. Op- en neerwaarts getest met echte wheel-scroll.
+- Onder 768px volle breedte, `bottom: calc(16px + env(safe-area-inset-bottom))`.
+- Contrast: het lichte logoblauw draagt geen witte tekst. Nav-CTA, avatarinitialen en alle knoppen op accent staan nu op `--color-bg`. De nav-CTA kreeg daarvoor een eigen klasse: Tailwind-utilities staan in `@layer utilities` en verliezen van de ongelaagde `a`-reset.
+
+### Stap 9 — Verificatie
+
+- `npm run build`, `tsc --noEmit` en `eslint` schoon. `npm test`: 15 tests groen (agent-model en roi-model).
+- Intro: draait één keer per sessie, sessionvlag komt na afloop, overslaan met klik en met Escape werkt, scroll-lock gaat weer los.
+- LCP: het LCP-element is een woord uit de hero-kop. Gemeten met echte throttling (4x CPU, traag 4G) 1044 ms mét intro en 1068 ms zonder: de overlay kost niets. Lighthouse mobiel (gesimuleerde throttling) meldt 2,9 tot 3,1 s; dezelfde meting op de commit vóór deze branch geeft ook 2,9 s, dus dat is bestaand gedrag van de hero-animatie en niet van de intro.
+- Configurator en calculator werken met het netwerk uit; alleen het e-mailveld heeft Supabase nodig.
+- Deelbare URL's herstellen beide widgets tegelijk: `?h=..&r=..&p=..&a=..&b=..&t=..&v=..`.
+- Zes statische use-casepagina's met eigen titel, omschrijving, OG-image en FAQ-schema.
+- Digest: honeypot, validatie en rate limit getest via de API. Insert en bevestigen kunnen pas end-to-end met echte Supabase-keys.
+- StickyCta wisselt correct op en neer, getest met echte wheel-scroll.
+- `prefers-reduced-motion`: overlay uit, alle content zichtbaar, geen animaties.
+- Toetsenbord: before/after met pijltjes, beide sliders, stapnavigatie en terugknop volledig bedienbaar.
+- 375 / 768 / 1024 / 1440 in Chromium en WebKit: geen console errors en geen horizontale overflow op acht pagina's. Onderweg gevonden en opgelost: te grote koppen op mobiel, de badgerij tussen 768 en 991, en twee flowdiagrammen naast elkaar op 1024.
+- Lighthouse mobiel: home 94 / 100 / 100 / 100, /use-cases 97 / 100 / 100 / 100, /use-cases/vastgoed 97 / 100 / 100 / 100 (performance, accessibility, best practices, SEO).
+- Accessibility 100 vroeg twee ingrepen: donkere tekst op het lichte logoblauw en `aria-label` van de `SplitText`-span vervangen door een visueel verborgen kopie.
