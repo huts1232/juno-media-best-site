@@ -9,7 +9,7 @@ export const awards = {
       project: "Atlas Grid",
       prize: "Site of the Day",
       date: "Aug 18, 2026",
-      accent: "#43b1d6",
+      accent: "var(--brand-light)",
     },
     {
       platform: "The FWA",
@@ -30,7 +30,7 @@ export const awards = {
       project: "Forma Lab",
       prize: "Honorable Mention",
       date: "Mar 04, 2026",
-      accent: "#43b1d6",
+      accent: "var(--brand-light)",
     },
     {
       platform: "CSSDA",
@@ -51,7 +51,7 @@ export const awards = {
       project: "Coredesk",
       prize: "Developer Award",
       date: "Sep 15, 2025",
-      accent: "#43b1d6",
+      accent: "var(--brand-light)",
     },
     {
       platform: "CSSDA",

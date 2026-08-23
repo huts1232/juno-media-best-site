@@ -34,7 +34,7 @@ type ServiceShellStyle = CSSProperties & {
 const serviceGraphics: Record<ServiceVisual, { path: string; accent: string; nodes: readonly [number, number][] }> = {
   strategy: {
     path: "M74 290C118 132 221 92 298 184s126 78 162-48",
-    accent: "#43b1d6",
+    accent: "var(--brand-light)",
     nodes: [
       [74, 290],
       [298, 184],
@@ -62,7 +62,7 @@ const serviceGraphics: Record<ServiceVisual, { path: string; accent: string; nod
   },
   website: {
     path: "M78 106H442V314H78ZM118 158H396M118 210H282M118 262H346",
-    accent: "#43b1d6",
+    accent: "var(--brand-light)",
     nodes: [
       [78, 106],
       [442, 314],
@@ -80,7 +80,7 @@ const serviceGraphics: Record<ServiceVisual, { path: string; accent: string; nod
   },
   development: {
     path: "M80 144L162 226L80 308M230 310L294 110M328 144L440 226L328 308",
-    accent: "#43b1d6",
+    accent: "var(--brand-light)",
     nodes: [
       [80, 144],
       [230, 310],

@@ -129,7 +129,7 @@ export const site = {
             category: "Strategy",
             date: "18 Aug 2026",
             href: "/blog",
-            accent: "#43b1d6",
+            accent: "var(--brand-light)",
           },
           {
             title: "A practical motion checklist for conversion-focused websites",
@@ -178,7 +178,7 @@ export const site = {
           category: "Strategy",
           date: "18 Aug 2026",
           href: "/blog",
-          accent: "#43b1d6",
+          accent: "var(--brand-light)",
         },
         {
           title: "A practical motion checklist for conversion-focused websites",

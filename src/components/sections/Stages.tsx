@@ -103,18 +103,18 @@ export function Stages({ content }: StagesProps) {
 function StageVisual({ index }: { index: number }) {
   const variants = [
     {
-      circle: "#43b1d6",
+      circle: "var(--brand-light)",
       accent: "#1f7fb8",
       path: "M58 166C90 82 140 61 190 104s91 44 130-26",
     },
     {
       circle: "#1f7fb8",
-      accent: "#43b1d6",
+      accent: "var(--brand-light)",
       path: "M54 104h254M54 158h172M54 212h224",
     },
     {
       circle: "#fff",
-      accent: "#43b1d6",
+      accent: "var(--brand-light)",
       path: "M76 210 156 110l62 70 70-102",
     },
   ];

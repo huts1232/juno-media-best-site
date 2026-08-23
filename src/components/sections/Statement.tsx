@@ -153,7 +153,7 @@ export function Statement({ content }: StatementProps) {
         </h2>
         <div ref={floatingRef} className="statement-floating" aria-hidden="true">
           <svg viewBox="0 0 220 220" focusable="false">
-            <path d="M111 16 133 82l70 28-70 28-22 66-22-66-70-28 70-28Z" fill="#43b1d6" />
+            <path d="M111 16 133 82l70 28-70 28-22 66-22-66-70-28 70-28Z" fill="var(--brand-light)" />
             <path d="M76 111h70" stroke="#fff" strokeLinecap="round" strokeWidth="12" />
             <circle cx="151" cy="65" r="18" fill="#1f7fb8" />
           </svg>

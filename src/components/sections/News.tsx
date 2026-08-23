@@ -71,7 +71,7 @@ export function News({ content }: NewsProps) {
 }
 
 function NewsThumbnail({ item, index }: { item: NewsItem; index: number }) {
-  const secondary = index % 2 === 0 ? "#1f7fb8" : "#43b1d6";
+  const secondary = index % 2 === 0 ? "#1f7fb8" : "var(--brand-light)";
 
   return (
     <svg className="news-card__image" viewBox="0 0 760 520" role="img" aria-label={item.title} focusable="false">
