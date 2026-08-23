@@ -613,6 +613,31 @@ h1 {
   min-width: 0;
 }
 
+.site-nav-brand {
+  gap: 10px;
+  transition: opacity .25s var(--ease-out-quart);
+}
+
+.site-nav-brand:hover,
+.site-nav-brand:focus-visible {
+  opacity: .75;
+}
+
+/* Beide curves in het lichte blauw: --brand-dark haalt op de nav-pil (#191919)
+   maar 2,47:1 en blijft daarmee onder de 3:1 die vormen nodig hebben. */
+.site-nav-brand__mark {
+  --brand-dark: var(--brand-light);
+  display: flex;
+  flex: none;
+  align-items: center;
+}
+
+.site-nav-brand__mark svg {
+  display: block;
+  width: auto;
+  height: 24px;
+}
+
 .hero-height-new {
   height: auto;
   position: relative;
@@ -2482,6 +2507,26 @@ h1 {
   color: var(--color-ink);
 }
 
+.site-footer__brand {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-1);
+  margin-bottom: var(--space-7);
+}
+
+.site-footer__brand-mark svg {
+  display: block;
+  width: auto;
+  height: 32px;
+}
+
+.site-footer__brand-word {
+  color: var(--color-ink-muted);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
 .site-footer__columns {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -3801,6 +3846,10 @@ h1 {
 }
 
 @media screen and (max-width: 479px) {
+  .site-nav-brand__word {
+    display: none;
+  }
+
   :root {
     --fs-h1: 3.1rem;
     --fs-hero: 3.1rem;

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import LogoMark from "@/components/brand/LogoMark";
 import { useMagnetic } from "@/hooks/useMagnetic";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { gsap } from "@/lib/gsap";
@@ -29,11 +30,12 @@ type SocialLink = {
 
 type FooterProps = {
   content: FooterContent;
+  brandName: string;
   socialLabel: string;
   socialLinks: readonly SocialLink[];
 };
 
-export function Footer({ content, socialLabel, socialLinks }: FooterProps) {
+export function Footer({ content, brandName, socialLabel, socialLinks }: FooterProps) {
   const rootRef = useRef<HTMLElement | null>(null);
   const columnRefs = useRef<Array<HTMLElement | null>>([]);
   const reducedMotion = useReducedMotion();
@@ -74,6 +76,14 @@ export function Footer({ content, socialLabel, socialLinks }: FooterProps) {
   return (
     <footer ref={rootRef} className="site-footer" data-cta-zone="footer">
       <div className="site-container">
+        <div className="site-footer__brand">
+          {/* De wordmark eronder noemt de naam al. */}
+          <span className="site-footer__brand-mark" aria-hidden="true">
+            <LogoMark variant="fill" />
+          </span>
+          <p className="site-footer__brand-word">{brandName}</p>
+        </div>
+
         <div className="site-footer__columns">
           {content.columns.map((column, index) => {
             const titleId = `footer-column-${index}`;
