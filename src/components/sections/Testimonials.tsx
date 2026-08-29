@@ -398,7 +398,7 @@ export function Testimonials({ content }: TestimonialsProps) {
 function PlatformLogo() {
   return (
     <svg viewBox="0 0 132 38" focusable="false">
-      <path d="M20 4 25 15h12L27 23l4 11-11-7-11 7 4-11L3 15h12Z" fill="#43b1d6" />
+      <path d="M20 4 25 15h12L27 23l4 11-11-7-11 7 4-11L3 15h12Z" fill="var(--brand-light)" />
       <path d="M48 11h64M48 27h82" stroke="currentColor" strokeLinecap="round" strokeWidth="7" />
     </svg>
   );

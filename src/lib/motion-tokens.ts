@@ -45,9 +45,14 @@ export const heroLoad = {
     duration: 0.45,
     ease: "power2.out",
   },
+  /**
+   * Transform-only: een clip-path of opacity op het woord stelt de
+   * LCP-registratie uit, want de browser telt het element pas als het
+   * onvervormd geschilderd is. De maskering komt van .hero-heading-word,
+   * dat overflow: hidden heeft.
+   */
   word: {
     yPercent: 110,
-    clipPath: "inset(0 0 100% 0)",
     duration: 0.72,
     ease: "expo.out",
     stagger: 0.04,

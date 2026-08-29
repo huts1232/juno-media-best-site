@@ -613,6 +613,31 @@ h1 {
   min-width: 0;
 }
 
+.site-nav-brand {
+  gap: 10px;
+  transition: opacity .25s var(--ease-out-quart);
+}
+
+.site-nav-brand:hover,
+.site-nav-brand:focus-visible {
+  opacity: .75;
+}
+
+/* Beide curves in het lichte blauw: --brand-dark haalt op de nav-pil (#191919)
+   maar 2,47:1 en blijft daarmee onder de 3:1 die vormen nodig hebben. */
+.site-nav-brand__mark {
+  --brand-dark: var(--brand-light);
+  display: flex;
+  flex: none;
+  align-items: center;
+}
+
+.site-nav-brand__mark svg {
+  display: block;
+  width: auto;
+  height: 24px;
+}
+
 .hero-height-new {
   height: auto;
   position: relative;
@@ -673,7 +698,7 @@ h1 {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, #43b1d6, #1f7fb8, #fff, #43b1d6);
+    linear-gradient(90deg, var(--brand-light), #1f7fb8, #fff, var(--brand-light));
   opacity: .95;
 }
 
@@ -717,7 +742,7 @@ h1 {
 
 .hero-heading-word-inner {
   display: inline-block;
-  will-change: transform, clip-path;
+  will-change: transform;
 }
 
 .show-wrap {
@@ -2482,6 +2507,26 @@ h1 {
   color: var(--color-ink);
 }
 
+.site-footer__brand {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-1);
+  margin-bottom: var(--space-7);
+}
+
+.site-footer__brand-mark svg {
+  display: block;
+  width: auto;
+  height: 32px;
+}
+
+.site-footer__brand-word {
+  color: var(--color-ink-muted);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
 .site-footer__columns {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -3801,6 +3846,10 @@ h1 {
 }
 
 @media screen and (max-width: 479px) {
+  .site-nav-brand__word {
+    display: none;
+  }
+
   :root {
     --fs-h1: 3.1rem;
     --fs-hero: 3.1rem;
@@ -5142,15 +5191,32 @@ html[data-intro="play"] .intro-overlay {
 
 /* Beginstand van de tekening staat in CSS en niet alleen in GSAP: anders zie je
    het gevulde logo nog even voordat de hydratie de starttoestand zet. */
-html[data-intro="play"] .intro-overlay [data-logo-path] {
-  fill-opacity: 0;
+html[data-intro="play"] .intro-overlay [data-logo-light],
+html[data-intro="play"] .intro-overlay [data-logo-dark] {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
 }
 
+html[data-intro="play"] .intro-overlay [data-logo-fill] {
+  opacity: 0;
+  visibility: hidden;
+}
+
 .intro-overlay__mark {
+  display: grid;
   width: min(38vw, 13rem);
   will-change: transform;
+}
+
+/* Beide lagen delen dezelfde gridcel, dus staan ze op dezelfde plek en schaal. */
+.intro-overlay__mark-layer {
+  grid-area: 1 / 1;
+}
+
+.intro-overlay__mark-layer svg {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .intro-overlay__skip {

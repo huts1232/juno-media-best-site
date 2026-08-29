@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { LogoMark } from "@/components/brand/LogoMark";
+import LogoMark from "@/components/brand/LogoMark";
 import { intro } from "@/content/agency";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { gsap } from "@/lib/gsap";
@@ -35,9 +35,10 @@ export function IntroOverlay() {
       return;
     }
 
-    const paths = root.querySelectorAll<SVGPathElement>("[data-logo-path]");
-    const light = root.querySelector<SVGPathElement>("[data-logo-path='light']");
-    const dark = root.querySelector<SVGPathElement>("[data-logo-path='dark']");
+    const strokes = root.querySelectorAll<SVGPathElement>("[data-logo-light], [data-logo-dark]");
+    const light = root.querySelector<SVGPathElement>("[data-logo-light]");
+    const dark = root.querySelector<SVGPathElement>("[data-logo-dark]");
+    const fill = root.querySelector<HTMLDivElement>("[data-logo-fill]");
 
     document.body.dataset.scrollLocked = "true";
     // Lenis wordt in een parent-effect opgezet en bestaat hier nog niet.
@@ -47,13 +48,15 @@ export function IntroOverlay() {
     let hardStop = 0;
 
     gsap.set(root, { clipPath: "inset(0 0 0% 0)" });
-    gsap.set(paths, { fillOpacity: 0, strokeDasharray: 1, strokeDashoffset: 1 });
+    gsap.set(strokes, { strokeDasharray: 1, strokeDashoffset: 1 });
+    gsap.set(fill, { autoAlpha: 0 });
 
     const timeline = gsap
       .timeline({ onComplete: () => finish() })
       .to(light, { strokeDashoffset: 0, duration: 0.8, ease: "expo.out" }, 0.2)
       .to(dark, { strokeDashoffset: 0, duration: 0.8, ease: "expo.out" }, 0.5)
-      .to(paths, { fillOpacity: 1, duration: 0.4, ease: "power2.out" }, 1.1)
+      // De massieve merkvorm ligt exact over de centerlijnen en neemt het over.
+      .to(fill, { autoAlpha: 1, duration: 0.4, ease: "power2.out" }, 1.1)
       .to(mark, { scale: 0.85, y: -20, duration: 0.5, ease: "power2.inOut" }, 1.5)
       // 1.9 + 0.5 = 2.4s, daarna is de overlay weg en start de hero-timeline.
       .to(root, { clipPath: "inset(0 0 100% 0)", duration: 0.5, ease: "expo.out" }, 1.9);
@@ -111,7 +114,13 @@ export function IntroOverlay() {
         aria-label={intro.label}
       >
         <div ref={markRef} className="intro-overlay__mark">
-          <LogoMark />
+          {/* De tekening is decoratief; de massieve vorm eronder draagt de naam. */}
+          <div className="intro-overlay__mark-layer" aria-hidden="true">
+            <LogoMark variant="draw" />
+          </div>
+          <div className="intro-overlay__mark-layer" data-logo-fill>
+            <LogoMark />
+          </div>
         </div>
         <button type="button" className="intro-overlay__skip" onClick={skip}>
           {intro.skipLabel}

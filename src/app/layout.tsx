@@ -74,6 +74,7 @@ export default function RootLayout({
           <PageTransition>{children}</PageTransition>
           <Footer
             content={site.footer}
+            brandName={site.brand.name}
             socialLabel={site.navLabels.social}
             socialLinks={site.socialLinks}
           />

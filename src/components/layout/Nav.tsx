@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import LogoMark from "@/components/brand/LogoMark";
 import { Button } from "@/components/ui/Button";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/lib/cn";
@@ -321,10 +322,15 @@ export function Nav({ brand, links, cta, email, labels, socialLinks }: NavProps)
         >
           <Link
             href={brand.href}
+            aria-label={`${brand.name}, naar home`}
             className="site-nav-brand flex h-full min-h-6 min-w-[7.25rem] items-center px-4 font-[var(--font-display)] text-[.97222rem] uppercase leading-none text-copy"
             onClick={closeMenu}
           >
-            {brand.name}
+            {/* De link draagt het label al; het merkteken zou het herhalen. */}
+            <span className="site-nav-brand__mark" aria-hidden="true">
+              <LogoMark variant="fill" />
+            </span>
+            <span className="site-nav-brand__word">{brand.name}</span>
           </Link>
           <div
             ref={linksRef}

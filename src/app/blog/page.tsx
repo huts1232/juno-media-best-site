@@ -55,7 +55,7 @@ export default function BlogPage() {
 }
 
 function BlogThumbnail({ title, index, accent }: { title: string; index: number; accent: string }) {
-  const secondary = index % 2 === 0 ? "#1f7fb8" : "#43b1d6";
+  const secondary = index % 2 === 0 ? "#1f7fb8" : "var(--brand-light)";
 
   return (
     <svg className="blog-card__image" viewBox="0 0 760 520" role="img" aria-label={title} focusable="false">

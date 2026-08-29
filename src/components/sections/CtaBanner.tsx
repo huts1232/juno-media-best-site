@@ -163,7 +163,7 @@ function CtaDecor() {
         pathLength="1"
         d="M92 482C134 398 200 350 290 338C400 322 468 268 494 176"
         fill="none"
-        stroke="#43b1d6"
+        stroke="var(--brand-light)"
         strokeLinecap="round"
         strokeWidth="14"
       />
@@ -178,7 +178,7 @@ function CtaDecor() {
       />
       <circle cx="120" cy="104" r="18" fill="#1f7fb8" />
       <circle cx="92" cy="482" r="24" fill="#080808" />
-      <circle cx="494" cy="176" r="24" fill="#43b1d6" />
+      <circle cx="494" cy="176" r="24" fill="var(--brand-light)" />
     </svg>
   );
 }

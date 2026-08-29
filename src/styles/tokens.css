@@ -3,9 +3,13 @@
   --color-bg-alt: #101010;
   --color-ink: #fff;
   --color-ink-muted: #a3a3a3;
-  --color-accent: #43b1d6;
+  /* Merkkleuren van het logo; enige bron voor het lichte en donkere blauw. */
+  --brand-light: #43B1D6;
+  --brand-dark: #015C92;
+
+  --color-accent: var(--brand-light);
   --color-accent-soft: #1f7fb8;
-  --color-accent-deep: #015c92;
+  --color-accent-deep: var(--brand-dark);
   --color-line: #ffffff1a;
 
   --font-display: var(--font-itc-avant-garde-md), "Itcavantgardestd Md", sans-serif;

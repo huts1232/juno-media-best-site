@@ -115,10 +115,7 @@ export function Hero({ content }: HeroProps) {
           y: 0,
           scale: 1,
         });
-        gsap.set(words, {
-          yPercent: 0,
-          clipPath: "inset(0% 0% 0% 0%)",
-        });
+        gsap.set(words, { yPercent: 0 });
         return;
       }
 
@@ -126,10 +123,7 @@ export function Hero({ content }: HeroProps) {
         y: heroLoad.eyebrow.y,
         opacity: heroLoad.eyebrow.opacity,
       });
-      gsap.set(words, {
-        yPercent: heroLoad.word.yPercent,
-        clipPath: heroLoad.word.clipPath,
-      });
+      gsap.set(words, { yPercent: heroLoad.word.yPercent });
       gsap.set(videoFrame, {
         scale: heroLoad.video.scale,
       });
@@ -152,7 +146,6 @@ export function Hero({ content }: HeroProps) {
           words,
           {
             yPercent: 0,
-            clipPath: "inset(0% 0% 0% 0%)",
             duration: heroLoad.word.duration,
             ease: heroLoad.word.ease,
             stagger: heroLoad.word.stagger,
@@ -210,8 +203,8 @@ export function Hero({ content }: HeroProps) {
     };
 
     // Bewust niet wachten op de intro-overlay: het LCP-element is een woord uit
-    // deze kop en dat blijft geclipt tot de timeline draait. De hero animeert
-    // dus onder de overlay door en staat klaar zodra die openschuift.
+    // deze kop. De reveal is transform-only en de maskering zit op de wrapper,
+    // dus het woord is meteen geschilderd en de meting wacht nergens op.
     startAfterFonts();
 
     return () => {
