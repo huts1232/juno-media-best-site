@@ -112,7 +112,12 @@ export function ServicesBento({ content }: ServicesBentoProps) {
   }, [loadVideo]);
 
   return (
-    <section ref={rootRef} className="bento" aria-labelledby="home-services-title">
+    <section
+      ref={rootRef}
+      className="bento"
+      data-surface="light"
+      aria-labelledby="home-services-title"
+    >
       <div className="site-container">
         <div className="bento__head">
           <p className="eyebrow">{content.eyebrow}</p>

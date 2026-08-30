@@ -1,19 +1,19 @@
 /**
- * Hero-floater: rond vlak in accentkleur met een groot percentage en twee
- * regels label. Inline SVG, 200x200.
+ * Hero-floater: prijsanker. Groot bedrag in het merkblauw met twee regels
+ * bijschrift. Het kaartchroom staat op .hero-floater__inner. Inline SVG,
+ * 200x140 viewBox.
  */
 export function MetricBubble() {
   return (
-    <svg viewBox="0 0 200 200" focusable="false" aria-hidden="true">
-      <circle cx="100" cy="100" r="100" fill="var(--color-accent)" />
-      <text x="100" y="98" textAnchor="middle" className="hf-metric">
-        98%
+    <svg viewBox="0 0 200 140" focusable="false" aria-hidden="true">
+      <text x="100" y="66" textAnchor="middle" className="hf-metric hf-accent">
+        €950
       </text>
-      <text x="100" y="126" textAnchor="middle" className="hf-metric-label">
-        client retention
+      <text x="100" y="96" textAnchor="middle" className="hf-metric-label">
+        vanaf
       </text>
-      <text x="100" y="146" textAnchor="middle" className="hf-metric-label">
-        sinds 2019
+      <text x="100" y="116" textAnchor="middle" className="hf-metric-label">
+        in één week live
       </text>
     </svg>
   );

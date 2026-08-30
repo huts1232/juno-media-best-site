@@ -39,9 +39,9 @@ export const site = {
         eyebrow: "Juno Media studio",
         titleLines: ["Digital launches", "startup velocity"],
         video: {
-          ariaLabel: "Abstract Juno Media showreel placeholder",
-          poster: "/assets/hero-showreel-poster.svg",
-          src: "",
+          ariaLabel: "Juno Media in actie",
+          poster: "/media/hero-poster.jpg",
+          src: "/media/hero.mp4",
         },
         scrollLabel: "Scroll",
       },

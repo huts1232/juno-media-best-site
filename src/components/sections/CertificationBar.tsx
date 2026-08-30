@@ -40,7 +40,12 @@ export function CertificationBar() {
   }, [reducedMotion]);
 
   return (
-    <section ref={rootRef} className="certification-bar" aria-label={certificationBar.claim.label}>
+    <section
+      ref={rootRef}
+      className="certification-bar"
+      data-surface="light"
+      aria-label={certificationBar.claim.label}
+    >
       <div className="site-container certification-bar__inner">
         <p className="certification-bar__claim" data-certification-item>
           <AgencyIcon name={certificationBar.claim.icon} className="certification-bar__icon" />

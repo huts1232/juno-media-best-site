@@ -63,7 +63,7 @@ export const heroLoad = {
     duration: 0.65,
     ease: "expo.out",
   },
-  /** Entree van de hero-floaters (targets: [data-hero-floater]). */
+  /** Entree van de hero-floaters (targets: .hero-floater__inner). */
   layer: {
     opacity: 0,
     y: 24,
@@ -79,23 +79,48 @@ export const heroLoad = {
   },
 } as const;
 
-export const heroScroll = {
-  start: "top top",
-  end: "bottom top",
-  scrub: 1,
-  layerMultiplier: -60,
-  desktopHeadingY: "-30vw",
-  desktopShowY: "-34.5rem",
-  desktopVideoFrom: "97.5%",
-  desktopVideoTo: "100%",
-  desktopLaptopOpacityFrom: 1,
-  desktopLaptopOpacityTo: 0,
-  mobileStart: "top bottom",
-  mobileEnd: "bottom top",
-  desktop: {
-    videoScaleStart: 0.43,
-    videoScaleEnd: 0.455,
-    exitStart: 0.5,
+/**
+ * Apple-zoom van de hero: één scrub-timeline op de .hero-height-new wrapper.
+ * Het videoframe groeit van 48vw x 27vw naar het volledige scherm; kop,
+ * floaters en scroll-hint maken in de eerste helft plaats. Alles ease "none",
+ * zodat de beweging exact de scrollpositie volgt.
+ *
+ * Onder 768px en bij prefers-reduced-motion draait deze timeline niet; de
+ * wrapper valt dan via CSS terug op height: auto.
+ */
+export const heroZoom = {
+  desktopQuery: "(min-width: 768px)",
+  ease: "none",
+  trigger: {
+    start: "top top",
+    end: "+=120%",
+    scrub: 1,
+    pin: false,
+    invalidateOnRefresh: true,
+  },
+  video: {
+    fromClip: "inset(0% 0% 0% 0% round 24px)",
+    toClip: "inset(0% 0% 0% 0% round 0px)",
+    fromWidth: "48vw",
+    toWidth: "100vw",
+    fromHeight: "27vw",
+    toHeight: "100vh",
+    duration: 1,
+  },
+  /** Klaar op 0.45. */
+  heading: {
+    y: -60,
+    duration: 0.45,
+  },
+  /** Vier floaters, stagger 0.04: de laatste start op 0.12 en is klaar op 0.4. */
+  floaters: {
+    scale: 0.92,
+    stagger: 0.04,
+    duration: 0.28,
+  },
+  /** Klaar op 0.1. */
+  scrollIndicator: {
+    duration: 0.1,
   },
 } as const;
 
@@ -273,27 +298,10 @@ export const webflowEaseMap = {
   outExpo: "expo.out",
 } as const;
 
-export const showreelMotion = {
-  /** clip-path insets waarmee het mediavenster begint; einde is altijd 0. */
-  desktopClip: "inset(12% 22% 12% 22% round 28px)",
-  mobileClip: "inset(32% 6% 32% 6% round 20px)",
-  endClip: "inset(0% 0% 0% 0% round 0px)",
-  innerScale: 1.18,
-  /** Pin-lengte. Laatste 0.25 is een hold op fullscreen. */
-  end: "+=160%",
-  scrub: 1,
-  hold: 0.25,
-  lockup: {
-    y: 24,
-    duration: 0.35,
-    position: 0.45,
-  },
-} as const;
-
 export const scrollStatementMotion = {
-  /** 0.36 is de laagste gedempte waarde die nog 3:1 contrast haalt voor grote
-   *  tekst (wit op #080808). Lager leest niet meer en faalt de audit. */
-  from: 0.36,
+  /** 0.44 is de laagste gedempte waarde die nog 3:1 contrast haalt voor grote
+   *  tekst (#0a0a0a op wit). Lager leest niet meer en faalt de audit. */
+  from: 0.44,
   stagger: 0.5,
   start: "top 75%",
   end: "bottom 55%",

@@ -12,6 +12,19 @@
   --color-accent-deep: var(--brand-dark);
   --color-line: #ffffff1a;
 
+  /* Lichte basis. Wordt per sectie ingeschakeld via [data-surface="light"]
+     (globals.css), zodat de donkere :root-waarden de standaard blijven. */
+  --color-paper: #ffffff;
+  --color-paper-alt: #f5f6f8;
+  --color-ink-dark: #0a0a0a;
+  --color-ink-dark-muted: #5b6068;
+  --color-line-dark: #0a0a0a14;
+
+  /* Neutrale vullingen die met de surface meedraaien. */
+  --tint-soft: #ffffff0a;
+  --tint-strong: #2a2a2a;
+  --ring-hover: #ffffff2e;
+
   --font-display: var(--font-itc-avant-garde-md), "Itcavantgardestd Md", sans-serif;
   --font-body: var(--font-itc-avant-garde-md), "Itcavantgardestd Md", sans-serif;
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
@@ -68,6 +81,7 @@
   --radius-pill: 100px;
   --shadow-card: 0 0 0 1px #ffffff1a;
   --shadow-float: 0 1.25rem 3rem #00000026;
+  --shadow-hover: 0 2rem 4rem #00000066;
 
   --dur-fast: .3s;
   --dur-base: .5s;

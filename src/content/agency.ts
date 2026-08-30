@@ -31,8 +31,6 @@ export const intro = {
   /** Totale looptijd in seconden; ook de deadline voor de LCP-noodrem. */
   duration: 2.4,
   label: "JUNO Media",
-  skipLabel: "Overslaan",
-  skipHint: "Klik of druk op Escape om over te slaan",
 } as const;
 
 /* ------------------------------------------------------------------ *

@@ -1,81 +1,41 @@
 /**
- * Hero-floater: donkere kaart met weekstaafdiagram. Twee staven in accentkleur
- * met een tooltip-waarde erboven. Inline SVG, 320x230 viewBox.
+ * Hero-floater: dalende doorlooptijd als staafdiagram. De laatste twee staven
+ * staan in het merkblauw; de rest is een neutrale tint. Het kaartchroom staat
+ * op .hero-floater__inner. Inline SVG, 320x210 viewBox.
  */
-const DAYS = ["ma", "di", "wo", "do", "vr", "za", "zo"] as const;
-const HEIGHTS = [46, 62, 38, 78, 54, 96, 70] as const;
-const HIGHLIGHTS = new Map<number, string>([
-  [3, "1.9k"],
-  [5, "2.4k"],
-]);
+const HEIGHTS = [82, 70, 58, 46, 38, 28, 22] as const;
 
-const BASELINE = 198;
+const BASELINE = 176;
 const BAR_W = 22;
 const STEP = 41;
 const ORIGIN_X = 26;
+const ACCENT_FROM = HEIGHTS.length - 2;
 
 export function InstallsCard() {
   return (
-    <svg viewBox="0 0 320 230" focusable="false" aria-hidden="true">
-      <rect
-        x="0.75"
-        y="0.75"
-        width="318.5"
-        height="228.5"
-        rx="20"
-        fill="var(--color-bg-alt)"
-        stroke="var(--color-line)"
-        strokeWidth="1.5"
-      />
-
-      <text x="24" y="34" className="hf-label">
-        Installs
+    <svg viewBox="0 0 320 210" focusable="false" aria-hidden="true">
+      <text x="24" y="36" className="hf-label">
+        Doorlooptijd
       </text>
-      <text x="24" y="66" className="hf-value">
-        12.480
+      <text x="24" y="76" className="hf-value hf-accent">
+        −60%
       </text>
 
-      {HEIGHTS.map((height, index) => {
-        const x = ORIGIN_X + index * STEP;
-        const tooltip = HIGHLIGHTS.get(index);
-        const y = BASELINE - height;
+      {HEIGHTS.map((height, index) => (
+        <rect
+          key={`bar-${index}`}
+          x={ORIGIN_X + index * STEP}
+          y={BASELINE - height}
+          width={BAR_W}
+          height={height}
+          rx="8"
+          fill={index >= ACCENT_FROM ? "var(--brand-dark)" : "var(--color-line-dark)"}
+        />
+      ))}
 
-        return (
-          <g key={DAYS[index]}>
-            <rect
-              x={x}
-              y={y}
-              width={BAR_W}
-              height={height}
-              rx="8"
-              fill={tooltip ? "var(--color-accent)" : "#ffffff1f"}
-            />
-            <text x={x + BAR_W / 2} y="220" textAnchor="middle" className="hf-axis">
-              {DAYS[index]}
-            </text>
-            {tooltip ? (
-              <g>
-                <rect
-                  x={x + BAR_W / 2 - 21}
-                  y={y - 30}
-                  width="42"
-                  height="22"
-                  rx="11"
-                  fill="var(--color-ink)"
-                />
-                <text
-                  x={x + BAR_W / 2}
-                  y={y - 15}
-                  textAnchor="middle"
-                  className="hf-tooltip"
-                >
-                  {tooltip}
-                </text>
-              </g>
-            ) : null}
-          </g>
-        );
-      })}
+      <text x="26" y="200" className="hf-axis">
+        per project, laatste 7 sprints
+      </text>
     </svg>
   );
 }
