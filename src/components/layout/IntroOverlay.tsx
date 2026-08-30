@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import LogoMark from "@/components/brand/LogoMark";
 import { intro } from "@/content/agency";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
@@ -19,10 +19,7 @@ import { getActiveLenis } from "@/lib/lenis";
 export function IntroOverlay() {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const markRef = useRef<HTMLDivElement | null>(null);
-  const finishRef = useRef<(() => void) | null>(null);
   const [mounted, setMounted] = useState(true);
-
-  const skip = useCallback(() => finishRef.current?.(), []);
 
   useIsomorphicLayoutEffect(() => {
     const root = rootRef.current;
@@ -77,8 +74,6 @@ export function IntroOverlay() {
       setMounted(false);
     }
 
-    finishRef.current = finish;
-
     // Noodrem: is de hero-afbeelding na de looptijd nog niet binnen, dan gaat
     // de overlay er alsnog af.
     hardStop = window.setTimeout(finish, intro.duration * 1000);
@@ -96,7 +91,6 @@ export function IntroOverlay() {
       window.clearTimeout(hardStop);
       cancelAnimationFrame(lenisFrame);
       timeline.kill();
-      finishRef.current = null;
       if (!finished) unlock();
     };
   }, []);
@@ -122,10 +116,6 @@ export function IntroOverlay() {
             <LogoMark />
           </div>
         </div>
-        <button type="button" className="intro-overlay__skip" onClick={skip}>
-          {intro.skipLabel}
-          <span className="sr-only"> {intro.skipHint}</span>
-        </button>
       </div>
     </>
   );

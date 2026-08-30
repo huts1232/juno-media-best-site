@@ -90,7 +90,12 @@ export function StatsCards({ content }: StatsCardsProps) {
   }, [reducedMotion]);
 
   return (
-    <section ref={rootRef} className="stats-cards" aria-labelledby="home-stats-title">
+    <section
+      ref={rootRef}
+      className="stats-cards"
+      data-surface="light"
+      aria-labelledby="home-stats-title"
+    >
       <div className="site-container">
         <h2 id="home-stats-title" className="sr-only">
           {content.heading}

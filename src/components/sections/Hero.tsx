@@ -2,15 +2,10 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { useParallaxLayers } from "@/hooks/useParallaxLayers";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
-import {
-  heroLoad,
-  heroMouse,
-  heroScroll,
-  heroScrollIndicator,
-} from "@/lib/motion-tokens";
+import { heroLoad, heroMouse, heroZoom } from "@/lib/motion-tokens";
+import { ArcMotif } from "@/components/hero/floaters";
 import { heroFloaters } from "@/components/hero/heroFloaters";
 
 type HeroContent = {
@@ -29,17 +24,25 @@ type HeroProps = {
 };
 
 const heroPosterSvg =
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 9"><rect width="16" height="9" fill="#101010"/><path d="M0 7 16 2v7H0z" fill="#080808"/><circle cx="10" cy="4" r="4" fill="#43b1d6" opacity=".28"/><circle cx="6" cy="5" r="3" fill="#1f7fb8" opacity=".28"/></svg>';
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 9"><rect width="16" height="9" fill="#f5f6f8"/><path d="M0 7 16 2v7H0z" fill="#e9ecf1"/><circle cx="10" cy="4" r="4" fill="#43b1d6" opacity=".28"/><circle cx="6" cy="5" r="3" fill="#015c92" opacity=".18"/></svg>';
 const heroPosterDataUri = `data:image/svg+xml,${encodeURIComponent(heroPosterSvg)}`;
 
+/**
+ * Hero met Apple-zoom: de wrapper is 220vh hoog, de inhoud plakt eraan vast en
+ * het videoframe groeit tijdens het scrollen van 48vw naar het volledige
+ * scherm. Er is één scrub-timeline (heroZoom), geen pin en geen tussenliggende
+ * scroll-sectie, dus de zoom begint meteen bij de eerste scroll.
+ *
+ * Drie animatielagen per floater, elk met precies één eigenaar: .hero-floater
+ * doet de muisparallax, .hero-floater__inner de entree en het element met
+ * data-hero-floater de scroll-fade. Zo vechten de tijdlijnen niet om dezelfde
+ * property.
+ */
 export function Hero({ content }: HeroProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
-  const sectionRef = useRef<HTMLElement | null>(null);
   const eyebrowRef = useRef<HTMLDivElement | null>(null);
-  const headingRef = useRef<HTMLHeadingElement | null>(null);
-  const showWrapRef = useRef<HTMLDivElement | null>(null);
+  const headingRef = useRef<HTMLDivElement | null>(null);
   const videoFrameRef = useRef<HTMLDivElement | null>(null);
-  const laptopBgRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement | null>(null);
   const reducedMotion = useReducedMotion();
@@ -50,13 +53,6 @@ export function Hero({ content }: HeroProps) {
     [content.titleLines],
   );
   const titleLabel = content.titleLines.join(" ");
-
-  useParallaxLayers(rootRef, {
-    trigger: sectionRef,
-    multiplier: heroScroll.layerMultiplier,
-    selector: "[data-hero-layer]",
-    enabled: !reducedMotion,
-  });
 
   useEffect(() => {
     const target = videoFrameRef.current;
@@ -88,7 +84,9 @@ export function Hero({ content }: HeroProps) {
     if (!video) return;
 
     video.load();
-    void video.play();
+    // Ontbreekt het bestand nog, dan blijft de poster staan; de afwijzing hoeft
+    // niet als unhandled rejection in de console te landen.
+    void video.play().catch(() => {});
   }, [content.video.src, shouldLoadVideo]);
 
   useEffect(() => {
@@ -104,13 +102,13 @@ export function Hero({ content }: HeroProps) {
     // eindstand en springt hij daarna terug.
     const ctx = gsap.context(() => {
       const words = gsap.utils.toArray<HTMLElement>("[data-hero-word]");
-      const floaters = gsap.utils.toArray<HTMLElement>("[data-hero-floater]");
+      const layers = gsap.utils.toArray<HTMLElement>(".hero-floater__inner");
       const eyebrow = eyebrowRef.current;
       const videoFrame = videoFrameRef.current;
-      const scrollIndicator = scrollIndicatorRef.current;
+      const scrollHint = root.querySelector("[data-hero-scroll-inner]");
 
       if (reducedMotion) {
-        gsap.set([eyebrow, videoFrame, scrollIndicator, ...floaters], {
+        gsap.set([eyebrow, videoFrame, scrollHint, ...layers], {
           opacity: 1,
           y: 0,
           scale: 1,
@@ -127,12 +125,12 @@ export function Hero({ content }: HeroProps) {
       gsap.set(videoFrame, {
         scale: heroLoad.video.scale,
       });
-      gsap.set(floaters, {
+      gsap.set(layers, {
         opacity: heroLoad.layer.opacity,
         y: heroLoad.layer.y,
         scale: heroLoad.layer.scale,
       });
-      gsap.set(scrollIndicator, { opacity: heroLoad.scrollIndicator.opacity });
+      gsap.set(scrollHint, { opacity: heroLoad.scrollIndicator.opacity });
 
       const timeline = gsap
         .timeline({ paused: true })
@@ -162,7 +160,7 @@ export function Hero({ content }: HeroProps) {
           "-=0.78",
         )
         .to(
-          floaters,
+          layers,
           {
             opacity: 1,
             y: 0,
@@ -174,7 +172,7 @@ export function Hero({ content }: HeroProps) {
           "-=0.35",
         )
         .to(
-          scrollIndicator,
+          scrollHint,
           {
             opacity: 1,
             duration: heroLoad.scrollIndicator.duration,
@@ -216,91 +214,83 @@ export function Hero({ content }: HeroProps) {
 
   useEffect(() => {
     const root = rootRef.current;
-    const section = sectionRef.current;
-    if (!root || !section || reducedMotion) return;
+    if (!root) return;
+
+    // Reduced motion: geen ScrollTrigger. Het frame staat meteen op de
+    // eindstaat en CSS zet de wrapper terug op height: auto.
+    if (reducedMotion) {
+      gsap.set(videoFrameRef.current, {
+        clipPath: heroZoom.video.toClip,
+        webkitClipPath: heroZoom.video.toClip,
+      });
+      return;
+    }
 
     let matchMedia: gsap.MatchMedia | undefined;
-    const ctx = gsap.context(() => {
-      // De indicator staat fixed in dezelfde hoek als de floating CTA; voorbij
-      // 60vh heeft hij zijn werk gedaan en maakt hij plaats.
-      ScrollTrigger.create({
-        start: () => window.innerHeight * heroScrollIndicator.startFactor,
-        end: "max",
-        invalidateOnRefresh: true,
-        onEnter: () =>
-          gsap.to(scrollIndicatorRef.current, {
-            autoAlpha: 0,
-            duration: heroScrollIndicator.duration,
-            overwrite: true,
-          }),
-        onLeaveBack: () =>
-          gsap.to(scrollIndicatorRef.current, {
-            autoAlpha: 1,
-            duration: heroScrollIndicator.duration,
-            overwrite: true,
-          }),
-      });
 
+    const ctx = gsap.context(() => {
       matchMedia = gsap.matchMedia();
-      matchMedia.add("(min-width: 768px)", () => {
+
+      // Alleen vanaf 768px zoomt de hero. Daaronder staat de video statisch
+      // full-width en is de wrapper via CSS weer height: auto.
+      matchMedia.add(heroZoom.desktopQuery, () => {
+        const floaters = gsap.utils.toArray<HTMLElement>("[data-hero-floater]");
+
         gsap
           .timeline({
+            defaults: { ease: heroZoom.ease },
             scrollTrigger: {
-              trigger: section,
-              start: heroScroll.start,
-              end: heroScroll.end,
-              scrub: heroScroll.scrub,
+              trigger: root,
+              start: heroZoom.trigger.start,
+              end: heroZoom.trigger.end,
+              scrub: heroZoom.trigger.scrub,
+              pin: heroZoom.trigger.pin,
+              invalidateOnRefresh: heroZoom.trigger.invalidateOnRefresh,
             },
           })
-          .to(
+          .fromTo(
             videoFrameRef.current,
             {
-              width: heroScroll.desktopVideoFrom,
-              height: heroScroll.desktopVideoFrom,
-              ease: "none",
+              width: heroZoom.video.fromWidth,
+              height: heroZoom.video.fromHeight,
+              clipPath: heroZoom.video.fromClip,
+              webkitClipPath: heroZoom.video.fromClip,
             },
-            heroScroll.desktop.videoScaleStart,
-          )
-          .to(
-            laptopBgRef.current,
             {
-              opacity: heroScroll.desktopLaptopOpacityFrom,
-              ease: "none",
+              width: heroZoom.video.toWidth,
+              height: heroZoom.video.toHeight,
+              clipPath: heroZoom.video.toClip,
+              webkitClipPath: heroZoom.video.toClip,
+              duration: heroZoom.video.duration,
             },
-            heroScroll.desktop.videoScaleStart,
-          )
-          .to(
-            videoFrameRef.current,
-            {
-              width: heroScroll.desktopVideoTo,
-              height: heroScroll.desktopVideoTo,
-              ease: "none",
-            },
-            heroScroll.desktop.videoScaleEnd,
-          )
-          .to(
-            laptopBgRef.current,
-            {
-              opacity: heroScroll.desktopLaptopOpacityTo,
-              ease: "none",
-            },
-            heroScroll.desktop.videoScaleEnd,
+            0,
           )
           .to(
             headingRef.current,
             {
-              y: heroScroll.desktopHeadingY,
-              ease: "none",
+              autoAlpha: 0,
+              y: heroZoom.heading.y,
+              duration: heroZoom.heading.duration,
             },
-            heroScroll.desktop.exitStart,
+            0,
           )
           .to(
-            showWrapRef.current,
+            floaters,
             {
-              y: heroScroll.desktopShowY,
-              ease: "none",
+              autoAlpha: 0,
+              scale: heroZoom.floaters.scale,
+              duration: heroZoom.floaters.duration,
+              stagger: heroZoom.floaters.stagger,
             },
-            heroScroll.desktop.exitStart,
+            0,
+          )
+          .to(
+            scrollIndicatorRef.current,
+            {
+              autoAlpha: 0,
+              duration: heroZoom.scrollIndicator.duration,
+            },
+            0,
           );
       });
     }, root);
@@ -366,99 +356,111 @@ export function Hero({ content }: HeroProps) {
   }, [reducedMotion]);
 
   return (
-    <div ref={rootRef} className="hero-height-new" section-color="black">
-      <section
-        ref={sectionRef}
-        className="section hero home"
-        section-color="black"
-        data-cta-zone="hero"
-      >
-        <div className="container is-big full">
-          <div ref={headingRef} className="hero-heading">
-            <div ref={eyebrowRef} className="hero-tag-wrap">
-              <div className="hero-tag">
-                <span className="tag-text">{content.eyebrow}</span>
+    <div ref={rootRef} className="hero-height-new" data-surface="light">
+      <div className="hero-sticky">
+        <section className="section hero home" data-cta-zone="hero">
+          <div className="container is-big full">
+            <div ref={headingRef} className="hero-heading">
+              <div ref={eyebrowRef} className="hero-tag-wrap">
+                <div className="hero-tag">
+                  <span className="tag-text">{content.eyebrow}</span>
+                </div>
+                <div className="stats-card-gradient services hero-home" aria-hidden="true" />
               </div>
-              <div className="stats-card-gradient services hero-home" aria-hidden="true" />
-            </div>
-            <div className="hero-home-heading-wrap">
-              <h1 className="heading-hero" aria-label={titleLabel}>
-                {titleWords.map((line, lineIndex) => (
-                  <span key={`${line.join("-")}-${lineIndex}`} className="hero-heading-line" aria-hidden="true">
-                    {line.map((word, wordIndex) => (
-                      <span key={`${word}-${wordIndex}`} className="hero-heading-word">
-                        <span data-hero-word className="hero-heading-word-inner">
-                          {word}
-                        </span>
-                      </span>
-                    ))}
-                  </span>
-                ))}
-              </h1>
-            </div>
-          </div>
-
-          <div ref={showWrapRef} className="show-wrap">
-            <div className="showreal-home">
-              <div ref={laptopBgRef} className="lap-top-bg" aria-hidden="true" />
-              <div ref={videoFrameRef} className="show-real-video">
-                <Image
-                  className="hero-video-poster"
-                  src={heroPosterDataUri}
-                  alt={content.video.src ? "" : content.video.ariaLabel}
-                  width={1280}
-                  height={720}
-                  priority
-                  unoptimized
-                  fetchPriority="high"
-                  sizes="(max-width: 767px) 86vw, 60vw"
-                  aria-hidden={content.video.src ? "true" : undefined}
-                  draggable={false}
-                />
-                {content.video.src ? (
-                  <div className="w-background-video w-background-video-atom hero-video-atom">
-                    <video
-                      ref={videoRef}
-                      aria-label={content.video.ariaLabel}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="none"
-                      poster={content.video.poster}
-                      width={1280}
-                      height={720}
+              <div className="hero-home-heading-wrap">
+                <h1 className="heading-hero" aria-label={titleLabel}>
+                  {titleWords.map((line, lineIndex) => (
+                    <span
+                      key={`${line.join("-")}-${lineIndex}`}
+                      className="hero-heading-line"
+                      aria-hidden="true"
                     >
-                      {shouldLoadVideo ? <source src={content.video.src} type="video/mp4" /> : null}
-                    </video>
-                  </div>
-                ) : null}
+                      {line.map((word, wordIndex) => (
+                        <span key={`${word}-${wordIndex}`} className="hero-heading-word">
+                          <span data-hero-word className="hero-heading-word-inner">
+                            {word}
+                          </span>
+                        </span>
+                      ))}
+                    </span>
+                  ))}
+                </h1>
               </div>
-              <div className="stats-card-gradient hero-gradient" aria-hidden="true" />
             </div>
-          </div>
 
-          <div className="hero-floaters" aria-hidden="true">
-            {heroFloaters.map(({ key, Component, speed }) => (
-              <div
-                key={key}
-                className={`hero-floater hero-floater--${key}`}
-                data-hero-layer
-                data-speed={speed}
-              >
-                <div className="hero-floater__inner" data-hero-floater>
-                  <Component />
+            <div className="show-wrap">
+              <div className="showreal-home">
+                <div ref={videoFrameRef} className="show-real-video">
+                  <Image
+                    className="hero-video-poster"
+                    src={heroPosterDataUri}
+                    alt={content.video.src ? "" : content.video.ariaLabel}
+                    width={1280}
+                    height={720}
+                    priority
+                    unoptimized
+                    fetchPriority="high"
+                    sizes="(max-width: 767px) 100vw, 48vw"
+                    aria-hidden={content.video.src ? "true" : undefined}
+                    draggable={false}
+                  />
+                  {content.video.src ? (
+                    <div className="w-background-video w-background-video-atom hero-video-atom">
+                      <video
+                        ref={videoRef}
+                        aria-label={content.video.ariaLabel}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="none"
+                        poster={content.video.poster}
+                        width={1280}
+                        height={720}
+                      >
+                        {shouldLoadVideo ? <source src={content.video.src} type="video/mp4" /> : null}
+                      </video>
+                    </div>
+                  ) : null}
+                </div>
+                <div className="stats-card-gradient hero-gradient" aria-hidden="true" />
+              </div>
+            </div>
+
+            <div className="hero-floaters" aria-hidden="true">
+              <div className="hero-floater hero-floater--arc" data-hero-layer data-speed="0.18">
+                <div className="hero-floater__inner">
+                  <div className="hero-floater__fade" data-hero-floater>
+                    <ArcMotif />
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
 
-          <div ref={scrollIndicatorRef} className="hero-scroll-indicator">
-            <span>{content.scrollLabel}</span>
-            <span className="hero-scroll-indicator__line" aria-hidden="true" />
+              {heroFloaters.map(({ key, Component, speed }) => (
+                <div
+                  key={key}
+                  className={`hero-floater hero-floater--card hero-floater--${key}`}
+                  data-hero-layer
+                  data-speed={speed}
+                >
+                  <div className="hero-floater__inner">
+                    <div className="hero-floater__fade" data-hero-floater>
+                      <Component />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div ref={scrollIndicatorRef} className="hero-scroll-indicator">
+              <div className="hero-scroll-indicator__inner" data-hero-scroll-inner>
+                <span>{content.scrollLabel}</span>
+                <span className="hero-scroll-indicator__line" aria-hidden="true" />
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }

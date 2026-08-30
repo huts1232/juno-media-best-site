@@ -130,7 +130,12 @@ export function Statement({ content }: StatementProps) {
   }, [lines, reducedMotion]);
 
   return (
-    <section ref={sectionRef} className="statement-section" aria-labelledby="home-statement-title">
+    <section
+      ref={sectionRef}
+      className="statement-section"
+      data-surface="light"
+      aria-labelledby="home-statement-title"
+    >
       <div className="site-container statement-container">
         <h2 ref={headingRef} id="home-statement-title" className="statement-heading" aria-label={content.text}>
           <span ref={measureRef} className="statement-heading__measure" aria-hidden="true">

@@ -1,14 +1,14 @@
 /**
- * Hero-floater: dunne gebogen pijl. De lijn tekent zich via stroke-dasharray;
+ * Hero-decor: dunne gebogen pijl. De lijn tekent zich via stroke-dasharray;
  * pathLength="1" normaliseert de lengte zodat één CSS-animatie voor beide paden
- * werkt. Inline SVG, 90x70.
+ * werkt. De kleur komt van de wrapper via currentColor. Inline SVG, 90x70.
  */
 export function CurveArrow() {
   return (
     <svg viewBox="0 0 90 70" focusable="false" aria-hidden="true">
       <g
         fill="none"
-        stroke="var(--color-ink)"
+        stroke="currentColor"
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"

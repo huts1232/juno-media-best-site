@@ -89,6 +89,25 @@ canvas {
   outline-offset: 4px;
 }
 
+/* ── Sectie-scope: lichte basis ───────────────────────────────────────────
+   Hertekent de kleurtokens binnen een sectie. Alles eronder blijft dezelfde
+   var(--color-*) gebruiken, dus een sectie wordt licht door één attribuut. */
+[data-surface="light"] {
+  --color-bg: var(--color-paper);
+  --color-bg-alt: var(--color-paper-alt);
+  --color-ink: var(--color-ink-dark);
+  --color-ink-muted: var(--color-ink-dark-muted);
+  --color-line: var(--color-line-dark);
+  --tint-soft: #0a0a0a08;
+  --tint-strong: #e6e9ee;
+  --ring-hover: #0a0a0a1f;
+  --shadow-card: 0 0 0 1px var(--color-line-dark);
+  --shadow-float: 0 0.75rem 2.5rem #0a0a0a12;
+  --shadow-hover: 0 1.5rem 3rem #0a0a0a1a;
+  background: var(--color-bg);
+  color: var(--color-ink);
+}
+
 .site-container {
   width: 100%;
   max-width: var(--container-max);
@@ -638,15 +657,27 @@ h1 {
   height: 24px;
 }
 
+/* De wrapper levert de scrollafstand voor de zoom; de sticky laag eronder
+   houdt de hero exact één schermhoogte in beeld. Onder 768px en bij reduced
+   motion valt alles terug op een gewone blokindeling (zie onderaan dit blok). */
 .hero-height-new {
-  height: auto;
+  height: 220vh;
   position: relative;
+}
+
+.hero-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .section.hero.home {
   position: relative;
-  height: 280vh;
-  padding: 11.25vw 0 0;
+  height: 100vh;
+  /* 8vw is pas vanaf ~1300px breder dan de vaste nav; de ondergrens houdt de
+     eyebrow daaronder vrij. Vanaf 1280px wint 8vw en verandert er niets. */
+  padding: max(8vw, 6.5rem) 0 0;
   background-color: transparent;
 }
 
@@ -654,8 +685,8 @@ h1 {
   width: 100%;
   max-width: 100%;
   height: auto;
-  position: sticky;
-  top: 11.25rem;
+  position: static;
+  top: auto;
 }
 
 .hero-heading {
@@ -693,17 +724,14 @@ h1 {
   text-transform: uppercase;
 }
 
+/* Op de lichte hero is dit geen kleurverloop meer maar een zachte schaduwring:
+   donker in het midden, transparant naar de randen. */
 .stats-card-gradient {
   pointer-events: none;
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(90deg, var(--brand-light), #1f7fb8, #fff, var(--brand-light));
+  background: radial-gradient(circle at 50% 50%, #0a0a0a1a, transparent 78%);
   opacity: .95;
-}
-
-.stats-card-gradient.services.hero-home {
-  background-size: 240% 100%;
 }
 
 .hero-home-heading-wrap {
@@ -745,50 +773,40 @@ h1 {
   will-change: transform;
 }
 
+/* Het mediablok vult de hele sticky laag; het frame erin is het enige dat
+   zichtbaar is en groeit tijdens het scrollen. */
 .show-wrap {
   z-index: 10;
-  max-width: 100vw;
-  margin-top: 5vw;
-  transition: z-index 2.4s;
-  position: relative;
-  overflow: hidden;
-  will-change: transform;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
 .showreal-home {
-  z-index: 9;
-  aspect-ratio: 10.9 / 6.19;
-  width: 60%;
-  height: auto;
-  margin: 0 auto;
-  padding: .1rem;
-  border-radius: 1.70111vw 1.70111vw 0 0;
-  object-fit: cover;
-  position: relative;
-  bottom: 0;
-  overflow: hidden;
-}
-
-.lap-top-bg {
-  z-index: 2;
   position: absolute;
-  inset: .1rem;
-  border-radius: 1.70111vw 1.70111vw 0 0;
-  background: var(--color-bg);
+  inset: 0;
+  overflow: visible;
 }
 
+/* Onderaan verankerd en gecentreerd met left/right + margin auto, niet met een
+   translate: GSAP neemt tijdens de zoom het transform over en zou een
+   percentage-translate als vaste px-offset bevriezen. Zo valt het frame bij
+   100vw x 100vh exact samen met de viewport, zonder positie-tween. */
 .show-real-video {
   z-index: 2;
-  width: 97.5%;
-  height: 97.5%;
-  margin-inline: auto;
-  border-radius: 1.2vw;
-  background: #101010;
   position: absolute;
-  inset: auto 0 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: 48vw;
+  height: 27vw;
+  background: var(--color-bg-alt);
   overflow: hidden;
-  transform-origin: center bottom;
-  will-change: transform, opacity, width, height;
+  clip-path: inset(0% 0% 0% 0% round 24px);
+  -webkit-clip-path: inset(0% 0% 0% 0% round 24px);
+  transform-origin: 50% 100%;
+  will-change: width, height, clip-path;
 }
 
 .hero-video-poster {
@@ -814,22 +832,26 @@ h1 {
   object-fit: cover;
 }
 
+/* Zachte grond onder het videoframe; blijft achter de video staan. */
 .stats-card-gradient.hero-gradient {
   inset: auto 0 0;
-  height: 45%;
-  background:
-    radial-gradient(circle at 50% 100%, #43b1d655, transparent 62%),
-    linear-gradient(180deg, transparent, #080808 90%);
+  height: 46vw;
+  background: radial-gradient(ellipse 62% 100% at 50% 100%, #0a0a0a1a, transparent 70%);
+  opacity: 1;
 }
 /* ── Hero floaters ─────────────────────────────────────────────────────────
-   Zes mini-UI kaarten rond de hero. Positie in percentages, breedte in vw met
-   een cap op de ontwerpbreedte: onder 1440px schalen ze mee, erboven blijven ze
-   op ontwerpformaat. --fw is de ontwerpbreedte in px (referentie 1440px).
-   De buitenste laag is het parallax-doel (transform), de inner doet de entree. */
+   Vier mini-UI kaarten naast het videoframe: twee links, twee rechts. Het frame
+   is 48vw breed en staat gecentreerd, dus links en rechts blijft telkens 26vw
+   over. De clamps hieronder houden elke kaart met marge binnen die kolom, van
+   1280 tot 1920 breed, zodat er nooit iets over de video valt.
+
+   Drie lagen, elk met één eigenaar:
+   .hero-floater         muisparallax (transform, data-hero-layer)
+   .hero-floater__inner  entree bij het laden (opacity + transform)
+   .hero-floater__fade   scroll-fade van de zoom (data-hero-floater) */
 .hero-floaters {
-  /* Boven .show-wrap (z-index 10), anders verdwijnen de kaarten die het
-     videoframe raken. Vormt tegelijk het stacking context voor de floaters
-     onderling, zodat de z-indexen hieronder lokaal blijven. */
+  /* Boven .show-wrap (z-index 10). Vormt tegelijk het stacking context voor de
+     floaters onderling, zodat de z-indexen hieronder lokaal blijven. */
   position: absolute;
   z-index: 11;
   inset: 0;
@@ -838,8 +860,6 @@ h1 {
 
 .hero-floater {
   position: absolute;
-  width: calc(var(--fw) / 1440 * 100vw);
-  max-width: calc(var(--fw) * 1px);
   will-change: transform;
 }
 
@@ -856,47 +876,66 @@ h1 {
   will-change: transform, opacity;
 }
 
-.hero-floater--ring {
-  --fw: 145;
-  z-index: 1;
-  top: 24%;
-  left: 2%;
+/* Het kaartchroom zit op de fade-laag, zodat vlak, rand en schaduw samen met de
+   inhoud wegvallen tijdens de zoom. */
+.hero-floater--card .hero-floater__fade {
+  overflow: hidden;
+  border: 1px solid var(--color-line-dark);
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 12px 40px #0a0a0a12;
+  color: var(--color-ink-dark);
+}
+
+.hero-floater--flow {
+  z-index: 3;
+  top: clamp(9rem, 21vh, 14rem);
+  left: clamp(0.75rem, 3vw, 4.5rem);
+  width: clamp(10rem, 15vw, 15rem);
 }
 
 .hero-floater--installs {
-  --fw: 320;
   z-index: 3;
-  top: 28%;
-  right: 2%;
-}
-
-.hero-floater--launch {
-  --fw: 180;
-  z-index: 5;
-  top: 34%;
-  left: 14%;
+  top: clamp(8rem, 19vh, 13rem);
+  right: clamp(0.75rem, 3vw, 4.5rem);
+  width: clamp(10.5rem, 15.5vw, 15rem);
 }
 
 .hero-floater--revenue {
-  --fw: 340;
   z-index: 4;
-  top: 46%;
-  left: 1.5%;
-}
-
-.hero-floater--curve {
-  --fw: 90;
-  z-index: 2;
-  top: 19%;
-  left: 14%;
+  bottom: clamp(2.5rem, 8vh, 6rem);
+  left: clamp(0.75rem, 3vw, 4.5rem);
+  width: clamp(11rem, 15.5vw, 15rem);
 }
 
 .hero-floater--metric {
-  --fw: 200;
-  z-index: 3;
-  top: 68%;
+  z-index: 4;
   /* Ruimte houden voor de .hero-scroll-indicator, die fixed in dezelfde hoek staat. */
-  right: 9%;
+  bottom: clamp(6.5rem, 15vh, 11rem);
+  right: clamp(0.75rem, 3vw, 4.5rem);
+  width: clamp(9rem, 12vw, 12rem);
+}
+
+/* Eén arc-motief linksonder, achter de kaarten. */
+.hero-floater--arc {
+  z-index: 1;
+  bottom: clamp(9rem, 24vh, 17rem);
+  left: clamp(0.5rem, 2vw, 3rem);
+  width: clamp(6.5rem, 9vw, 9rem);
+}
+
+.hero-arc {
+  position: relative;
+  color: var(--brand-light);
+  opacity: .35;
+}
+
+.hero-arc__curve {
+  display: block;
+  position: absolute;
+  top: -26%;
+  right: -30%;
+  width: 56%;
 }
 
 .hero-floater text {
@@ -911,15 +950,15 @@ h1 {
 
 .hf-value {
   fill: var(--color-ink);
-  font-size: 26px;
+  font-size: 30px;
   font-weight: 500;
   letter-spacing: -0.01em;
 }
 
-.hf-badge {
+.hf-node {
   fill: var(--color-ink);
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.01em;
 }
 
 .hf-axis {
@@ -928,28 +967,22 @@ h1 {
   letter-spacing: 0.04em;
 }
 
-.hf-tooltip {
-  fill: var(--color-bg);
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.hf-pill {
-  fill: var(--color-ink);
-  font-size: 14px;
-}
-
 .hf-metric {
   fill: var(--color-ink);
-  font-size: 52px;
+  font-size: 42px;
   font-weight: 500;
   letter-spacing: -0.02em;
 }
 
 .hf-metric-label {
-  fill: #ffffffd9;
+  fill: var(--color-ink-muted);
   font-size: 13px;
   letter-spacing: 0.04em;
+}
+
+/* Accentcijfers in het donkere merkblauw; haalt op wit ruim 7:1. */
+.hf-accent {
+  fill: var(--brand-dark);
 }
 
 .hf-draw {
@@ -969,32 +1002,30 @@ h1 {
   }
 }
 
-@media screen and (max-width: 767px) {
-  /* Onder 768px alleen revenue en metric, als band onder de hero. */
-  .hero-floaters {
-    inset: auto 0 0;
-    height: 24rem;
-  }
-
-  .hero-floater--ring,
+/* Onder 1024px blijven alleen de twee onderste kaarten staan. De zijkolom is
+   daar smaller dan 26vw in absolute px, dus krijgen ze een eigen maatvoering. */
+@media screen and (max-width: 1023px) {
+  .hero-floater--flow,
   .hero-floater--installs,
-  .hero-floater--launch,
-  .hero-floater--curve {
+  .hero-floater--arc {
     display: none;
   }
 
   .hero-floater--revenue {
-    width: 19rem;
-    max-width: none;
-    top: 1.5rem;
-    left: 1rem;
+    left: clamp(0.5rem, 1.5vw, 1.5rem);
+    width: clamp(9rem, 21vw, 13rem);
   }
 
   .hero-floater--metric {
-    width: 8rem;
-    max-width: none;
-    top: 13.5rem;
-    right: 1rem;
+    right: clamp(0.5rem, 1.5vw, 1.5rem);
+    width: clamp(7rem, 14vw, 9rem);
+  }
+}
+
+/* Onder 768px geen floaters. */
+@media screen and (max-width: 767px) {
+  .hero-floaters {
+    display: none;
   }
 }
 
@@ -1009,15 +1040,13 @@ h1 {
   }
 }
 
+/* De hint zelf en de entree ervan zitten op de binnenlaag; de buitenlaag is het
+   doel van de zoom-fade, zodat beide tijdlijnen niet om opacity vechten. */
 .hero-scroll-indicator {
   position: fixed;
   right: var(--gutter);
   bottom: var(--space-5);
   z-index: 20;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: .6rem;
   color: var(--color-ink-muted);
   font-size: var(--fs-caption);
   line-height: var(--lh-tight);
@@ -1026,10 +1055,65 @@ h1 {
   pointer-events: none;
 }
 
+.hero-scroll-indicator__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .6rem;
+}
+
 .hero-scroll-indicator__line {
   width: 1px;
   height: 3rem;
   background: linear-gradient(180deg, currentColor, transparent);
+}
+
+/* Reduced motion: geen scrolldrempel en geen zoom. De wrapper is een gewoon
+   blok en het frame staat meteen op de eindstaat van de zoom — schermvullend,
+   zonder afronding — onder de kop in plaats van eroverheen. De decoratieve
+   floaters vervallen; daar is in deze indeling geen ruimte meer voor. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-height-new {
+    height: auto;
+  }
+
+  .hero-sticky {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .section.hero.home {
+    height: auto;
+    padding-bottom: var(--space-8);
+    overflow: hidden;
+  }
+
+  .show-wrap {
+    position: relative;
+    inset: auto;
+    margin-top: var(--space-8);
+  }
+
+  .showreal-home {
+    position: relative;
+    inset: auto;
+  }
+
+  .show-real-video {
+    position: relative;
+    inset: auto;
+    width: 100vw;
+    height: 100vh;
+    margin-inline: calc(50% - 50vw);
+    clip-path: inset(0% 0% 0% 0% round 0px);
+    -webkit-clip-path: inset(0% 0% 0% 0% round 0px);
+  }
+
+  .hero-floaters,
+  .hero-scroll-indicator {
+    display: none;
+  }
 }
 
 .statement-section {
@@ -2725,16 +2809,6 @@ h1 {
   color: var(--color-ink);
 }
 
-@keyframes hero-tag-border {
-  from {
-    background-position: 0% 50%;
-  }
-
-  to {
-    background-position: 240% 50%;
-  }
-}
-
 @keyframes logo-marquee-loop {
   from {
     transform: translate3d(0, 0, 0);
@@ -3366,6 +3440,18 @@ h1 {
     padding: 0;
   }
 
+  /* Geen zoom onder 768px: de wrapper is weer een gewoon blok, de sticky laag
+     doet niets en de video staat statisch full-width onder de kop. */
+  .hero-height-new {
+    height: auto;
+  }
+
+  .hero-sticky {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
   .section.hero.home {
     height: auto;
     min-height: 100svh;
@@ -3409,19 +3495,27 @@ h1 {
   }
 
   .show-wrap {
-    margin-top: 16.16rem;
+    position: relative;
+    inset: auto;
+    margin-top: 3rem;
   }
 
   .showreal-home {
-    width: 80%;
-    border-top-left-radius: .68rem;
-    border-top-right-radius: .68rem;
+    position: relative;
+    inset: auto;
   }
 
-  .show-real-video,
-  .lap-top-bg {
-    border-radius: .68rem .68rem 0 0;
+  .show-real-video {
+    position: relative;
+    inset: auto;
+    width: 100vw;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    margin-inline: calc(50% - 50vw);
+    clip-path: none;
+    -webkit-clip-path: none;
   }
+
   .hero-scroll-indicator {
     display: none;
   }
@@ -4135,8 +4229,8 @@ h1 {
 .stat-card__inner:focus-within {
   transform: translateY(-6px);
   box-shadow:
-    0 2rem 4rem #00000066,
-    0 0 0 1px #ffffff2e;
+    var(--shadow-hover),
+    0 0 0 1px var(--ring-hover);
 }
 
 .stat-card__head {
@@ -4187,7 +4281,7 @@ h1 {
   padding: 0.5rem 0.9rem;
   border: 1px solid var(--color-line);
   border-radius: var(--radius-pill);
-  background: #ffffff0a;
+  background: var(--tint-soft);
 }
 
 .stat-pill__dot {
@@ -4223,7 +4317,7 @@ h1 {
   place-items: center;
   border: 1px solid var(--color-bg-alt);
   border-radius: 50%;
-  background: #2a2a2a;
+  background: var(--tint-strong);
   color: var(--color-ink);
   font-size: 0.66rem;
   letter-spacing: 0.02em;
@@ -4372,7 +4466,21 @@ h1 {
   -webkit-line-clamp: 3;
 }
 
+/* Bewust een donker paneel binnen de lichte sectie: de visuals zijn
+   UI-mockups. De kleurtokens draaien hier terug naar de donkere basis uit
+   tokens.css, anders staat donkere inkt op zwart. */
 .bento-card__visual {
+  --color-bg: #080808;
+  --color-bg-alt: #101010;
+  --color-ink: #fff;
+  --color-ink-muted: #a3a3a3;
+  --color-line: #ffffff1a;
+  --tint-soft: #ffffff0a;
+  --tint-strong: #2a2a2a;
+  --ring-hover: #ffffff2e;
+  --shadow-card: 0 0 0 1px #ffffff1a;
+  --shadow-float: 0 1.25rem 3rem #00000026;
+  --shadow-hover: 0 2rem 4rem #00000066;
   position: relative;
   display: grid;
   flex: 1;
@@ -4382,6 +4490,7 @@ h1 {
   overflow: hidden;
   border-radius: var(--radius-md);
   background: #0b0b0b;
+  color: var(--color-ink);
 }
 
 /* Versprongen hoogtes tussen de kolommen. */
@@ -4510,7 +4619,7 @@ h1 {
   width: 0.42rem;
   height: 0.42rem;
   border-radius: 50%;
-  background: #ffffff2e;
+  background: var(--ring-hover);
 }
 
 .sv-website__bar {
@@ -4579,7 +4688,7 @@ h1 {
   width: 8.5rem;
   aspect-ratio: 9 / 17;
   overflow: hidden;
-  border: 2px solid #2a2a2a;
+  border: 2px solid var(--tint-strong);
   border-radius: 1.4rem;
   background: var(--color-bg);
   box-shadow: var(--shadow-float);
@@ -4593,7 +4702,7 @@ h1 {
   width: 2.6rem;
   height: 0.34rem;
   border-radius: var(--radius-pill);
-  background: #ffffff2e;
+  background: var(--ring-hover);
   transform: translateX(-50%);
 }
 
@@ -5217,25 +5326,6 @@ html[data-intro="play"] .intro-overlay [data-logo-fill] {
   display: block;
   width: 100%;
   height: auto;
-}
-
-.intro-overlay__skip {
-  position: absolute;
-  bottom: var(--space-6);
-  left: 50%;
-  translate: -50% 0;
-  border: 0;
-  background: transparent;
-  color: var(--color-ink-muted);
-  font-size: var(--fs-caption);
-  letter-spacing: var(--ls-wide);
-  text-transform: uppercase;
-  transition: color var(--dur-fast) var(--ease-out-quart);
-}
-
-.intro-overlay__skip:hover,
-.intro-overlay__skip:focus-visible {
-  color: var(--color-ink);
 }
 
 @media (prefers-reduced-motion: reduce) {

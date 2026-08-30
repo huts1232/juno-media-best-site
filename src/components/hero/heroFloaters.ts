@@ -1,12 +1,5 @@
 import type { ComponentType } from "react";
-import {
-  CurveArrow,
-  InstallsCard,
-  LaunchCard,
-  MetricBubble,
-  RevenueCard,
-  RingShape,
-} from "./floaters";
+import { FlowDiagramMini, InstallsCard, MetricBubble, RevenueCard } from "./floaters";
 
 export type HeroFloater = {
   /** Sluit aan op de .hero-floater--* regels in globals.css. */
@@ -17,15 +10,17 @@ export type HeroFloater = {
 };
 
 /**
- * Zes mini-UI floaters rond de hero. Positie en breedte staan in CSS
- * (percentage-coördinaten + vw-breedte), zodat ze meeschalen met de viewport.
- * Onder 768px blijven alleen revenue en metric staan.
+ * Vier mini-UI kaarten rond de hero: twee links, twee rechts. Positie en
+ * breedte staan in CSS met clamp() in vw, zodat ze van 1280 tot 1920 buiten het
+ * 48vw brede videoframe blijven. Onder 1024px blijven alleen de onderste twee
+ * staan, onder 768px verdwijnen ze helemaal.
+ *
+ * Het arc-motief linksonder staat los in Hero.tsx: het is decor achter de
+ * kaarten, geen kaart.
  */
 export const heroFloaters: readonly HeroFloater[] = [
-  { key: "ring", Component: RingShape, speed: 0.22 },
-  { key: "installs", Component: InstallsCard, speed: 0.35 },
-  { key: "launch", Component: LaunchCard, speed: 0.45 },
-  { key: "revenue", Component: RevenueCard, speed: 0.3 },
-  { key: "curve", Component: CurveArrow, speed: 0.6 },
-  { key: "metric", Component: MetricBubble, speed: 0.7 },
+  { key: "flow", Component: FlowDiagramMini, speed: 0.28 },
+  { key: "installs", Component: InstallsCard, speed: 0.34 },
+  { key: "revenue", Component: RevenueCard, speed: 0.42 },
+  { key: "metric", Component: MetricBubble, speed: 0.5 },
 ] as const;

@@ -51,7 +51,12 @@ export function ScrollStatement({ content }: ScrollStatementProps) {
   }, [reducedMotion]);
 
   return (
-    <section ref={rootRef} className="scroll-statement" aria-labelledby="home-statement-title">
+    <section
+      ref={rootRef}
+      className="scroll-statement"
+      data-surface="light"
+      aria-labelledby="home-statement-title"
+    >
       <h2 id="home-statement-title" className="scroll-statement__heading">
         <span className="sr-only">{content.text}</span>
         <span aria-hidden="true">

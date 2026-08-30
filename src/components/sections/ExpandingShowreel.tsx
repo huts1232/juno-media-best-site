@@ -4,7 +4,27 @@ import { useEffect, useRef, useState } from "react";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { gsap } from "@/lib/gsap";
-import { showreelMotion } from "@/lib/motion-tokens";
+
+/**
+ * Lokale motion-tokens. Deze sectie staat niet meer op de homepage; de waarden
+ * horen daarom bij de sectie zelf en niet meer in de gedeelde motion-laag.
+ */
+const showreelMotion = {
+  /** clip-path insets waarmee het mediavenster begint; einde is altijd 0. */
+  desktopClip: "inset(12% 22% 12% 22% round 28px)",
+  mobileClip: "inset(32% 6% 32% 6% round 20px)",
+  endClip: "inset(0% 0% 0% 0% round 0px)",
+  innerScale: 1.18,
+  /** Pin-lengte. Laatste 0.25 is een hold op fullscreen. */
+  end: "+=160%",
+  scrub: 1,
+  hold: 0.25,
+  lockup: {
+    y: 24,
+    duration: 0.35,
+    position: 0.45,
+  },
+} as const;
 
 type ShowreelContent = {
   ariaLabel: string;
