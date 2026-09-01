@@ -11,6 +11,9 @@ import { heroFloaters } from "@/components/hero/heroFloaters";
 type HeroContent = {
   eyebrow: string;
   titleLines: readonly string[];
+  /** Index in titleLines dat in het lichte merkblauw wordt gezet. */
+  accentLineIndex: number;
+  sub: string;
   video: {
     ariaLabel: string;
     poster: string;
@@ -42,6 +45,7 @@ export function Hero({ content }: HeroProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const eyebrowRef = useRef<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLDivElement | null>(null);
+  const subRef = useRef<HTMLParagraphElement | null>(null);
   const videoFrameRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement | null>(null);
@@ -102,13 +106,18 @@ export function Hero({ content }: HeroProps) {
     // eindstand en springt hij daarna terug.
     const ctx = gsap.context(() => {
       const words = gsap.utils.toArray<HTMLElement>("[data-hero-word]");
+      // De accentregel krijgt een eigen tween die 0.08s later start; de rest van
+      // de kop loopt in één stagger. Twee groepen, dus twee tweens.
+      const accentWords = words.filter((word) => word.dataset.heroWordAccent === "true");
+      const baseWords = words.filter((word) => word.dataset.heroWordAccent !== "true");
       const layers = gsap.utils.toArray<HTMLElement>(".hero-floater__inner");
       const eyebrow = eyebrowRef.current;
+      const sub = subRef.current;
       const videoFrame = videoFrameRef.current;
       const scrollHint = root.querySelector("[data-hero-scroll-inner]");
 
       if (reducedMotion) {
-        gsap.set([eyebrow, videoFrame, scrollHint, ...layers], {
+        gsap.set([eyebrow, sub, videoFrame, scrollHint, ...layers], {
           opacity: 1,
           y: 0,
           scale: 1,
@@ -122,6 +131,7 @@ export function Hero({ content }: HeroProps) {
         opacity: heroLoad.eyebrow.opacity,
       });
       gsap.set(words, { yPercent: heroLoad.word.yPercent });
+      gsap.set(sub, { y: heroLoad.sub.y, opacity: heroLoad.sub.opacity });
       gsap.set(videoFrame, {
         scale: heroLoad.video.scale,
       });
@@ -140,15 +150,36 @@ export function Hero({ content }: HeroProps) {
           duration: heroLoad.eyebrow.duration,
           ease: heroLoad.eyebrow.ease,
         })
+        .addLabel("words", "-=0.28")
         .to(
-          words,
+          baseWords,
           {
             yPercent: 0,
             duration: heroLoad.word.duration,
             ease: heroLoad.word.ease,
             stagger: heroLoad.word.stagger,
           },
-          "-=0.28",
+          "words",
+        )
+        .to(
+          accentWords,
+          {
+            yPercent: 0,
+            duration: heroLoad.word.duration,
+            ease: heroLoad.word.ease,
+            stagger: heroLoad.word.stagger,
+          },
+          `words+=${heroLoad.word.accentDelay}`,
+        )
+        .to(
+          sub,
+          {
+            y: 0,
+            opacity: 1,
+            duration: heroLoad.sub.duration,
+            ease: heroLoad.sub.ease,
+          },
+          "words+=0.24",
         )
         .to(
           videoFrame,
@@ -369,23 +400,35 @@ export function Hero({ content }: HeroProps) {
               </div>
               <div className="hero-home-heading-wrap">
                 <h1 className="heading-hero" aria-label={titleLabel}>
-                  {titleWords.map((line, lineIndex) => (
-                    <span
-                      key={`${line.join("-")}-${lineIndex}`}
-                      className="hero-heading-line"
-                      aria-hidden="true"
-                    >
-                      {line.map((word, wordIndex) => (
-                        <span key={`${word}-${wordIndex}`} className="hero-heading-word">
-                          <span data-hero-word className="hero-heading-word-inner">
-                            {word}
+                  {titleWords.map((line, lineIndex) => {
+                    const accent = lineIndex === content.accentLineIndex;
+                    return (
+                      <span
+                        key={`${line.join("-")}-${lineIndex}`}
+                        className={
+                          accent ? "hero-heading-line hero-title__accent" : "hero-heading-line"
+                        }
+                        aria-hidden="true"
+                      >
+                        {line.map((word, wordIndex) => (
+                          <span key={`${word}-${wordIndex}`} className="hero-heading-word">
+                            <span
+                              data-hero-word
+                              data-hero-word-accent={accent ? "true" : undefined}
+                              className="hero-heading-word-inner"
+                            >
+                              {word}
+                            </span>
                           </span>
-                        </span>
-                      ))}
-                    </span>
-                  ))}
+                        ))}
+                      </span>
+                    );
+                  })}
                 </h1>
               </div>
+              <p ref={subRef} className="hero-sub">
+                {content.sub}
+              </p>
             </div>
 
             <div className="show-wrap">
