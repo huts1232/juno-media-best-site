@@ -759,22 +759,29 @@ h1 {
   position: relative;
 }
 
-/* De maat is naar beneden bijgesteld ten opzichte van de opdracht (6.2vw/6rem):
-   het videoframe is 48vw, dus tussen de kaarten blijft 56vw over en bij 6.2vw
-   loopt regel 1 daar met ~40% overheen. Bij 4.2vw meet de langste regel ~50vw
-   en past hij op elke breedte van 1280 tot 1920 in één regel binnen die kolom.
-   De max-width volgt dezelfde kolom, zodat een regel nooit alsnog afbreekt. */
+/* De kop gebruikt de volle contentbreedte; max-width: none zet de globale
+   h1-regel (12ch) uit, die anders regel 1 alsnog afbreekt. De twee bovenste
+   kaarten staan niet meer naast de kop maar eronder (--hero-heading-bottom),
+   dus die kolommen hoeven hier niet meer te worden ontzien. */
 .heading-hero {
   z-index: 5;
-  max-width: min(54vw, 66rem);
+  max-width: none;
   margin: 2.22rem auto 0;
   color: var(--color-ink-dark);
-  font-size: clamp(2.5rem, 4.2vw, 5rem);
+  font-size: clamp(2.5rem, 6.2vw, 6rem);
   font-weight: 800;
   line-height: 0.95;
   letter-spacing: -0.035em;
   text-align: center;
   position: relative;
+}
+
+/* Avant Garde heeft geen bold; alleen de hero-titel draait daarom op Inter
+   Tight 700. font-synthesis-weight blijft uit, dus dit is een echte face en
+   geen synthetische verzwaring. */
+.hero-title {
+  font-family: var(--font-heading), system-ui, sans-serif;
+  font-weight: 700;
 }
 
 /* Elke regel is een eigen blok: regel 1 en 2 breken nooit in elkaar over, dus
@@ -938,28 +945,36 @@ h1 {
   width: clamp(240px, 19vw, 320px);
 }
 
-.hero-floater--workforce {
-  z-index: 3;
-  top: clamp(9rem, 21vh, 14rem);
-  left: clamp(0.75rem, 3vw, 4.5rem);
-}
-
+/* Vanaf 1280px staat elke kolom als één stapel onder het titelblok: de bovenste
+   kaart 24px onder de subregel, de tweede 16px daaronder. De drie maten komen
+   uit Hero.tsx (ResizeObserver op de kop en op de bovenste kaarten) en staan als
+   CSS-vars op .hero-sticky; de fallbacks dekken de eerste paint en het geval
+   zonder JS. */
+.hero-floater--workforce,
 .hero-floater--autonomy {
   z-index: 3;
-  top: clamp(8rem, 19vh, 13rem);
-  right: clamp(0.75rem, 3vw, 4.5rem);
+  top: calc(var(--hero-heading-bottom, 45vh) + 24px);
 }
 
 .hero-floater--revenue {
   z-index: 4;
-  bottom: clamp(2.5rem, 8vh, 6rem);
-  left: clamp(0.75rem, 3vw, 4.5rem);
+  top: var(--hero-col-left, 70vh);
+  bottom: auto;
 }
 
 .hero-floater--metric {
   z-index: 4;
-  /* Ruimte houden voor de .hero-scroll-indicator, die fixed in dezelfde hoek staat. */
-  bottom: clamp(6.5rem, 15vh, 11rem);
+  top: var(--hero-col-right, 70vh);
+  bottom: auto;
+}
+
+.hero-floater--workforce,
+.hero-floater--revenue {
+  left: clamp(0.75rem, 3vw, 4.5rem);
+}
+
+.hero-floater--autonomy,
+.hero-floater--metric {
   right: clamp(0.75rem, 3vw, 4.5rem);
 }
 
@@ -1201,16 +1216,19 @@ h1 {
     width: clamp(170px, 21vw, 240px);
   }
 
+  /* Zonder de bovenste kaart is er geen stapel meer; deze twee hangen hier weer
+     aan de onderkant van het scherm. */
   .hero-floater--revenue {
+    top: auto;
+    bottom: clamp(2.5rem, 8vh, 6rem);
     left: clamp(0.5rem, 1.5vw, 1.5rem);
   }
 
   .hero-floater--metric {
+    top: auto;
+    /* Ruimte houden voor de .hero-scroll-indicator, die fixed in dezelfde hoek staat. */
+    bottom: clamp(6.5rem, 15vh, 11rem);
     right: clamp(0.5rem, 1.5vw, 1.5rem);
-  }
-
-  .heading-hero {
-    max-width: min(86vw, 42rem);
   }
 }
 

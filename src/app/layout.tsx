@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Inter_Tight } from "next/font/google";
 import localFont from "next/font/local";
 import { CookieBar } from "@/components/layout/CookieBar";
 import { StickyCta } from "@/components/layout/StickyCta";
@@ -48,6 +49,16 @@ const avantGardeCondensed = localFont({
   adjustFontFallback: "Arial",
 });
 
+/* Avant Garde levert alleen Bk (400) en Md (500); een echte bold komt daar niet
+   uit en font-synthesis-weight staat uit. Alleen de hero-titel draait daarom op
+   Inter Tight 700 — alle overige koppen blijven Avant Garde. */
+const interTight = Inter_Tight({
+  subsets: ["latin"],
+  weight: ["700"],
+  variable: "--font-heading",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: site.metadata.title,
@@ -60,7 +71,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang={site.locale}>
+    <html lang={site.locale} className={interTight.variable}>
       <body className={`${avantGarde.variable} ${avantGardeCondensed.variable}`}>
         <SmoothScroll>
           <Nav

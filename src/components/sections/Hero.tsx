@@ -30,6 +30,17 @@ const heroPosterSvg =
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 9"><rect width="16" height="9" fill="#f5f6f8"/><path d="M0 7 16 2v7H0z" fill="#e9ecf1"/><circle cx="10" cy="4" r="4" fill="#43b1d6" opacity=".28"/><circle cx="6" cy="5" r="3" fill="#015c92" opacity=".18"/></svg>';
 const heroPosterDataUri = `data:image/svg+xml,${encodeURIComponent(heroPosterSvg)}`;
 
+/** Ruimte tussen het titelblok en de eerste kaart eronder. */
+const HERO_CARD_TOP_GAP = 24;
+/** Ruimte tussen de twee kaarten in dezelfde kolom. */
+const HERO_CARD_STACK_GAP = 16;
+
+/** De bovenste kaart per kolom; de tweede kaart hangt onder deze. */
+const HERO_COLUMNS = [
+  { name: "left", selector: ".hero-floater--workforce" },
+  { name: "right", selector: ".hero-floater--autonomy" },
+] as const;
+
 /**
  * Hero met Apple-zoom: de wrapper is 220vh hoog, de inhoud plakt eraan vast en
  * het videoframe groeit tijdens het scrollen van 48vw naar het volledige
@@ -43,6 +54,8 @@ const heroPosterDataUri = `data:image/svg+xml,${encodeURIComponent(heroPosterSvg
  */
 export function Hero({ content }: HeroProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const stickyRef = useRef<HTMLDivElement | null>(null);
+  const headingWrapRef = useRef<HTMLDivElement | null>(null);
   const eyebrowRef = useRef<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLDivElement | null>(null);
   const subRef = useRef<HTMLParagraphElement | null>(null);
@@ -57,6 +70,65 @@ export function Hero({ content }: HeroProps) {
     [content.titleLines],
   );
   const titleLabel = content.titleLines.join(" ");
+
+  /**
+   * De kaarten hangen onder het titelblok in plaats van ernaast: links en
+   * rechts elk een stapel van twee. Waar het titelblok eindigt is niet in CSS
+   * uit te drukken — dat hangt van de regelafbreking van de kop af — dus meet
+   * een ResizeObserver het en zet het als CSS-vars op de sticky laag:
+   *
+   *   --hero-heading-bottom  onderkant van kop + subregel
+   *   --hero-col-left/right  bovenkant van de tweede kaart in die kolom
+   *
+   * Bewust offsetTop/offsetHeight en niet getBoundingClientRect: GSAP zet
+   * transforms op de kop, de subregel en de kaarten, en die mogen niet in de
+   * meting terechtkomen.
+   */
+  useEffect(() => {
+    const wrap = headingWrapRef.current;
+    const sticky = stickyRef.current;
+    if (!wrap || !sticky) return;
+
+    const topCards = HERO_COLUMNS.map(({ name, selector }) => ({
+      name,
+      el: sticky.querySelector<HTMLElement>(selector),
+    }));
+
+    const offsetWithinSticky = (el: HTMLElement) => {
+      let top = 0;
+      let node: HTMLElement | null = el;
+
+      while (node && node !== sticky) {
+        top += node.offsetTop;
+        node = node.offsetParent as HTMLElement | null;
+      }
+
+      return top;
+    };
+
+    const measure = () => {
+      const headingBottom = Math.round(offsetWithinSticky(wrap) + wrap.offsetHeight);
+      sticky.style.setProperty("--hero-heading-bottom", `${headingBottom}px`);
+
+      for (const { name, el } of topCards) {
+        // Onder 1280px staat de bovenste kaart op display: none (hoogte 0) en
+        // valt de kolom in CSS terug op zijn eigen bottom-verankering.
+        const height = el?.offsetHeight ?? 0;
+        sticky.style.setProperty(
+          `--hero-col-${name}`,
+          `${headingBottom + HERO_CARD_TOP_GAP + height + HERO_CARD_STACK_GAP}px`,
+        );
+      }
+    };
+
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(wrap);
+    topCards.forEach(({ el }) => el && observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const target = videoFrameRef.current;
@@ -388,7 +460,7 @@ export function Hero({ content }: HeroProps) {
 
   return (
     <div ref={rootRef} className="hero-height-new" data-surface="light">
-      <div className="hero-sticky">
+      <div ref={stickyRef} className="hero-sticky">
         <section className="section hero home" data-cta-zone="hero">
           <div className="container is-big full">
             <div ref={headingRef} className="hero-heading">
@@ -398,8 +470,8 @@ export function Hero({ content }: HeroProps) {
                 </div>
                 <div className="stats-card-gradient services hero-home" aria-hidden="true" />
               </div>
-              <div className="hero-home-heading-wrap">
-                <h1 className="heading-hero" aria-label={titleLabel}>
+              <div ref={headingWrapRef} className="hero-home-heading-wrap">
+                <h1 className="heading-hero hero-title" aria-label={titleLabel}>
                   {titleWords.map((line, lineIndex) => {
                     const accent = lineIndex === content.accentLineIndex;
                     return (
@@ -425,10 +497,10 @@ export function Hero({ content }: HeroProps) {
                     );
                   })}
                 </h1>
+                <p ref={subRef} className="hero-sub">
+                  {content.sub}
+                </p>
               </div>
-              <p ref={subRef} className="hero-sub">
-                {content.sub}
-              </p>
             </div>
 
             <div className="show-wrap">
