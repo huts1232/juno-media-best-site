@@ -1,10 +1,7 @@
 import { IntroOverlay } from "@/components/layout/IntroOverlay";
 import { AgentConfigurator } from "@/components/sections/AgentConfigurator";
 import { BeforeAfter } from "@/components/sections/BeforeAfter";
-import { CertificationBar } from "@/components/sections/CertificationBar";
 import { Hero } from "@/components/sections/Hero";
-import { RoiCalculator } from "@/components/sections/RoiCalculator";
-import { UseCasePreview } from "@/components/sections/UseCasePreview";
 import { ScrollStatement } from "@/components/sections/ScrollStatement";
 import { StatsCards } from "@/components/sections/StatsCards";
 import { Stages } from "@/components/sections/Stages";
@@ -30,15 +27,12 @@ export default function Home() {
       <IntroOverlay />
       <Hero content={site.pages.home.hero} />
       <ScrollStatement content={site.pages.home.statement} />
-      <CertificationBar />
       <StatsCards content={site.pages.home.stats} />
       <BeforeAfter />
       <Stages content={site.pages.home.stages} />
       <AgentConfigurator />
       <ServicesBento content={services} />
-      <RoiCalculator />
       <LogoMarquee content={site.pages.home.logoMarquee} />
-      <UseCasePreview />
       <CasesGrid content={casesSection} items={cases} />
       <Testimonials content={testimonials} />
       <Awards content={awards} />

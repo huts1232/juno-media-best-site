@@ -7,7 +7,7 @@
  * Componenten in src/components/sections/ bevatten daarom geen eigen getallen.
  */
 
-import { roi } from "@/content/agency";
+import { roi } from "@/content/roi";
 import { formatEuro } from "@/lib/format";
 import { resolveSubLines, withSource } from "@/lib/positioning-rules";
 import { WEEKS_PER_MONTH } from "@/lib/roi-model";

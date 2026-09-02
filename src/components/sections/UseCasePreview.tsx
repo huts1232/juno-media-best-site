@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { AgencyIcon } from "@/components/ui/AgencyIcon";
-import { useCasePreview } from "@/content/agency";
+import { useCasePreview } from "@/content/use-case-preview";
 import { getBranche, useCases } from "@/content/use-cases";
 
 /**

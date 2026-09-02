@@ -664,7 +664,7 @@ h1 {
   height: 220vh;
   position: relative;
   /* Gebroken wit in plaats van puur wit; --color-paper blijft #fff, zodat de
-     kaarten en de eyebrow-pil er wél wit op blijven staan. */
+     kaarten er wél wit op blijven staan. */
   background: #f4f4f2;
 }
 
@@ -692,8 +692,7 @@ h1 {
 .section.hero.home {
   position: relative;
   height: 100vh;
-  /* 8vw is pas vanaf ~1300px breder dan de vaste nav; de ondergrens houdt de
-     eyebrow daaronder vrij. Vanaf 1280px wint 8vw en verandert er niets. */
+  /* De ondergrens houdt de eerste titelregel minstens 96px onder de nav. */
   padding: max(8vw, 6.5rem) 0 0;
   background-color: transparent;
 }
@@ -711,36 +710,6 @@ h1 {
   position: relative;
 }
 
-.hero-tag-wrap {
-  width: 20.5rem;
-  height: 2.57rem;
-  margin-inline: auto;
-  padding: .1rem;
-  border-radius: 2.4rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-tag {
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  inset: .07rem;
-  padding-top: .2rem;
-  border-radius: 2.4rem;
-  background: var(--color-bg);
-  color: var(--color-ink);
-}
-
-.tag-text {
-  font-size: var(--fs-eyebrow);
-  line-height: var(--lh-tight);
-  letter-spacing: var(--ls-wide);
-  text-transform: uppercase;
-}
-
 /* Op de lichte hero is dit geen kleurverloop meer maar een zachte schaduwring:
    donker in het midden, transparant naar de randen. */
 .stats-card-gradient {
@@ -751,8 +720,6 @@ h1 {
   opacity: .95;
 }
 
-/* Geen eigen begrenzing meer: de kop bepaalt zelf zijn maximale breedte, zodat
-   die precies op de vrije kolom tussen de kaarten kan worden afgestemd. */
 .hero-home-heading-wrap {
   max-width: none;
   margin-inline: auto;
@@ -760,13 +727,11 @@ h1 {
 }
 
 /* De kop gebruikt de volle contentbreedte; max-width: none zet de globale
-   h1-regel (12ch) uit, die anders regel 1 alsnog afbreekt. De twee bovenste
-   kaarten staan niet meer naast de kop maar eronder (--hero-heading-bottom),
-   dus die kolommen hoeven hier niet meer te worden ontzien. */
+   h1-regel (12ch) uit, die anders regel 1 alsnog afbreekt. */
 .heading-hero {
   z-index: 5;
   max-width: none;
-  margin: 2.22rem auto 0;
+  margin: 4.1rem auto 0;
   color: var(--color-ink-dark);
   font-size: clamp(2.5rem, 6.2vw, 6rem);
   font-weight: 800;
@@ -890,10 +855,10 @@ h1 {
   opacity: 1;
 }
 /* ── Hero floaters ─────────────────────────────────────────────────────────
-   Vier mini-UI kaarten naast het videoframe: twee links, twee rechts. Het frame
-   is 48vw breed en staat gecentreerd, dus links en rechts blijft telkens 26vw
-   over. De clamps hieronder houden elke kaart met marge binnen die kolom, van
-   1280 tot 1920 breed, zodat er nooit iets over de video valt.
+   Twee mini-UI kaarten naast het videoframe: Workforce links, Autonomy rechts.
+   Het frame is 48vw breed en staat gecentreerd, dus links en rechts blijft
+   telkens 26vw over. De clamps hieronder houden elke kaart met marge binnen die
+   kolom, zodat er nooit iets over de video valt.
 
    Drie lagen, elk met één eigenaar:
    .hero-floater         muisparallax (transform, data-hero-layer)
@@ -938,43 +903,34 @@ h1 {
   color: var(--color-ink-dark);
 }
 
-/* Alle vier de kaarten even breed. Bij 1280 is de zijkolom naast het 48vw
+/* Beide kaarten even breed. Bij 1280 is de zijkolom naast het 48vw
    videoframe 26vw = 333px en meet de kaart 38px + 243px = 281px; bij 1920 is
    dat 499px tegen 58px + 320px = 378px. Overlap met het frame kan dus niet. */
 .hero-floater--card {
   width: clamp(240px, 19vw, 320px);
 }
 
-/* Vanaf 1280px staat elke kolom als één stapel onder het titelblok: de bovenste
-   kaart 24px onder de subregel, de tweede 16px daaronder. De drie maten komen
-   uit Hero.tsx (ResizeObserver op de kop en op de bovenste kaarten) en staan als
-   CSS-vars op .hero-sticky; de fallbacks dekken de eerste paint en het geval
-   zonder JS. */
+.hero-floater--workforce {
+  --hero-card-half: 88px;
+}
+
+.hero-floater--autonomy {
+  --hero-card-half: 94px;
+}
+
+/* Het videoframe is 27vw hoog en onderaan verankerd. 13.5vw is de verticale
+   middenlijn daarvan; de kaarthelft trekt de kaart exact naar dat midden. */
 .hero-floater--workforce,
 .hero-floater--autonomy {
   z-index: 3;
-  top: calc(var(--hero-heading-bottom, 45vh) + 24px);
+  top: calc(100vh - 13.5vw - var(--hero-card-half));
 }
 
-.hero-floater--revenue {
-  z-index: 4;
-  top: var(--hero-col-left, 70vh);
-  bottom: auto;
-}
-
-.hero-floater--metric {
-  z-index: 4;
-  top: var(--hero-col-right, 70vh);
-  bottom: auto;
-}
-
-.hero-floater--workforce,
-.hero-floater--revenue {
+.hero-floater--workforce {
   left: clamp(0.75rem, 3vw, 4.5rem);
 }
 
-.hero-floater--autonomy,
-.hero-floater--metric {
+.hero-floater--autonomy {
   right: clamp(0.75rem, 3vw, 4.5rem);
 }
 
@@ -1201,13 +1157,9 @@ h1 {
   }
 }
 
-/* Onder 1280px blijven alleen de twee onderste kaarten staan. De zijkolom naast
-   het videoframe is daar smaller dan de 240px-ondergrens van de kaartbreedte,
-   dus krijgen de twee die overblijven een eigen maatvoering. Meteen daarmee is
-   de bovenste helft vrij voor de kop, die op die breedtes relatief breed is. */
+/* Onder 1280px krijgen de twee kaarten een smallere maatvoering, zodat ze in de
+   zijkolommen naast het 48vw-frame blijven passen. */
 @media screen and (max-width: 1279px) {
-  .hero-floater--workforce,
-  .hero-floater--autonomy,
   .hero-floater--arc {
     display: none;
   }
@@ -1216,18 +1168,11 @@ h1 {
     width: clamp(170px, 21vw, 240px);
   }
 
-  /* Zonder de bovenste kaart is er geen stapel meer; deze twee hangen hier weer
-     aan de onderkant van het scherm. */
-  .hero-floater--revenue {
-    top: auto;
-    bottom: clamp(2.5rem, 8vh, 6rem);
+  .hero-floater--workforce {
     left: clamp(0.5rem, 1.5vw, 1.5rem);
   }
 
-  .hero-floater--metric {
-    top: auto;
-    /* Ruimte houden voor de .hero-scroll-indicator, die fixed in dezelfde hoek staat. */
-    bottom: clamp(6.5rem, 15vh, 11rem);
+  .hero-floater--autonomy {
     right: clamp(0.5rem, 1.5vw, 1.5rem);
   }
 }
@@ -1248,34 +1193,6 @@ h1 {
     animation: none;
     stroke-dashoffset: 0;
   }
-}
-
-/* De hint zelf en de entree ervan zitten op de binnenlaag; de buitenlaag is het
-   doel van de zoom-fade, zodat beide tijdlijnen niet om opacity vechten. */
-.hero-scroll-indicator {
-  position: fixed;
-  right: var(--gutter);
-  bottom: var(--space-5);
-  z-index: 20;
-  color: var(--color-ink-muted);
-  font-size: var(--fs-caption);
-  line-height: var(--lh-tight);
-  letter-spacing: var(--ls-wide);
-  text-transform: uppercase;
-  pointer-events: none;
-}
-
-.hero-scroll-indicator__inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: .6rem;
-}
-
-.hero-scroll-indicator__line {
-  width: 1px;
-  height: 3rem;
-  background: linear-gradient(180deg, currentColor, transparent);
 }
 
 /* Reduced motion: geen scrolldrempel en geen zoom. De wrapper is een gewoon
@@ -1320,8 +1237,7 @@ h1 {
     -webkit-clip-path: inset(0% 0% 0% 0% round 0px);
   }
 
-  .hero-floaters,
-  .hero-scroll-indicator {
+  .hero-floaters {
     display: none;
   }
 }
@@ -3679,20 +3595,6 @@ h1 {
     padding-inline: 1.25rem;
   }
 
-  .hero-tag-wrap {
-    width: 15.69rem;
-    height: 2.25rem;
-    border-radius: 3.13rem;
-  }
-
-  .hero-tag {
-    border-radius: 3.13rem;
-  }
-
-  .tag-text {
-    font-size: .78rem;
-  }
-
   .hero-home-heading-wrap {
     max-width: none;
   }
@@ -3727,10 +3629,6 @@ h1 {
     margin-inline: calc(50% - 50vw);
     clip-path: none;
     -webkit-clip-path: none;
-  }
-
-  .hero-scroll-indicator {
-    display: none;
   }
 
   .statement-section {
@@ -4375,6 +4273,7 @@ h1 {
      bevat niets sticky of gepind, dus clippen is hier veilig. */
   overflow-x: clip;
   padding-block: var(--space-11) var(--space-12);
+  border-top: 1px solid var(--color-line);
   background: var(--color-bg);
 }
 
@@ -5100,8 +4999,7 @@ h1 {
   gap: 0.6rem;
   padding: 0.95rem 1.4rem;
   border-radius: var(--radius-pill);
-  /* Ring in de paginakleur, zodat de pill ook loskomt van een accentkleurige
-     achtergrond (bijvoorbeeld de MetricBubble in de hero). */
+  /* Ring in de paginakleur, zodat de pill ook loskomt van accentkleurige vlakken. */
   background: var(--color-accent);
   box-shadow:
     0 0 0 2px var(--color-bg),

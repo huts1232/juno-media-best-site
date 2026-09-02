@@ -1,8 +1,7 @@
 /**
  * Configuratiedata voor de AI-agency features. Componenten bevatten geen
  * hardcoded copy: alles wat een bezoeker leest of wat de rekenmodellen voedt
- * staat hier. De rekenregels zelf staan in src/lib/agent-model.ts en
- * src/lib/roi-model.ts.
+ * staat hier. De rekenregels zelf staan in src/lib/agent-model.ts.
  */
 
 export type AgencyIcon =
@@ -32,30 +31,6 @@ export const intro = {
   duration: 2.4,
   label: "JUNO Media",
 } as const;
-
-/* ------------------------------------------------------------------ *
- * STAP 2 — CertificationBar
- * ------------------------------------------------------------------ */
-
-export const certificationBar = {
-  claim: {
-    count: "6×",
-    label: "Anthropic Certified",
-    icon: "certificate" as AgencyIcon,
-  },
-  badgesLabel: "Partners en tooling",
-  badges: [
-    { id: "anthropic", name: "Anthropic" },
-    { id: "supabase", name: "Supabase" },
-    { id: "vercel", name: "Vercel" },
-    { id: "shopify", name: "Shopify" },
-    { id: "google-ads", name: "Google Ads" },
-  ],
-} as const;
-
-/* ------------------------------------------------------------------ *
- * STAP 3 — BeforeAfter
- * ------------------------------------------------------------------ */
 
 export const beforeAfter = {
   eyebrow: "Voor en na",
@@ -95,10 +70,6 @@ export const beforeAfter = {
     ],
   },
 } as const;
-
-/* ------------------------------------------------------------------ *
- * STAP 4 — AgentConfigurator
- * ------------------------------------------------------------------ */
 
 export type AgentTask = {
   slug: string;
@@ -636,112 +607,6 @@ export const configurator = {
   },
 } as const;
 
-/* ------------------------------------------------------------------ *
- * STAP 5 — RoiCalculator
- * ------------------------------------------------------------------ */
-
-export const roi = {
-  id: "roi",
-  eyebrow: "Rekenen",
-  heading: "Wat levert automatisering jou op?",
-  intro: "Schuif de waarden naar jouw situatie. De uitkomst rekent live mee.",
-  fields: {
-    hours: {
-      id: "hours",
-      label: "Uren per week aan repetitief werk",
-      min: 1,
-      max: 40,
-      step: 1,
-      default: 12,
-      suffix: "u",
-    },
-    rate: {
-      id: "rate",
-      label: "Gemiddeld uurtarief",
-      min: 25,
-      max: 250,
-      step: 5,
-      default: 65,
-      prefix: "EUR",
-    },
-    people: {
-      id: "people",
-      label: "Aantal betrokken medewerkers",
-      min: 1,
-      max: 50,
-      step: 1,
-      default: 4,
-      suffix: "fte",
-    },
-    automation: {
-      id: "automation",
-      label: "Geschat automatiseringspercentage",
-      min: 20,
-      max: 90,
-      step: 5,
-      default: 65,
-      suffix: "%",
-    },
-  },
-  outputs: {
-    monthly: { label: "Besparing per maand" },
-    yearly: { label: "Besparing per jaar" },
-    payback: { label: "Terugverdientijd", suffix: "maanden" },
-    hoursFreed: { label: "Vrijgekomen uren per jaar", suffix: "u" },
-  },
-  chart: {
-    label: "Kosten over twaalf maanden",
-    months: 12,
-    legend: {
-      without: "Zonder automatisering",
-      with: "Met automatisering",
-    },
-    crossingLabel: "Break-even",
-    noCrossingLabel: "Break-even valt na maand 12",
-    axisLabel: "Maand",
-  },
-  assumptions: {
-    title: "Aannames achter deze som",
-    toggleOpen: "Toon aannames",
-    toggleClose: "Verberg aannames",
-    items: [
-      "Een maand telt 4,33 werkweken.",
-      "De bouwkosten schalen mee met het aantal betrokken medewerkers en het automatiseringspercentage.",
-      "Naast de bouw rekenen we maandelijkse kosten voor hosting, modelgebruik en beheer.",
-      "Vrijgekomen uren gaan naar werk dat wel oplevert; ze zijn hier gewaardeerd tegen het ingevulde uurtarief.",
-      "Alle bedragen zijn exclusief btw en indicatief, geen offerte.",
-    ],
-  },
-  share: {
-    label: "Deel deze berekening",
-    copy: "Kopieer link",
-    copied: "Link gekopieerd",
-  },
-  bridge: {
-    question: "Klopt dit voor jouw situatie?",
-    body: "Stel je eigen agent samen en zie welke flow erbij hoort.",
-    cta: "Naar de configurator",
-    href: "#configurator",
-  },
-} as const;
-
-/* ------------------------------------------------------------------ *
- * STAP 6 — UseCasePreview
- * ------------------------------------------------------------------ */
-
-export const useCasePreview = {
-  eyebrow: "Use cases",
-  heading: "Wat een agent doet in jouw branche",
-  intro: "Zes branches, zes processen die we vaker hebben gebouwd.",
-  cta: "Bekijk alle use cases",
-  href: "/use-cases",
-  itemCta: "Lees verder",
-} as const;
-
-/* ------------------------------------------------------------------ *
- * STAP 7 — DigestSignup
- * ------------------------------------------------------------------ */
-
 export const digest = {
   eyebrow: "Digest",
   heading: "Elke twee weken een agent uit de praktijk",
@@ -780,10 +645,6 @@ export const digest = {
   },
 } as const;
 
-/* ------------------------------------------------------------------ *
- * STAP 8 — StickyCta
- * ------------------------------------------------------------------ */
-
 export const stickyCta = {
   href: "/contact",
   ariaLabel: "Contact opnemen",
@@ -794,7 +655,6 @@ export const stickyCta = {
     { selector: "[data-cta-zone='hero']", label: "Plan een call" },
     { selector: "[data-cta-zone='before-after']", label: "Wat levert dit jou op?" },
     { selector: "[data-cta-zone='configurator']", label: "Bespreek jouw agent" },
-    { selector: "[data-cta-zone='roi']", label: "Laat het doorrekenen" },
     { selector: "[data-cta-zone='cases']", label: "Bespreek jouw case" },
   ],
   hideSelector: "[data-cta-zone='footer']",
@@ -802,12 +662,9 @@ export const stickyCta = {
 
 export const agency = {
   intro,
-  certificationBar,
   beforeAfter,
   branches,
   configurator,
-  roi,
-  useCasePreview,
   digest,
   stickyCta,
 } as const;

@@ -3,7 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
-import { roi } from "@/content/agency";
+import { roi } from "@/content/roi";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { formatDecimal, formatEuro, formatEuroCompact, formatNumber } from "@/lib/format";
 import { ScrollTrigger } from "@/lib/gsap";

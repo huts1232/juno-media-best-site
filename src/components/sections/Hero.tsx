@@ -9,7 +9,6 @@ import { ArcMotif } from "@/components/hero/floaters";
 import { heroFloaters } from "@/components/hero/heroFloaters";
 
 type HeroContent = {
-  eyebrow: string;
   titleLines: readonly string[];
   /** Index in titleLines dat in het lichte merkblauw wordt gezet. */
   accentLineIndex: number;
@@ -19,7 +18,6 @@ type HeroContent = {
     poster: string;
     src: string;
   };
-  scrollLabel: string;
 };
 
 type HeroProps = {
@@ -29,17 +27,6 @@ type HeroProps = {
 const heroPosterSvg =
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 9"><rect width="16" height="9" fill="#f5f6f8"/><path d="M0 7 16 2v7H0z" fill="#e9ecf1"/><circle cx="10" cy="4" r="4" fill="#43b1d6" opacity=".28"/><circle cx="6" cy="5" r="3" fill="#015c92" opacity=".18"/></svg>';
 const heroPosterDataUri = `data:image/svg+xml,${encodeURIComponent(heroPosterSvg)}`;
-
-/** Ruimte tussen het titelblok en de eerste kaart eronder. */
-const HERO_CARD_TOP_GAP = 24;
-/** Ruimte tussen de twee kaarten in dezelfde kolom. */
-const HERO_CARD_STACK_GAP = 16;
-
-/** De bovenste kaart per kolom; de tweede kaart hangt onder deze. */
-const HERO_COLUMNS = [
-  { name: "left", selector: ".hero-floater--workforce" },
-  { name: "right", selector: ".hero-floater--autonomy" },
-] as const;
 
 /**
  * Hero met Apple-zoom: de wrapper is 220vh hoog, de inhoud plakt eraan vast en
@@ -55,13 +42,10 @@ const HERO_COLUMNS = [
 export function Hero({ content }: HeroProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
-  const headingWrapRef = useRef<HTMLDivElement | null>(null);
-  const eyebrowRef = useRef<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLDivElement | null>(null);
   const subRef = useRef<HTMLParagraphElement | null>(null);
   const videoFrameRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const scrollIndicatorRef = useRef<HTMLDivElement | null>(null);
   const reducedMotion = useReducedMotion();
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
 
@@ -70,65 +54,6 @@ export function Hero({ content }: HeroProps) {
     [content.titleLines],
   );
   const titleLabel = content.titleLines.join(" ");
-
-  /**
-   * De kaarten hangen onder het titelblok in plaats van ernaast: links en
-   * rechts elk een stapel van twee. Waar het titelblok eindigt is niet in CSS
-   * uit te drukken — dat hangt van de regelafbreking van de kop af — dus meet
-   * een ResizeObserver het en zet het als CSS-vars op de sticky laag:
-   *
-   *   --hero-heading-bottom  onderkant van kop + subregel
-   *   --hero-col-left/right  bovenkant van de tweede kaart in die kolom
-   *
-   * Bewust offsetTop/offsetHeight en niet getBoundingClientRect: GSAP zet
-   * transforms op de kop, de subregel en de kaarten, en die mogen niet in de
-   * meting terechtkomen.
-   */
-  useEffect(() => {
-    const wrap = headingWrapRef.current;
-    const sticky = stickyRef.current;
-    if (!wrap || !sticky) return;
-
-    const topCards = HERO_COLUMNS.map(({ name, selector }) => ({
-      name,
-      el: sticky.querySelector<HTMLElement>(selector),
-    }));
-
-    const offsetWithinSticky = (el: HTMLElement) => {
-      let top = 0;
-      let node: HTMLElement | null = el;
-
-      while (node && node !== sticky) {
-        top += node.offsetTop;
-        node = node.offsetParent as HTMLElement | null;
-      }
-
-      return top;
-    };
-
-    const measure = () => {
-      const headingBottom = Math.round(offsetWithinSticky(wrap) + wrap.offsetHeight);
-      sticky.style.setProperty("--hero-heading-bottom", `${headingBottom}px`);
-
-      for (const { name, el } of topCards) {
-        // Onder 1280px staat de bovenste kaart op display: none (hoogte 0) en
-        // valt de kolom in CSS terug op zijn eigen bottom-verankering.
-        const height = el?.offsetHeight ?? 0;
-        sticky.style.setProperty(
-          `--hero-col-${name}`,
-          `${headingBottom + HERO_CARD_TOP_GAP + height + HERO_CARD_STACK_GAP}px`,
-        );
-      }
-    };
-
-    measure();
-
-    const observer = new ResizeObserver(measure);
-    observer.observe(wrap);
-    topCards.forEach(({ el }) => el && observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     const target = videoFrameRef.current;
@@ -183,13 +108,11 @@ export function Hero({ content }: HeroProps) {
       const accentWords = words.filter((word) => word.dataset.heroWordAccent === "true");
       const baseWords = words.filter((word) => word.dataset.heroWordAccent !== "true");
       const layers = gsap.utils.toArray<HTMLElement>(".hero-floater__inner");
-      const eyebrow = eyebrowRef.current;
       const sub = subRef.current;
       const videoFrame = videoFrameRef.current;
-      const scrollHint = root.querySelector("[data-hero-scroll-inner]");
 
       if (reducedMotion) {
-        gsap.set([eyebrow, sub, videoFrame, scrollHint, ...layers], {
+        gsap.set([sub, videoFrame, ...layers], {
           opacity: 1,
           y: 0,
           scale: 1,
@@ -198,10 +121,6 @@ export function Hero({ content }: HeroProps) {
         return;
       }
 
-      gsap.set(eyebrow, {
-        y: heroLoad.eyebrow.y,
-        opacity: heroLoad.eyebrow.opacity,
-      });
       gsap.set(words, { yPercent: heroLoad.word.yPercent });
       gsap.set(sub, { y: heroLoad.sub.y, opacity: heroLoad.sub.opacity });
       gsap.set(videoFrame, {
@@ -212,17 +131,10 @@ export function Hero({ content }: HeroProps) {
         y: heroLoad.layer.y,
         scale: heroLoad.layer.scale,
       });
-      gsap.set(scrollHint, { opacity: heroLoad.scrollIndicator.opacity });
 
       const timeline = gsap
         .timeline({ paused: true })
-        .to(eyebrow, {
-          y: 0,
-          opacity: 1,
-          duration: heroLoad.eyebrow.duration,
-          ease: heroLoad.eyebrow.ease,
-        })
-        .addLabel("words", "-=0.28")
+        .addLabel("words", 0)
         .to(
           baseWords,
           {
@@ -273,15 +185,6 @@ export function Hero({ content }: HeroProps) {
             stagger: heroLoad.layer.stagger,
           },
           "-=0.35",
-        )
-        .to(
-          scrollHint,
-          {
-            opacity: 1,
-            duration: heroLoad.scrollIndicator.duration,
-            ease: heroLoad.scrollIndicator.ease,
-          },
-          "-=0.2",
         );
 
       play = () => {
@@ -386,14 +289,6 @@ export function Hero({ content }: HeroProps) {
               stagger: heroZoom.floaters.stagger,
             },
             0,
-          )
-          .to(
-            scrollIndicatorRef.current,
-            {
-              autoAlpha: 0,
-              duration: heroZoom.scrollIndicator.duration,
-            },
-            0,
           );
       });
     }, root);
@@ -464,13 +359,7 @@ export function Hero({ content }: HeroProps) {
         <section className="section hero home" data-cta-zone="hero">
           <div className="container is-big full">
             <div ref={headingRef} className="hero-heading">
-              <div ref={eyebrowRef} className="hero-tag-wrap">
-                <div className="hero-tag">
-                  <span className="tag-text">{content.eyebrow}</span>
-                </div>
-                <div className="stats-card-gradient services hero-home" aria-hidden="true" />
-              </div>
-              <div ref={headingWrapRef} className="hero-home-heading-wrap">
+              <div className="hero-home-heading-wrap">
                 <h1 className="heading-hero hero-title" aria-label={titleLabel}>
                   {titleWords.map((line, lineIndex) => {
                     const accent = lineIndex === content.accentLineIndex;
@@ -565,13 +454,6 @@ export function Hero({ content }: HeroProps) {
                   </div>
                 </div>
               ))}
-            </div>
-
-            <div ref={scrollIndicatorRef} className="hero-scroll-indicator">
-              <div className="hero-scroll-indicator__inner" data-hero-scroll-inner>
-                <span>{content.scrollLabel}</span>
-                <span className="hero-scroll-indicator__line" aria-hidden="true" />
-              </div>
             </div>
           </div>
         </section>

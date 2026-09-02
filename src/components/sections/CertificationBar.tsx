@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { AgencyIcon } from "@/components/ui/AgencyIcon";
-import { certificationBar } from "@/content/agency";
+import { certificationBar } from "@/content/certification";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { gsap } from "@/lib/gsap";

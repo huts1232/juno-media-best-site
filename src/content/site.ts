@@ -36,7 +36,6 @@ export const site = {
       title: "Digital launches with startup velocity",
       intro: "A placeholder homepage shell for the phased replica build.",
       hero: {
-        eyebrow: "Juno Media",
         titleLines: ["In 2030 draait elk bedrijf op", "AI-werknemers."],
         accentLineIndex: 1,
         sub: "Ben jij een van de eerste?",
@@ -45,7 +44,6 @@ export const site = {
           poster: "/media/hero-poster.jpg",
           src: "/media/hero.mp4",
         },
-        scrollLabel: "Scroll",
       },
       showreel: {
         ariaLabel: "Juno Media showreel",

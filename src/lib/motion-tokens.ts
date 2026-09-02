@@ -39,12 +39,6 @@ export const cursor = {
 } as const;
 
 export const heroLoad = {
-  eyebrow: {
-    y: 18,
-    opacity: 0,
-    duration: 0.45,
-    ease: "power2.out",
-  },
   /**
    * Transform-only: een clip-path of opacity op het woord stelt de
    * LCP-registratie uit, want de browser telt het element pas als het
@@ -81,17 +75,12 @@ export const heroLoad = {
     duration: 0.9,
     ease: "expo.out",
   },
-  scrollIndicator: {
-    opacity: 0,
-    duration: 0.28,
-    ease: "power2.out",
-  },
 } as const;
 
 /**
  * Apple-zoom van de hero: één scrub-timeline op de .hero-height-new wrapper.
  * Het videoframe groeit van 48vw x 27vw naar het volledige scherm; kop,
- * floaters en scroll-hint maken in de eerste helft plaats. Alles ease "none",
+ * floaters maken in de eerste helft plaats. Alles ease "none",
  * zodat de beweging exact de scrollpositie volgt.
  *
  * Onder 768px en bij prefers-reduced-motion draait deze timeline niet; de
@@ -121,15 +110,11 @@ export const heroZoom = {
     y: -60,
     duration: 0.45,
   },
-  /** Vier floaters, stagger 0.04: de laatste start op 0.12 en is klaar op 0.4. */
+  /** Hero-floaters maken plaats zodra het videoframe begint te groeien. */
   floaters: {
     scale: 0.92,
     stagger: 0.04,
     duration: 0.28,
-  },
-  /** Klaar op 0.1. */
-  scrollIndicator: {
-    duration: 0.1,
   },
 } as const;
 
