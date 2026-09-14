@@ -2,17 +2,22 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { IntroOverlay } from "@/components/layout/IntroOverlay";
 import { AgentConfigurator } from "@/components/sections/AgentConfigurator";
-import { CertificationBar } from "@/components/sections/CertificationBar";
+import { Cases } from "@/components/sections/Cases";
+import { CtaBanner } from "@/components/sections/CtaBanner";
+import { Faq } from "@/components/sections/Faq";
 import { Hero } from "@/components/sections/Hero";
-import { StatsCards } from "@/components/sections/StatsCards";
-import { Stages } from "@/components/sections/Stages";
+import { ProofBar } from "@/components/sections/ProofBar";
+import { RoiCalculator } from "@/components/sections/RoiCalculator";
+import { ScrollStatement } from "@/components/sections/ScrollStatement";
 import { ServicesBento } from "@/components/sections/ServicesBento";
+import { Stages } from "@/components/sections/Stages";
+import { ctaBanner } from "@/content/cta";
+import { faq } from "@/content/faq";
+import { homeCases } from "@/content/home-cases";
 import { servicesBento } from "@/content/services";
 import { site } from "@/content/site";
-import { faq } from "@/content/faq";
-import { Faq } from "@/components/sections/Faq";
-import { CtaBanner } from "@/components/sections/CtaBanner";
 
+/** Nav en Footer komen uit de root-layout. */
 export default function Home() {
   const hero = withExistingHeroMedia(site.pages.home.hero);
 
@@ -20,13 +25,15 @@ export default function Home() {
     <main>
       <IntroOverlay />
       <Hero content={hero} />
-      <CertificationBar />
+      <ProofBar />
+      <ScrollStatement content={site.pages.home.statement} />
       <ServicesBento content={servicesBento} />
-      <StatsCards content={site.pages.home.stats} />
       <Stages content={site.pages.home.stages} />
+      <Cases content={homeCases} />
       <AgentConfigurator />
+      <RoiCalculator />
       <Faq content={faq} />
-      <CtaBanner content={site.pages.home.ctaBanner} />
+      <CtaBanner content={ctaBanner} />
     </main>
   );
 }
