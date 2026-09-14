@@ -222,6 +222,15 @@ export const casesMotion = {
   mobileQuery: "(max-width: 767px)",
 } as const;
 
+/** Homepage-cases: drie kaarten, zelfde ritme als de bento. */
+export const homeCasesMotion = {
+  triggerStart: "top 85%",
+  y: 24,
+  duration: 0.7,
+  ease: "power2.out",
+  stagger: 0.08,
+} as const;
+
 export const caseStackMotion = {
   /** Onder 900px vervalt de stack; de kaarten worden een gewone lijst. */
   stackQuery: "(min-width: 900px)",
@@ -329,6 +338,13 @@ export const statsCardsMotion = {
 
 export const servicesBentoMotion = {
   triggerStart: "top 85%",
+  /** Homepage-bento: vijf kaarten, één batch-reveal. */
+  reveal: {
+    y: 24,
+    duration: 0.7,
+    ease: "power2.out",
+    stagger: 0.08,
+  },
   card: {
     y: 50,
     duration: 1,

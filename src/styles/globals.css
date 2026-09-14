@@ -9,6 +9,8 @@
   --color-copy-muted: var(--color-ink-muted);
   --color-brand: var(--color-accent);
   --color-brand-soft: var(--color-accent-soft);
+  /* --jn-blue: donkerblauw uit het logo, voor grote cijfers op lichte surfaces. */
+  --color-jn-blue: var(--brand-dark);
   --color-hairline: var(--color-line);
   --font-sans: var(--font-body);
   --font-mono: var(--font-mono);

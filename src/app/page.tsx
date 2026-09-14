@@ -7,7 +7,7 @@ import { Hero } from "@/components/sections/Hero";
 import { StatsCards } from "@/components/sections/StatsCards";
 import { Stages } from "@/components/sections/Stages";
 import { ServicesBento } from "@/components/sections/ServicesBento";
-import { services } from "@/content/services";
+import { servicesBento } from "@/content/services";
 import { site } from "@/content/site";
 import { faq } from "@/content/faq";
 import { Faq } from "@/components/sections/Faq";
@@ -21,7 +21,7 @@ export default function Home() {
       <IntroOverlay />
       <Hero content={hero} />
       <CertificationBar />
-      <ServicesBento content={services} />
+      <ServicesBento content={servicesBento} />
       <StatsCards content={site.pages.home.stats} />
       <Stages content={site.pages.home.stages} />
       <AgentConfigurator />
