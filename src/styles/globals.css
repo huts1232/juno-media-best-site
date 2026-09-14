@@ -2743,6 +2743,14 @@ h1 {
   margin: 0;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .site-footer__link,
+  .site-footer__email,
+  .site-footer__social-link {
+    transition: none;
+  }
+}
+
 .cookie-bar {
   position: fixed;
   right: var(--gutter);

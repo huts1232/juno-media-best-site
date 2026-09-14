@@ -1,3 +1,8 @@
+import { diensten, servicesBento } from "@/content/services";
+
+// TODO: URL van de LinkedIn-bedrijfspagina invullen; nu de LinkedIn-homepage.
+const LINKEDIN_URL = "https://www.linkedin.com/";
+
 export const site = {
   locale: "nl",
   /** Basis voor sitemap en canonieke URL's. Zet NEXT_PUBLIC_SITE_URL in de omgeving. */
@@ -5,7 +10,7 @@ export const site = {
   metadata: {
     title: "Junomedia | AI-groeistudio voor digitale groei",
     description:
-      "Junomedia bouwt digitale producten, automatisering en AI-agentteams waarmee Nederlandse bedrijven sneller groeien.",
+      "Junomedia bouwt AI-oplossingen, automatiseringen, dashboards, Shopify-webshops en apps die handwerk uit je bedrijf halen.",
   },
   brand: {
     name: "Junomedia",
@@ -15,16 +20,18 @@ export const site = {
     primary: "Primaire navigatie",
     openMenu: "Menu openen",
     closeMenu: "Menu sluiten",
-    social: "Social links",
+    social: "Sociale media",
   },
   navigation: [
-    { label: "Oplossingen", href: "/#oplossingen" },
+    { label: "Diensten", href: `/#${servicesBento.id}` },
     { label: "Cases", href: "/cases" },
     { label: "Over ons", href: "/over-ons" },
     { label: "Contact", href: "/contact" },
   ],
   primaryCta: { label: "Plan een groeiscan", href: "/contact" },
-  socialLinks: [],
+  socialLinks: [
+    { label: "LinkedIn", href: LINKEDIN_URL },
+  ],
   pages: {
     home: {
       eyebrow: "AI-groeistudio",
@@ -51,7 +58,7 @@ export const site = {
         },
       },
       statement: {
-        text: "We bouwen webshops, koppelingen en digitale teams die terugkerend werk uit je bedrijf halen en ruimte maken voor groei.",
+        text: "Wij bouwen de software die handwerk uit je bedrijf haalt, zodat je team zijn uren besteedt aan klanten in plaats van aan overtypen.",
       },
       stats: {
         heading: "Groeibasis",
@@ -91,7 +98,7 @@ export const site = {
             title: "Bouw",
             body: "We ontwerpen en bouwen de digitale ervaring, koppeling of agentflow rond die kans.",
             result: "Output: een werkend systeem dat op echte processen aansluit.",
-            link: { label: "Bekijk oplossingen", href: "/#oplossingen" },
+            link: { label: "Bekijk diensten", href: `/#${servicesBento.id}` },
           },
           {
             title: "Schaal",
@@ -141,13 +148,6 @@ export const site = {
           },
         ],
       },
-      ctaBanner: {
-        statement: "Waar zit jouw grootste digitale groeikans?",
-        support:
-          "In de groeiscan brengen we de beste kans in kaart: meer omzet uit je webshop, minder handwerk in je processen of digitale capaciteit voor je team.",
-        primary: { label: "Plan een groeiscan", href: "/contact" },
-        secondary: { label: "Bekijk oplossingen", href: "/#oplossingen" },
-      },
     },
     cases: {
       eyebrow: "Cases",
@@ -157,9 +157,10 @@ export const site = {
       scrollLabel: "Scroll",
     },
     services: {
-      eyebrow: "Oplossingen",
-      title: "Drie ingangen voor digitale groei",
-      intro: "Shopify-webshops, AI-integraties en AI-agentteams passen in dezelfde groeibasis.",
+      eyebrow: "Diensten",
+      title: "Wat we voor je bouwen",
+      intro:
+        "AI-oplossingen, automatisering, dashboards, Shopify en apps. Elke dienst haalt werk weg bij je team of meer omzet uit je verkeer.",
     },
     blog: {
       eyebrow: "Blog",
@@ -290,21 +291,19 @@ export const site = {
     ariaLabel: "Cookievoorkeuren",
   },
   footer: {
+    // TODO: verifiëren dat dit adres bestaat en gelezen wordt.
     email: "contact@junomedia.nl",
-    location: "Amsterdam",
+    location: "Nijmegen",
+    legal: "JUNO B.V. · KvK 92813089",
     copyright: "© 2026 Junomedia",
+    logoLabel: "Junomedia, naar de homepage",
     columns: [
       {
-        title: "Oplossingen",
-        links: [
-          { label: "Shopify-webshops", href: "/services#shopify-webshops" },
-          { label: "AI-integraties", href: "/services#ai-integraties" },
-          { label: "AI-agentteams", href: "/services#ai-agentteams" },
-          { label: "Alle oplossingen", href: "/#oplossingen" },
-        ],
+        title: "Diensten",
+        links: diensten.map((dienst) => ({ label: dienst.name, href: dienst.href })),
       },
       {
-        title: "Site",
+        title: "Bedrijf",
         links: [
           { label: "Cases", href: "/cases" },
           { label: "Over ons", href: "/over-ons" },
@@ -312,19 +311,11 @@ export const site = {
         ],
       },
       {
-        title: "Groeiscan",
-        links: [
-          { label: "Plan een groeiscan", href: "/contact" },
-          { label: "Voor webshops", href: "/services#shopify-webshops" },
-          { label: "Voor processen", href: "/services#ai-integraties" },
-          { label: "Voor teams", href: "/services#ai-agentteams" },
-        ],
-      },
-      {
         title: "Contact",
         links: [
-          { label: "Contactformulier", href: "/contact" },
+          { label: "Plan een groeiscan", href: "/contact" },
           { label: "E-mail", href: "mailto:contact@junomedia.nl" },
+          { label: "LinkedIn", href: LINKEDIN_URL },
         ],
       },
     ],
