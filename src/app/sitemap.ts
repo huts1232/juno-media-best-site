@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { cases } from "@/content/cases";
+import { diensten } from "@/content/services";
 import { useCases } from "@/content/use-cases";
 import { site } from "@/content/site";
 
@@ -13,6 +14,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${base}${route || "/"}`,
       changeFrequency: "monthly" as const,
       priority: route === "" ? 1 : 0.7,
+    })),
+    ...diensten.map((dienst) => ({
+      url: `${base}${dienst.href}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
     })),
     ...cases.map((item) => ({
       url: `${base}/cases/${item.slug}`,
