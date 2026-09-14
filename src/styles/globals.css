@@ -198,6 +198,9 @@ h1 {
 .page-hero__title {
   grid-column: 4 / span 8;
   max-width: 10ch;
+  /* Nooit smaller dan het langste woord ("automatisering" is breder dan 10ch),
+     anders knipt de overflow van de SplitText-regels het af. */
+  min-width: min-content;
   min-height: 4em;
   letter-spacing: 0;
 }
