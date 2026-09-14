@@ -3421,23 +3421,29 @@ h1 {
   }
 
   .site-nav-wrapper {
-    display: block;
-    height: 4rem;
+    display: flex;
+    height: 4.35rem;
+    justify-content: center;
     overflow: hidden;
-    padding: 1.25rem 1.25rem 0;
+    padding: .85rem 1.25rem 0;
   }
 
   .site-nav-shell {
     width: 100%;
-    height: 2rem;
-    padding: 0;
-    border-radius: 0;
-    background: transparent;
+    height: 3rem;
+    padding: .28rem;
+    border-radius: .83333rem;
+    background: #191919;
+    box-shadow: var(--shadow-float);
   }
 
   .site-nav-brand {
     min-width: 0;
-    padding: 0;
+    padding: 0 .75rem;
+  }
+
+  .mobile-menu-button span {
+    background: #e6e6e6;
   }
 
   /* Geen zoom onder 768px: de wrapper is weer een gewoon blok, de sticky laag
@@ -4464,6 +4470,29 @@ h1 {
   text-align: center;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+}
+
+.bento-card__link {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  gap: 0.55rem;
+  margin-top: var(--space-1);
+  color: var(--color-accent-deep);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-tight);
+}
+
+.bento-card__link svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  flex: 0 0 auto;
+  transition: transform var(--dur-fast) var(--ease-out-expo);
+}
+
+.bento-card__link:hover svg,
+.bento-card__link:focus-visible svg {
+  transform: translateX(4px);
 }
 
 /* Bewust een donker paneel binnen de lichte sectie: de visuals zijn

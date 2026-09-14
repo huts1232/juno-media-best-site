@@ -1,61 +1,54 @@
 export const faq = {
   eyebrow: "FAQ",
-  heading: "Questions and answers",
+  heading: "Vragen over de groeiscan",
   items: [
     {
       id: "faq-1",
-      question: "How quickly can a new project start?",
-      answer: "Most placeholder project tracks begin with a short discovery call, a scoped brief and a focused kickoff window.",
+      question: "Wat is een groeiscan?",
+      answer:
+        "Een kort traject waarin we bepalen waar digitale groei het meest vastloopt: in je webshop, in handmatig proceswerk of in capaciteit binnen je team.",
     },
     {
       id: "faq-2",
-      question: "What do you need before design starts?",
-      answer: "A clear goal, target audience notes, available brand material and any product constraints are enough for the first pass.",
+      question: "Moet ik al weten welke oplossing ik nodig heb?",
+      answer:
+        "Nee. De scan is juist bedoeld om te kiezen of een betere webshop, een systeemkoppeling of een agentteam de meest logische eerste stap is.",
     },
     {
       id: "faq-3",
-      question: "Can this process fit an early-stage team?",
-      answer: "Yes. The placeholder workflow is intentionally compact, with decisions grouped around launch risk and available signal.",
+      question: "Bouwen jullie losse AI-tools?",
+      answer:
+        "Nee. We bouwen digitale producten en flows rond een concreet bedrijfsproces. AI is alleen nuttig wanneer het werk overneemt of een betere ervaring mogelijk maakt.",
     },
     {
       id: "faq-4",
-      question: "Do you handle development after design?",
-      answer: "The build track can include production frontend, motion, analytics events and handoff documentation for later iteration.",
+      question: "Waar sluit een AI-integratie op aan?",
+      answer:
+        "Dat hangt af van je situatie. Denk aan webshop, CRM, mailbox, planning, administratie of interne dashboards. We starten met de systemen die het huidige werk bepalen.",
     },
     {
       id: "faq-5",
-      question: "How are project estimates made?",
-      answer: "Estimates are based on page count, product complexity, content readiness, motion depth and integration requirements.",
+      question: "Wanneer past een AI-agentteam?",
+      answer:
+        "Wanneer terugkerend werk een duidelijke verantwoordelijkheid heeft, vaste informatiebronnen gebruikt en vaak genoeg voorkomt om structureel verschil te maken.",
     },
     {
       id: "faq-6",
-      question: "Is every section custom-built?",
-      answer: "The layout system is reusable, but each visible section can be shaped around the product story and conversion goal.",
+      question: "Wat gebeurt er na de groeiscan?",
+      answer:
+        "Je krijgt een scherpe eerste richting. Daarna kunnen we de gekozen oplossing ontwerpen, bouwen en gecontroleerd uitbreiden zodra er bewijs is dat de richting werkt.",
     },
     {
       id: "faq-7",
-      question: "Can existing brand assets be used?",
-      answer: "Existing typography, colors and logo files can be folded into the system if they support the desired launch direction.",
+      question: "Kunnen bestaande systemen en huisstijl blijven?",
+      answer:
+        "Ja. De beste oplossing sluit aan op wat er al staat, zolang dat groei niet in de weg zit. We vervangen alleen wat nodig is.",
     },
     {
       id: "faq-8",
-      question: "What happens after launch?",
-      answer: "The placeholder handoff includes measurement notes, technical cleanup tasks and a backlog for the next improvement cycle.",
-    },
-    {
-      id: "faq-9",
-      question: "Do animations work with reduced motion?",
-      answer: "Reduced-motion users receive the final state directly so the content remains stable, readable and fully reachable.",
-    },
-    {
-      id: "faq-10",
-      question: "Can content be replaced later?",
-      answer: "All visible copy lives in content files, so final text can replace placeholders without changing component structure.",
-    },
-    {
-      id: "faq-11",
-      question: "What should replace the placeholder assets?",
-      answer: "Final assets should match the documented dimensions, crop behavior and contrast needs of each placeholder surface.",
+      question: "Waarom staat de groeiscan op de contactpagina?",
+      answer:
+        "Er is nog geen aparte boekingsflow gekoppeld. Tot die er is, gebruiken we het bestaande contactformulier als veilige ingang.",
     },
   ],
 } as const;

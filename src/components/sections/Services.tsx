@@ -7,6 +7,7 @@ import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { serviceMotion } from "@/lib/motion-tokens";
 
 type ServiceItem = {
+  id?: string;
   name: string;
   heading: string;
   body: string;
@@ -265,6 +266,7 @@ export function Services({ content }: ServicesProps) {
           {content.items.map((item, index) => (
             <article
               key={item.name}
+              id={item.id}
               ref={assignBlockRef(index)}
               className="service-panel"
               data-service-panel

@@ -12,7 +12,7 @@ import { formatEuro } from "@/lib/format";
 import { resolveSubLines, withSource } from "@/lib/positioning-rules";
 import { WEEKS_PER_MONTH } from "@/lib/roi-model";
 
-/** Anker van de AgentConfigurator; de enige CTA-bestemming op de site. */
+/** Anker van de AgentConfigurator voor contextuele modules op de site. */
 export const CONFIGURATOR_ID = "configurator";
 
 /**
@@ -52,7 +52,7 @@ export const mission = {
   sub: ["Live in 14 dagen.", "Vanaf {prijs} per maand.", "Op onze eigen infrastructuur."],
   physics:
     "Elk proces dat regels volgt, kan vandaag een agent doen. De enige vraag is hoe snel jij het bouwt.",
-  cta: "Configureer je medewerker",
+  cta: "Plan een groeiscan",
 } as const;
 
 /** De missieregels zoals ze renderen: {prijs} ingevuld, of de regel weg. */
@@ -191,14 +191,14 @@ export const positioning = {
   /** Fysica-claim onder de knop in de hero. */
   physics: mission.physics,
 
-  /** Eén CTA op de hele site: nav, hero, sticky pill, kaarten en banner. */
+  /** Primaire CTA op de site. Contextuele modules mogen naar hun eigen anker linken. */
   cta: {
     label: mission.cta,
     /** Onder 1024px past het volledige label niet in de nav-shell. */
-    shortLabel: "Configureer",
-    href: `/#${CONFIGURATOR_ID}`,
-    targetId: CONFIGURATOR_ID,
-    ariaLabel: "Naar de configurator",
+    shortLabel: "Groeiscan",
+    href: "/contact",
+    targetId: "contact",
+    ariaLabel: "Plan een groeiscan",
   },
 
   /**
@@ -235,7 +235,7 @@ export const positioning = {
     intro: "Elk neemt één deel van het werk over. Je begint met er één.",
     priceOnRequest: "Prijs op aanvraag",
     priceSuffix: "per maand",
-    ctaTemplate: "Configureer {naam}",
+    ctaTemplate: "Plan groeiscan voor {naam}",
     bulletLabels: {
       takesOver: "Neemt over",
       delivers: "Levert op",

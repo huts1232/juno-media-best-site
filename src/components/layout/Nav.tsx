@@ -318,7 +318,7 @@ export function Nav({ brand, links, cta, email, labels, socialLinks }: NavProps)
         <nav
           ref={shellRef}
           aria-label={labels.primary}
-          className="site-nav-shell pointer-events-auto flex h-[3.47222rem] w-[41.25rem] max-w-full flex-none items-center justify-between overflow-hidden rounded-[.83333rem] bg-[#191919] p-[.28rem]"
+          className="site-nav-shell pointer-events-auto flex h-[3.47222rem] w-[46.5rem] max-w-full flex-none items-center justify-between overflow-hidden rounded-[.83333rem] bg-[#191919] p-[.28rem]"
         >
           <Link
             href={brand.href}
@@ -354,10 +354,10 @@ export function Nav({ brand, links, cta, email, labels, socialLinks }: NavProps)
               );
             })}
           </div>
-          <div className="hidden h-full w-[8.75rem] items-center justify-end overflow-hidden md:flex">
+          <div className="hidden h-full w-[11.75rem] items-center justify-end overflow-hidden md:flex">
             <Button
               href={cta.href}
-              className="site-nav-cta group/button h-full min-w-[8.33rem] whitespace-nowrap rounded-[.5rem] bg-brand px-[1.46rem] pb-[.8rem] pt-[1.01rem] text-[.97222rem] leading-none"
+              className="site-nav-cta group/button h-full min-w-[11.25rem] whitespace-nowrap rounded-[.5rem] bg-brand px-[1.46rem] pb-[.8rem] pt-[1.01rem] text-[.97222rem] leading-none"
             >
               <span>{cta.label}</span>
               <svg

@@ -351,7 +351,7 @@ export const navShrink = {
   duration: 0.4,
   ease: "power2.out",
   /** Ontwerpbreedte van de nav-shell in ruststand. */
-  shellWidth: "41.25rem",
+  shellWidth: "46.5rem",
 } as const;
 
 export const stickyCtaMotion = {

@@ -3,11 +3,12 @@ export const site = {
   /** Basis voor sitemap en canonieke URL's. Zet NEXT_PUBLIC_SITE_URL in de omgeving. */
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://junomedia.nl",
   metadata: {
-    title: "Juno Media Best Site",
-    description: "A motion-led digital studio site for Juno Media.",
+    title: "Junomedia | AI-groeistudio voor digitale groei",
+    description:
+      "Junomedia bouwt digitale producten, automatisering en AI-agentteams waarmee Nederlandse bedrijven sneller groeien.",
   },
   brand: {
-    name: "Juno Media",
+    name: "Junomedia",
     href: "/",
   },
   navLabels: {
@@ -17,36 +18,31 @@ export const site = {
     social: "Social links",
   },
   navigation: [
+    { label: "Oplossingen", href: "/#oplossingen" },
     { label: "Cases", href: "/cases" },
-    { label: "Services", href: "/services" },
-    { label: "Blog", href: "/blog" },
     { label: "Over ons", href: "/over-ons" },
+    { label: "Contact", href: "/contact" },
   ],
-  primaryCta: { label: "Plan een call", href: "/contact" },
-  socialLinks: [
-    { label: "Dribbble", href: "https://dribbble.com/" },
-    { label: "Behance", href: "https://www.behance.net/" },
-    { label: "Instagram", href: "https://www.instagram.com/" },
-    { label: "X", href: "https://x.com/" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/" },
-  ],
+  primaryCta: { label: "Plan een groeiscan", href: "/contact" },
+  socialLinks: [],
   pages: {
     home: {
-      eyebrow: "Juno Media",
-      title: "Digital launches with startup velocity",
-      intro: "A placeholder homepage shell for the phased replica build.",
+      eyebrow: "AI-groeistudio",
+      title: "Digitale groei gebouwd rond je bedrijf",
+      intro:
+        "Junomedia combineert sterke digitale ervaringen met automatisering en digitale capaciteit.",
       hero: {
-        eyebrow: "Juno Media studio",
-        titleLines: ["Digital launches", "startup velocity"],
+        eyebrow: "Nederlandse AI-groeistudio",
+        titleLines: ["Digitale groei", "gebouwd rond je bedrijf"],
         video: {
-          ariaLabel: "Juno Media in actie",
+          ariaLabel: "Abstracte visual voor digitale groei",
           poster: "/media/hero-poster.jpg",
           src: "/media/hero.mp4",
         },
         scrollLabel: "Scroll",
       },
       showreel: {
-        ariaLabel: "Juno Media showreel",
+        ariaLabel: "Junomedia showreel",
         poster: "/assets/showreel-poster.svg",
         src: "",
         lockup: {
@@ -55,67 +51,65 @@ export const site = {
         },
       },
       statement: {
-        text: "We turn messy growth goals into focused digital systems that launch fast and keep compounding.",
+        text: "We bouwen webshops, koppelingen en digitale teams die terugkerend werk uit je bedrijf halen en ruimte maken voor groei.",
       },
       stats: {
-        heading: "Studio stats",
+        heading: "Groeibasis",
         items: [
           {
-            value: "48+",
-            label: "Launch systems shipped",
-            badge: { kind: "pill", label: "Since 2019" },
+            value: "Scan",
+            label: "We starten bij de grootste digitale of operationele groeikans.",
+            badge: { kind: "pill", label: "Startpunt" },
           },
           {
-            value: "96%",
-            label: "Retention across active partners",
-            badge: { kind: "avatars", label: "4 partner squads", initials: ["AB", "MK", "JD", "RS"] },
+            value: "Shopify",
+            label: "Webshops die conversie, beheer en doorgroei samenbrengen.",
+            badge: { kind: "pill", label: "Commerce" },
           },
           {
-            value: "$12M",
-            label: "Pipeline influenced by launches",
-            badge: { kind: "trend", label: "+34% YoY" },
+            value: "Flows",
+            label: "Systemen gekoppeld zodat minder werk tussen inboxen blijft hangen.",
+            badge: { kind: "trend", label: "Proces" },
           },
           {
-            value: "7+",
-            label: "Focused launch squads",
-            badge: { kind: "pill", label: "3 timezones" },
+            value: "Agents",
+            label: "Digitale specialisten met een afgebakende verantwoordelijkheid.",
+            badge: { kind: "avatars", label: "AI-team", initials: ["AI", "Ops", "CX"] },
           },
         ],
       },
       stages: {
-        heading: "Project phases",
+        heading: "Werkwijze",
         items: [
           {
-            title: "Map",
-            body: "Clarify the launch goal, audience, funnel, constraints and signal we need before design starts.",
-            result: "Output: launch brief and conversion map",
-            link: { label: "Bekijk details", href: "/services" },
+            title: "Scan",
+            body: "We brengen in kaart waar omzet, opvolging of handwerk nu groei afremt.",
+            result: "Output: één scherpe groeikans met prioriteit.",
+            link: { label: "Plan een groeiscan", href: "/contact" },
           },
           {
-            title: "Shape",
-            body: "Turn the brief into interface direction, content rhythm, visual rules and a production-ready page system.",
-            result: "Output: responsive design system",
-            link: { label: "Bekijk details", href: "/services" },
+            title: "Bouw",
+            body: "We ontwerpen en bouwen de digitale ervaring, koppeling of agentflow rond die kans.",
+            result: "Output: een werkend systeem dat op echte processen aansluit.",
+            link: { label: "Bekijk oplossingen", href: "/#oplossingen" },
           },
           {
-            title: "Ship",
-            body: "Build the site, wire motion, tune performance, connect analytics and prepare the next iteration loop.",
-            result: "Output: live launch and sprint backlog",
-            link: { label: "Bekijk details", href: "/services" },
+            title: "Schaal",
+            body: "Na livegang meten we wat werkt en breiden we alleen uit waar dat groei oplevert.",
+            result: "Output: een compacte backlog voor de volgende stap.",
+            link: { label: "Plan een groeiscan", href: "/contact" },
           },
         ],
       },
       logoMarquee: {
-        ariaLabel: "Selected client placeholders",
+        ariaLabel: "Oplossingsgebieden",
         items: [
-          { name: "Northline" },
-          { name: "Forma Lab" },
-          { name: "Atlas Grid" },
-          { name: "Signal One" },
-          { name: "Nova Works" },
-          { name: "Brightpath" },
-          { name: "Coredesk" },
-          { name: "Field & Flow" },
+          { name: "Shopify-webshops" },
+          { name: "AI-integraties" },
+          { name: "AI-agentteams" },
+          { name: "Conversie" },
+          { name: "Automatisering" },
+          { name: "Digitale capaciteit" },
         ],
       },
       news: {
@@ -148,28 +142,29 @@ export const site = {
         ],
       },
       ctaBanner: {
-        statement: "Ready to launch a sharper digital system?",
-        support: "Bring a product, campaign or repositioning brief and we will shape the next focused move.",
-        primary: { label: "Start een project", href: "/contact" },
-        secondary: { label: "Plan een call", href: "/contact" },
+        statement: "Waar zit jouw grootste digitale groeikans?",
+        support:
+          "In de groeiscan brengen we de beste kans in kaart: meer omzet uit je webshop, minder handwerk in je processen of digitale capaciteit voor je team.",
+        primary: { label: "Plan een groeiscan", href: "/contact" },
+        secondary: { label: "Bekijk oplossingen", href: "/#oplossingen" },
       },
     },
     cases: {
       eyebrow: "Cases",
-      title: "Work that earns its next launch",
+      title: "Werk dat we mogen laten zien",
       intro:
-        "Six systems that went from brief to measurable growth. Every case opens with the number it moved.",
+        "Publieke cases verschijnen hier zodra de resultaten, namen en context door de eigenaar zijn vrijgegeven.",
       scrollLabel: "Scroll",
     },
     services: {
-      eyebrow: "Services",
-      title: "Strategy, product and launch craft",
-      intro: "Placeholder service copy keeps this setup phase content-driven.",
+      eyebrow: "Oplossingen",
+      title: "Drie ingangen voor digitale groei",
+      intro: "Shopify-webshops, AI-integraties en AI-agentteams passen in dezelfde groeibasis.",
     },
     blog: {
       eyebrow: "Blog",
-      title: "Notes from the studio",
-      intro: "Placeholder editorial intro for the later blog page build.",
+      title: "Notities uit de groeistudio",
+      intro: "Hier komen later praktische notities over digitale groei, automatisering en agentteams.",
       articlesLabel: "Studio articles",
       readLabel: "Read note",
       articles: [
@@ -198,8 +193,9 @@ export const site = {
     },
     about: {
       eyebrow: "Over ons",
-      title: "A compact team for ambitious launches",
-      intro: "Placeholder about content for the later anchor-section build.",
+      title: "Een compacte groeistudio voor digitale capaciteit",
+      intro:
+        "Junomedia bouwt systemen die passen bij hoe Nederlandse bedrijven echt werken: duidelijk, meetbaar en zonder technische ruis.",
       anchorsLabel: "Over ons secties",
       anchors: [
         { label: "Numbers", href: "#numbers" },
@@ -218,8 +214,9 @@ export const site = {
       },
       mission: {
         eyebrow: "Mission",
-        heading: "Make complex launches feel clear before they move fast.",
-        body: "We use placeholder strategy, design and build tracks to turn broad ambition into a focused digital system with fewer handoff gaps.",
+        heading: "Digitale groei wordt sterker wanneer product, proces en capaciteit samen ontworpen zijn.",
+        body:
+          "We combineren conversiegerichte interfaces met automatisering en agentflows die bestaande teams ondersteunen.",
       },
       values: {
         eyebrow: "Values",
@@ -247,8 +244,9 @@ export const site = {
     },
     contact: {
       eyebrow: "Contact",
-      title: "Start a focused project conversation",
-      intro: "Placeholder contact intro before the form is built in FASE 4.",
+      title: "Plan een groeiscan",
+      intro:
+        "Vertel kort waar groei nu vastloopt. We brengen de grootste digitale of operationele kans in kaart en bepalen wat de eerste logische stap is.",
       form: {
         ariaLabel: "Project aanvraag",
         submitLabel: "Verstuur aanvraag",
@@ -273,7 +271,7 @@ export const site = {
           },
           message: {
             label: "Bericht",
-            placeholder: "Vertel kort wat je wilt lanceren.",
+            placeholder: "Vertel kort waar omzet, handwerk of opvolging nu vastloopt.",
           },
         },
         errors: {
@@ -292,44 +290,41 @@ export const site = {
     ariaLabel: "Cookievoorkeuren",
   },
   footer: {
-    email: "hello@junomedia.example",
+    email: "contact@junomedia.nl",
     location: "Amsterdam",
-    copyright: "© 2026 Juno Media",
+    copyright: "© 2026 Junomedia",
     columns: [
       {
-        title: "Cases",
+        title: "Oplossingen",
         links: [
-          { label: "Launches", href: "/cases" },
-          { label: "Platforms", href: "/cases" },
-          { label: "Brands", href: "/cases" },
-          { label: "Products", href: "/cases" },
-          { label: "Experiments", href: "/cases" },
+          { label: "Shopify-webshops", href: "/services#shopify-webshops" },
+          { label: "AI-integraties", href: "/services#ai-integraties" },
+          { label: "AI-agentteams", href: "/services#ai-agentteams" },
+          { label: "Alle oplossingen", href: "/#oplossingen" },
         ],
       },
       {
-        title: "Services",
+        title: "Site",
         links: [
-          { label: "Strategy", href: "/services" },
-          { label: "Identity", href: "/services" },
-          { label: "Websites", href: "/services" },
-          { label: "Apps", href: "/services" },
-          { label: "Development", href: "/services" },
+          { label: "Cases", href: "/cases" },
+          { label: "Over ons", href: "/over-ons" },
+          { label: "Contact", href: "/contact" },
         ],
       },
       {
-        title: "Over ons",
+        title: "Groeiscan",
         links: [
-          { label: "Team", href: "/over-ons" },
-          { label: "Mission", href: "/over-ons#mission" },
-          { label: "Values", href: "/over-ons#values" },
-          { label: "Clients", href: "/over-ons#clients" },
+          { label: "Plan een groeiscan", href: "/contact" },
+          { label: "Voor webshops", href: "/services#shopify-webshops" },
+          { label: "Voor processen", href: "/services#ai-integraties" },
+          { label: "Voor teams", href: "/services#ai-agentteams" },
         ],
       },
       {
         title: "Contact",
         links: [
-          { label: "Email", href: "mailto:hello@junomedia.example" },
-          { label: "Call", href: "/contact" },
+          { label: "Contactformulier", href: "/contact" },
+          { label: "E-mail", href: "mailto:contact@junomedia.nl" },
         ],
       },
     ],

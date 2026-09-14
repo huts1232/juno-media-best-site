@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { addPlatformParallax, addVisualMotion } from "@/components/services/serviceVisualMotion";
 import {
   CodeBlock,
@@ -17,10 +18,13 @@ import { gsap } from "@/lib/gsap";
 import { servicesBentoMotion } from "@/lib/motion-tokens";
 
 type ServiceItem = {
+  id?: string;
   name: string;
   heading: string;
   body: string;
   visual: ServiceVisual;
+  href?: string;
+  ctaLabel?: string;
   video?: {
     ariaLabel: string;
     poster: string;
@@ -114,6 +118,7 @@ export function ServicesBento({ content }: ServicesBentoProps) {
   return (
     <section
       ref={rootRef}
+      id="oplossingen"
       className="bento"
       data-surface="light"
       aria-labelledby="home-services-title"
@@ -130,6 +135,7 @@ export function ServicesBento({ content }: ServicesBentoProps) {
           {content.items.map((item) => (
             <article
               key={item.name}
+              id={item.id}
               className="bento-card"
               data-bento-card
               data-visual={item.visual}
@@ -140,6 +146,21 @@ export function ServicesBento({ content }: ServicesBentoProps) {
                   {item.heading}
                 </h3>
                 <p className="bento-card__body">{item.body}</p>
+                {item.href ? (
+                  <Link href={item.href} className="bento-card__link">
+                    <span>{item.ctaLabel ?? "Bekijk oplossing"}</span>
+                    <svg aria-hidden="true" viewBox="0 0 16 16" focusable="false">
+                      <path
+                        d="M3 8h9M8.5 3.5 13 8l-4.5 4.5"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="1.8"
+                      />
+                    </svg>
+                  </Link>
+                ) : null}
                 <div className="bento-card__visual">
                   <ServiceVisualSlot item={item} loadVideo={loadVideo} />
                 </div>

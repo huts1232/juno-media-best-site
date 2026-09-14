@@ -39,11 +39,11 @@ export const intro = {
 
 export const certificationBar = {
   claim: {
-    count: "6×",
-    label: "Anthropic Certified",
+    count: "Stack",
+    label: "voor digitale groei",
     icon: "certificate" as AgencyIcon,
   },
-  badgesLabel: "Partners en tooling",
+  badgesLabel: "Tooling en platformen",
   badges: [
     { id: "anthropic", name: "Anthropic" },
     { id: "supabase", name: "Supabase" },
@@ -560,10 +560,10 @@ export const branches: readonly Branche[] = [
 
 export const configurator = {
   id: "configurator",
-  eyebrow: "Agent samenstellen",
-  heading: "Stel in drie stappen jouw agent samen",
+  eyebrow: "Groeiscan",
+  heading: "Ontdek waar digitale capaciteit direct verschil maakt",
   intro:
-    "Kies je branche, de taak die het meeste tijd kost en het volume. Je krijgt direct een indicatie, zonder gesprek vooraf.",
+    "Kies je branche, de taak die het meeste tijd kost en het volume. Je krijgt een eerste richting voor de groeiscan.",
   progressLabel: "Stap {current} van {total}",
   steps: [
     {
@@ -611,8 +611,8 @@ export const configurator = {
       "Indicatie op basis van jouw invoer en onze eerdere trajecten. Geen offerte.",
   },
   email: {
-    heading: "Stuur dit plan naar mijn inbox",
-    body: "Je krijgt de flow, de cijfers en de aannames als PDF-samenvatting.",
+    heading: "Stuur deze richting naar mijn inbox",
+    body: "Je krijgt de gekozen flow en de aannames als samenvatting.",
     label: "E-mailadres",
     placeholder: "naam@bedrijf.nl",
     cta: "Stuur het plan",
@@ -643,7 +643,7 @@ export const configurator = {
 export const roi = {
   id: "roi",
   eyebrow: "Rekenen",
-  heading: "Wat levert automatisering jou op?",
+  heading: "Waar zit de ruimte voor groei?",
   intro: "Schuif de waarden naar jouw situatie. De uitkomst rekent live mee.",
   fields: {
     hours: {
@@ -786,16 +786,16 @@ export const digest = {
 
 export const stickyCta = {
   href: "/contact",
-  ariaLabel: "Contact opnemen",
+  ariaLabel: "Plan een groeiscan",
   /** Wordt zichtbaar zodra de bezoeker voorbij deze hoogte is. */
   showAfterVh: 0.9,
-  default: "Plan een call",
+  default: "Plan een groeiscan",
   sections: [
-    { selector: "[data-cta-zone='hero']", label: "Plan een call" },
-    { selector: "[data-cta-zone='before-after']", label: "Wat levert dit jou op?" },
-    { selector: "[data-cta-zone='configurator']", label: "Bespreek jouw agent" },
-    { selector: "[data-cta-zone='roi']", label: "Laat het doorrekenen" },
-    { selector: "[data-cta-zone='cases']", label: "Bespreek jouw case" },
+    { selector: "[data-cta-zone='hero']", label: "Plan een groeiscan" },
+    { selector: "[data-cta-zone='before-after']", label: "Plan een groeiscan" },
+    { selector: "[data-cta-zone='configurator']", label: "Plan een groeiscan" },
+    { selector: "[data-cta-zone='roi']", label: "Plan een groeiscan" },
+    { selector: "[data-cta-zone='cases']", label: "Plan een groeiscan" },
   ],
   hideSelector: "[data-cta-zone='footer']",
 } as const;

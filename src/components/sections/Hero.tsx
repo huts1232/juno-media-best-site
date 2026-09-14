@@ -47,6 +47,9 @@ export function Hero({ content }: HeroProps) {
   const scrollIndicatorRef = useRef<HTMLDivElement | null>(null);
   const reducedMotion = useReducedMotion();
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const videoSource = content.video.src.trim();
+  const videoPoster = content.video.poster.trim();
+  const hasVideo = Boolean(videoSource);
 
   const titleWords = useMemo(
     () => content.titleLines.map((line) => line.trim().split(/\s+/).filter(Boolean)),
@@ -58,7 +61,7 @@ export function Hero({ content }: HeroProps) {
     const target = videoFrameRef.current;
     if (!target) return;
 
-    if (!content.video.src) {
+    if (!videoSource) {
       setShouldLoadVideo(false);
       return;
     }
@@ -75,10 +78,10 @@ export function Hero({ content }: HeroProps) {
     observer.observe(target);
 
     return () => observer.disconnect();
-  }, [content.video.src]);
+  }, [videoSource]);
 
   useEffect(() => {
-    if (!shouldLoadVideo || !content.video.src) return;
+    if (!shouldLoadVideo || !videoSource) return;
 
     const video = videoRef.current;
     if (!video) return;
@@ -87,7 +90,7 @@ export function Hero({ content }: HeroProps) {
     // Ontbreekt het bestand nog, dan blijft de poster staan; de afwijzing hoeft
     // niet als unhandled rejection in de console te landen.
     void video.play().catch(() => {});
-  }, [content.video.src, shouldLoadVideo]);
+  }, [videoSource, shouldLoadVideo]);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -394,17 +397,17 @@ export function Hero({ content }: HeroProps) {
                   <Image
                     className="hero-video-poster"
                     src={heroPosterDataUri}
-                    alt={content.video.src ? "" : content.video.ariaLabel}
+                    alt={hasVideo ? "" : content.video.ariaLabel}
                     width={1280}
                     height={720}
                     priority
                     unoptimized
                     fetchPriority="high"
                     sizes="(max-width: 767px) 100vw, 48vw"
-                    aria-hidden={content.video.src ? "true" : undefined}
+                    aria-hidden={hasVideo ? "true" : undefined}
                     draggable={false}
                   />
-                  {content.video.src ? (
+                  {hasVideo ? (
                     <div className="w-background-video w-background-video-atom hero-video-atom">
                       <video
                         ref={videoRef}
@@ -414,11 +417,11 @@ export function Hero({ content }: HeroProps) {
                         loop
                         playsInline
                         preload="none"
-                        poster={content.video.poster}
+                        poster={videoPoster || undefined}
                         width={1280}
                         height={720}
                       >
-                        {shouldLoadVideo ? <source src={content.video.src} type="video/mp4" /> : null}
+                        {shouldLoadVideo ? <source src={videoSource} type="video/mp4" /> : null}
                       </video>
                     </div>
                   ) : null}
