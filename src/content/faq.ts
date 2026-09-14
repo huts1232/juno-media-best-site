@@ -1,54 +1,58 @@
 export const faq = {
-  eyebrow: "FAQ",
-  heading: "Vragen over de groeiscan",
+  eyebrow: "Veelgestelde vragen",
+  heading: "Wat je wilt weten voordat je begint",
   items: [
     {
-      id: "faq-1",
-      question: "Wat is een groeiscan?",
+      id: "faq-welke-dienst",
+      question: "Welke dienst past bij mijn bedrijf?",
       answer:
-        "Een kort traject waarin we bepalen waar digitale groei het meest vastloopt: in je webshop, in handmatig proceswerk of in capaciteit binnen je team.",
+        "Dat hoef je vooraf niet te weten. Je vertelt waar je team de meeste uren aan kwijt is. Wij koppelen dat aan een agent, een automatisering, een dashboard, een webshop of een app.",
     },
     {
-      id: "faq-2",
-      question: "Moet ik al weten welke oplossing ik nodig heb?",
+      id: "faq-kosten",
+      question: "Wat kost een project?",
+      // TODO: vanafprijzen per dienst invullen zodra die vaststaan.
       answer:
-        "Nee. De scan is juist bedoeld om te kiezen of een betere webshop, een systeemkoppeling of een agentteam de meest logische eerste stap is.",
+        "Dat hangt af van de omvang. Je krijgt een voorstel met wat we bouwen en wat het kost, voordat je iets tekent. TODO: vanafprijzen per dienst invullen.",
     },
     {
-      id: "faq-3",
-      question: "Bouwen jullie losse AI-tools?",
+      id: "faq-doorlooptijd",
+      question: "Hoe snel staat het live?",
+      // TODO: gemiddelde doorlooptijd per dienst verifiëren.
       answer:
-        "Nee. We bouwen digitale producten en flows rond een concreet bedrijfsproces. AI is alleen nuttig wanneer het werk overneemt of een betere ervaring mogelijk maakt.",
+        "Dat spreken we vooraf af in het voorstel, met een vaste opleverdatum. TODO: doorlooptijd per dienst invullen.",
     },
     {
-      id: "faq-4",
-      question: "Waar sluit een AI-integratie op aan?",
+      id: "faq-bestaande-software",
+      question: "Werkt het met de software die ik al gebruik?",
       answer:
-        "Dat hangt af van je situatie. Denk aan webshop, CRM, mailbox, planning, administratie of interne dashboards. We starten met de systemen die het huidige werk bepalen.",
+        "Meestal wel. We koppelen aan je bestaande systemen, zoals je boekhouding, mailbox, planning of webshop. Lukt een koppeling niet, dan hoor je dat voordat we beginnen.",
     },
     {
-      id: "faq-5",
-      question: "Wanneer past een AI-agentteam?",
+      id: "faq-data",
+      question: "Wat gebeurt er met mijn data?",
+      // TODO: hosting, verwerkersovereenkomst en AVG-afspraken verifiëren.
       answer:
-        "Wanneer terugkerend werk een duidelijke verantwoordelijkheid heeft, vaste informatiebronnen gebruikt en vaak genoeg voorkomt om structureel verschil te maken.",
+        "Je data blijft van jou. Een agent werkt alleen met de bronnen die jij vrijgeeft. TODO: hosting en AVG-afspraken invullen.",
     },
     {
-      id: "faq-6",
-      question: "Wat gebeurt er na de groeiscan?",
+      id: "faq-medewerkers",
+      question: "Vervangt AI mijn medewerkers?",
       answer:
-        "Je krijgt een scherpe eerste richting. Daarna kunnen we de gekozen oplossing ontwerpen, bouwen en gecontroleerd uitbreiden zodra er bewijs is dat de richting werkt.",
+        "Nee. Een agent neemt terugkerend werk over, zoals vragen beantwoorden of gegevens overtypen. Je team houdt tijd over voor het werk waar mensen voor nodig zijn.",
     },
     {
-      id: "faq-7",
-      question: "Kunnen bestaande systemen en huisstijl blijven?",
+      id: "faq-beheer",
+      question: "Wie beheert het na oplevering?",
+      // TODO: onderhoudsvormen en tarieven invullen.
       answer:
-        "Ja. De beste oplossing sluit aan op wat er al staat, zolang dat groei niet in de weg zit. We vervangen alleen wat nodig is.",
+        "Dat kies je zelf: je beheert het met je eigen team of je laat het onderhoud bij ons. TODO: onderhoudsvormen en tarieven invullen.",
     },
     {
-      id: "faq-8",
-      question: "Waarom staat de groeiscan op de contactpagina?",
+      id: "faq-starten",
+      question: "Hoe begin ik?",
       answer:
-        "Er is nog geen aparte boekingsflow gekoppeld. Tot die er is, gebruiken we het bestaande contactformulier als veilige ingang.",
+        "Plan een groeiscan via de contactpagina. Je vertelt welk werk nu met de hand gaat, wij laten zien wat je kunt automatiseren en wat dat oplevert.",
     },
   ],
 } as const;

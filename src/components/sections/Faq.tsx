@@ -1,5 +1,3 @@
-import { Accordion } from "@/components/ui/Accordion";
-
 type FaqProps = {
   content: {
     eyebrow: string;
@@ -12,6 +10,10 @@ type FaqProps = {
   };
 };
 
+/**
+ * Veelgestelde vragen met native <details>: open en dicht zonder JavaScript,
+ * toetsenbord en screenreader werken standaard. Server component.
+ */
 export function Faq({ content }: FaqProps) {
   return (
     <section className="faq-section" aria-labelledby="home-faq-title">
@@ -22,7 +24,17 @@ export function Faq({ content }: FaqProps) {
             {content.heading}
           </h2>
         </div>
-        <Accordion className="faq-list" items={content.items} />
+        <div className="faq-list">
+          {content.items.map((item) => (
+            <details key={item.id} id={item.id} className="faq-row">
+              <summary className="faq-trigger">
+                <span className="faq-question">{item.question}</span>
+                <span className="faq-plus" aria-hidden="true" />
+              </summary>
+              <p className="faq-answer">{item.answer}</p>
+            </details>
+          ))}
+        </div>
       </div>
     </section>
   );
