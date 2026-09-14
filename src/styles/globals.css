@@ -2543,20 +2543,9 @@ h1 {
   color: #fff;
 }
 
-.cta-banner__button--secondary {
-  border-color: #080808;
-  background: transparent;
-  color: #080808;
-}
-
 .cta-banner__button--primary:hover {
   border-color: var(--color-accent);
   background: var(--color-accent);
-}
-
-.cta-banner__button--secondary:hover {
-  background: #080808;
-  color: #fff;
 }
 
 .cta-banner__arrow {
@@ -2582,6 +2571,17 @@ h1 {
 .cta-banner__decor svg {
   width: 100%;
   height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-banner__button,
+  .cta-banner__arrow {
+    transition: none;
+  }
+
+  .cta-banner__button:hover .cta-banner__arrow {
+    transform: none;
+  }
 }
 
 .site-footer {

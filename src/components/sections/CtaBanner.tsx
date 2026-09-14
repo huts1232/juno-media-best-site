@@ -14,13 +14,13 @@ type CtaBannerProps = {
       label: string;
       href: string;
     };
-    secondary: {
-      label: string;
-      href: string;
-    };
   };
 };
 
+/**
+ * Afsluitende banner met één primaire CTA. Geen secundaire knop: de banner
+ * heeft één taak, de bezoeker naar het contactformulier sturen.
+ */
 export function CtaBanner({ content }: CtaBannerProps) {
   const rootRef = useRef<HTMLElement | null>(null);
   const surfaceRef = useRef<HTMLDivElement | null>(null);
@@ -95,21 +95,17 @@ export function CtaBanner({ content }: CtaBannerProps) {
   }, [reducedMotion]);
 
   return (
-    <section ref={rootRef} className="cta-banner" aria-labelledby="home-cta-title">
+    <section ref={rootRef} className="cta-banner" aria-labelledby="cta-banner-title">
       <div ref={surfaceRef} className="cta-banner__surface" aria-hidden="true" />
       <div className="site-container cta-banner__inner">
         <div ref={copyRef} className="cta-banner__copy">
-          <h2 id="home-cta-title" className="cta-banner__statement">
+          <h2 id="cta-banner-title" className="cta-banner__statement">
             {content.statement}
           </h2>
           <p className="cta-banner__support">{content.support}</p>
           <div className="cta-banner__actions">
             <Button href={content.primary.href} className="cta-banner__button cta-banner__button--primary">
               <span>{content.primary.label}</span>
-              <ArrowIcon />
-            </Button>
-            <Button href={content.secondary.href} variant="secondary" className="cta-banner__button cta-banner__button--secondary">
-              <span>{content.secondary.label}</span>
               <ArrowIcon />
             </Button>
           </div>
