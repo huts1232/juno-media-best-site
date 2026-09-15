@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { type CSSProperties, useCallback, useEffect, useRef, useState } from "react";
 import { type ServiceVisual } from "@/content/services";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -7,15 +8,14 @@ import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { serviceMotion } from "@/lib/motion-tokens";
 
 type ServiceItem = {
+  /** Anker-id van het paneel: /services#<id>. */
+  id: string;
   name: string;
   heading: string;
   body: string;
   visual: ServiceVisual;
-  video?: {
-    ariaLabel: string;
-    poster: string;
-    src: string;
-  };
+  /** Link naar de landingspagina, als die er is. */
+  link: { label: string; href: string } | null;
 };
 
 type ServicesProps = {
@@ -94,7 +94,6 @@ export function Services({ content }: ServicesProps) {
   const blockRefs = useRef<Array<HTMLElement | null>>([]);
   const reducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [loadedVideos, setLoadedVideos] = useState<Record<string, boolean>>({});
 
   const assignBlockRef = useCallback(
     (index: number) => (node: HTMLElement | null) => {
@@ -113,36 +112,6 @@ export function Services({ content }: ServicesProps) {
     },
     [reducedMotion],
   );
-
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
-
-    const frames = gsap.utils
-      .toArray<HTMLElement>("[data-service-video-frame]", root)
-      .filter((frame) => Boolean(frame.dataset.videoSrc));
-
-    if (!frames.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-
-          const id = (entry.target as HTMLElement).dataset.videoId;
-          if (id) {
-            setLoadedVideos((current) => (current[id] ? current : { ...current, [id]: true }));
-          }
-          observer.unobserve(entry.target);
-        });
-      },
-      { rootMargin: "200px" },
-    );
-
-    frames.forEach((frame) => observer.observe(frame));
-
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -245,7 +214,7 @@ export function Services({ content }: ServicesProps) {
           <nav className="services-track-nav" aria-label={content.listLabel}>
             {content.items.map((item, index) => (
               <button
-                key={item.name}
+                key={item.id}
                 type="button"
                 className="services-track-button"
                 data-active={activeIndex === index}
@@ -264,7 +233,8 @@ export function Services({ content }: ServicesProps) {
         <div className="services-track-right">
           {content.items.map((item, index) => (
             <article
-              key={item.name}
+              key={item.id}
+              id={item.id}
               ref={assignBlockRef(index)}
               className="service-panel"
               data-service-panel
@@ -278,31 +248,24 @@ export function Services({ content }: ServicesProps) {
                   {item.heading}
                 </h3>
                 <p className="service-panel__body">{item.body}</p>
+                {item.link ? (
+                  <Link href={item.link.href} className="stage-card__link">
+                    <span>{item.link.label}</span>
+                    <svg aria-hidden="true" viewBox="0 0 16 16" focusable="false">
+                      <path
+                        d="M3 8h9M8.5 3.5 13 8l-4.5 4.5"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="1.8"
+                      />
+                    </svg>
+                  </Link>
+                ) : null}
               </div>
               <div className="service-panel__visual">
                 <ServiceLineGraphic variant={item.visual} />
-                {item.video ? (
-                  <div
-                    className="service-panel__video"
-                    data-service-video-frame
-                    data-video-id={item.name}
-                    data-video-src={item.video.src}
-                  >
-                    <video
-                      aria-label={item.video.ariaLabel}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="none"
-                      poster={item.video.poster}
-                      width={720}
-                      height={960}
-                    >
-                      {loadedVideos[item.name] && item.video.src ? <source src={item.video.src} type="video/mp4" /> : null}
-                    </video>
-                  </div>
-                ) : null}
               </div>
             </article>
           ))}

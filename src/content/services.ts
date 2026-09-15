@@ -1,95 +1,73 @@
+import { landingHref } from "@/content/landings";
+
 export type ServiceVisual = "strategy" | "visual" | "platforms" | "website" | "mobile" | "development";
 
 export type DienstSlug = "ai-oplossingen" | "ai-automatisering" | "dashboards" | "shopify" | "apps";
 
 export type Dienst = {
   slug: DienstSlug;
-  /** Landingspagina als die er is, anders het anker op /services. */
+  /** Afgeleid: de landingspagina als die er is, anders het anker op /services. */
   href: `/${string}`;
   /** Klein label boven de kop op de kaart. */
   label: string;
-  /** Dienstnaam: kaartkop, H1 en footerlink. */
+  /** Dienstnaam: kaartkop op de homepage en paneelkop op /services. */
   name: string;
-  /** Twee regels op de kaart, subkop op de landingspagina. */
+  /** Twee regels op de kaart en op /services. */
   body: string;
-  /** Visual voor het paneel op /services. */
+  /** Lijnvisual van het paneel op /services. */
   visual: ServiceVisual;
-  metadata: {
-    title: string;
-    description: string;
-  };
 };
 
 /**
- * De vijf diensten voor de bento op de homepage. Een dienst met een eigen
- * landingspagina linkt daarheen, de rest naar /services#<slug>. /services
- * gebruikt zelf nog `services` hieronder.
- * Volgorde = volgorde op de site: de eerste twee zijn de grote kaarten.
+ * De vijf diensten. Enige bron voor de bento op de homepage en de panelen op
+ * /services. Volgorde = volgorde op de site: de eerste twee zijn de grote
+ * kaarten in de bento.
  */
-export const diensten: readonly Dienst[] = [
+const dienstenBron: readonly Omit<Dienst, "href">[] = [
   {
     slug: "ai-oplossingen",
-    href: "/services#ai-oplossingen",
     label: "AI",
     name: "AI-oplossingen",
     body: "Agents en chatbots die op je eigen data draaien en werk overnemen dat nu bij je team ligt.",
     visual: "strategy",
-    metadata: {
-      title: "AI-oplossingen | Junomedia",
-      description:
-        "Agents en chatbots die op je eigen data draaien en werk overnemen dat nu bij je team ligt.",
-    },
   },
   {
     slug: "ai-automatisering",
-    href: "/ai-automatisering",
     label: "Automatisering",
     name: "AI-automatisering",
     body: "Koppelingen en workflows over je bestaande software. Offertes, facturen, klantvragen: zonder handwerk.",
     visual: "platforms",
-    metadata: {
-      title: "AI-automatisering | Junomedia",
-      description:
-        "Koppelingen en workflows over je bestaande software. Offertes, facturen en klantvragen zonder handwerk.",
-    },
   },
   {
     slug: "dashboards",
-    href: "/services#dashboards",
     label: "Inzicht",
     name: "Dashboards",
     body: "Eén scherm met de cijfers waarop je stuurt. Live uit je eigen systemen.",
     visual: "visual",
-    metadata: {
-      title: "Dashboards | Junomedia",
-      description: "Eén scherm met de cijfers waarop je stuurt, live uit je eigen systemen.",
-    },
   },
   {
     slug: "shopify",
-    href: "/services#shopify",
     label: "Webshops",
     name: "Shopify",
     body: "Themes, migraties en CRO voor webshops die meer uit hun verkeer moeten halen.",
     visual: "website",
-    metadata: {
-      title: "Shopify | Junomedia",
-      description: "Themes, migraties en CRO voor webshops die meer uit hun verkeer moeten halen.",
-    },
   },
   {
     slug: "apps",
-    href: "/services#apps",
     label: "Bouwen",
     name: "Apps & websites",
     body: "Snelle, meetbare sites en interne tools. Vaste scope, vaste prijs.",
     visual: "development",
-    metadata: {
-      title: "Apps & websites | Junomedia",
-      description: "Snelle, meetbare sites en interne tools. Vaste scope, vaste prijs.",
-    },
   },
 ];
+
+/** De services-pagina; elk paneel daar heeft de slug als id. */
+const SERVICES_PATH = "/services";
+
+export const diensten: readonly Dienst[] = dienstenBron.map((dienst) => ({
+  ...dienst,
+  href: landingHref(dienst.slug) ?? `${SERVICES_PATH}#${dienst.slug}`,
+}));
 
 export function getDienst(slug: string) {
   return diensten.find((dienst) => dienst.slug === slug);
@@ -104,51 +82,29 @@ export const servicesBento = {
   items: diensten,
 } as const;
 
+/**
+ * /services: dezelfde vijf diensten als panelen, elk met de slug als id zodat
+ * de bento erheen kan ankeren. Een link alleen als er een landingspagina is.
+ */
 export const services = {
-  eyebrow: "Services",
-  heading: "Systems for every launch layer",
-  listLabel: "Service navigation",
-  items: [
-    {
-      name: "Brand Strategy",
-      heading: "Brand Strategy",
-      body: "Define the offer, audience logic, positioning and growth narrative before production starts.",
-      visual: "strategy",
-    },
-    {
-      name: "Brand Visual",
-      heading: "Brand Visual",
-      body: "Shape a compact visual system with type, color, motion rules and reusable interface direction.",
-      visual: "visual",
-    },
-    {
-      name: "Platforms",
-      heading: "Platforms",
-      body: "Map the product surface, content model and operational flows into a clear platform blueprint.",
-      visual: "platforms",
-    },
-    {
-      name: "Website",
-      heading: "Website",
-      body: "Design and build conversion-focused pages with tight responsive behavior and measured performance.",
-      visual: "website",
-    },
-    {
-      name: "Mobile Apps",
-      heading: "Mobile Apps",
-      body: "Prototype the core mobile journey, interaction states and product moments that need to feel immediate.",
-      visual: "mobile",
-      video: {
-        ariaLabel: "Mobile app interface motion placeholder",
-        poster: "/assets/services-mobile-apps-poster.svg",
-        src: "",
-      },
-    },
-    {
-      name: "Development",
-      heading: "Development",
-      body: "Turn approved systems into production code, analytics events and a launch-ready iteration loop.",
-      visual: "development",
-    },
-  ],
-} as const;
+  hero: {
+    eyebrow: servicesBento.eyebrow,
+    title: servicesBento.heading,
+    intro: "AI-oplossingen, automatisering, dashboards, Shopify en apps. Elke dienst haalt werk weg bij je team of meer omzet uit je verkeer.",
+  },
+  eyebrow: servicesBento.eyebrow,
+  heading: "Kies een dienst",
+  listLabel: servicesBento.listLabel,
+  items: diensten.map((dienst) => {
+    const href = landingHref(dienst.slug);
+
+    return {
+      id: dienst.slug,
+      name: dienst.name,
+      heading: dienst.name,
+      body: dienst.body,
+      visual: dienst.visual,
+      link: href ? { label: `Meer over ${dienst.name}`, href } : null,
+    };
+  }),
+};

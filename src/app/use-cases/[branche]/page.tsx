@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { UseCaseDetail } from "@/components/sections/UseCaseDetail";
+import { metaTitle } from "@/content/site";
 import { getUseCase, useCases } from "@/content/use-cases";
 
 type UseCasePageProps = {
@@ -17,7 +18,7 @@ export async function generateMetadata({ params }: UseCasePageProps): Promise<Me
 
   if (!item) return {};
 
-  const title = `${item.title} | JUNO Media`;
+  const title = metaTitle(item.title);
 
   return {
     title,

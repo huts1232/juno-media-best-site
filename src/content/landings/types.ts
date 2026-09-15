@@ -39,6 +39,7 @@ type SectieKop = {
 export interface Landing {
   /** Moet een dienst uit content/services.ts zijn; naam en href komen daarvandaan. */
   slug: DienstSlug;
+  /** Zonder merksuffix; landingMetadata voegt brandName toe. */
   metaTitle: string;
   metaDescription: string;
   hero: {

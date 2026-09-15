@@ -1,20 +1,18 @@
 import type { Metadata } from "next";
 import type { Landing } from "@/content/landings/types";
 import { getDienst } from "@/content/services";
-import { site } from "@/content/site";
-
-/** Slugs met een uitgewerkte landingspagina. Voedt de sitemap. */
-export const LANDING_SLUGS = ["ai-automatisering"] as const;
+import { brandName, metaTitle, site } from "@/content/site";
 
 export function landingMetadata(landing: Landing): Metadata {
   const path = `/${landing.slug}`;
+  const title = metaTitle(landing.metaTitle);
 
   return {
-    title: landing.metaTitle,
+    title,
     description: landing.metaDescription,
     alternates: { canonical: path },
     openGraph: {
-      title: landing.metaTitle,
+      title,
       description: landing.metaDescription,
       url: path,
       locale: "nl_NL",
@@ -41,7 +39,7 @@ export function serviceJsonLd(landing: Landing): string {
     areaServed: { "@type": "Country", name: "Nederland" },
     provider: {
       "@type": "Organization",
-      name: site.brand.name,
+      name: brandName,
       url: base,
     },
     offers: {

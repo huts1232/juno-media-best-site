@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { cases } from "@/content/cases";
 import { useCases } from "@/content/use-cases";
 import { site } from "@/content/site";
-import { LANDING_SLUGS } from "@/lib/landing";
+import { LANDING_SLUGS } from "@/content/landings";
 
 const STATIC_ROUTES = ["", "/cases", "/services", "/blog", "/over-ons", "/contact", "/use-cases"];
 

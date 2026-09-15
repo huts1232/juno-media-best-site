@@ -7,7 +7,7 @@ import type { Landing } from "@/content/landings/types";
  */
 export const aiAutomatisering = {
   slug: "ai-automatisering",
-  metaTitle: "AI-automatisering op je bestaande software | Junomedia",
+  metaTitle: "AI-automatisering op je bestaande software",
   metaDescription:
     "Wij koppelen je bestaande software en laten AI het handwerk ertussenuit halen. Vanaf €950 per implementatie, eerste automatisering live binnen 7 werkdagen.",
   hero: {
