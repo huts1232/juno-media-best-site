@@ -338,6 +338,13 @@ export const statsCardsMotion = {
 
 export const servicesBentoMotion = {
   triggerStart: "top 85%",
+  /** Homepage-bento: vijf kaarten, één batch-reveal. */
+  reveal: {
+    y: 24,
+    duration: 0.7,
+    ease: "power2.out",
+    stagger: 0.08,
+  },
   card: {
     y: 50,
     duration: 1,
