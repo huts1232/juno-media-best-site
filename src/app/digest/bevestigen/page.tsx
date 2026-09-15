@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { DigestConfirm } from "@/components/sections/DigestConfirm";
 import { digest } from "@/content/agency";
+import { metaTitle } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: `${digest.confirm.heading.success} | JUNO Media`,
+  title: metaTitle(digest.confirm.heading.success),
   description: digest.confirm.body.success,
   robots: { index: false },
 };

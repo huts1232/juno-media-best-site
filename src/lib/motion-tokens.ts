@@ -221,6 +221,21 @@ export const pageHeroMotion = {
   },
 } as const;
 
+/**
+ * Dienst-landingspagina's: zelfde reveal als bento en cases. De query laat
+ * gsap.matchMedia de animatie overslaan bij prefers-reduced-motion.
+ */
+export const landingMotion = {
+  query: "(prefers-reduced-motion: no-preference)",
+  triggerStart: "top 85%",
+  /** Hero speelt bij page load, na de paginatransitie. */
+  loadDelay: 0.15,
+  y: 24,
+  duration: 0.7,
+  ease: "power2.out",
+  stagger: 0.08,
+} as const;
+
 export const casesMotion = {
   revealY: 60,
   revealDuration: 0.9,
@@ -338,6 +353,13 @@ export const statsCardsMotion = {
 
 export const servicesBentoMotion = {
   triggerStart: "top 85%",
+  /** Homepage-bento: vijf kaarten, één batch-reveal. */
+  reveal: {
+    y: 24,
+    duration: 0.7,
+    ease: "power2.out",
+    stagger: 0.08,
+  },
   card: {
     y: 50,
     duration: 1,

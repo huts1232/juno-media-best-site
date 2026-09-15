@@ -9,6 +9,8 @@
   --color-copy-muted: var(--color-ink-muted);
   --color-brand: var(--color-accent);
   --color-brand-soft: var(--color-accent-soft);
+  /* --jn-blue: donkerblauw uit het logo, voor grote cijfers op lichte surfaces. */
+  --color-jn-blue: var(--brand-dark);
   --color-hairline: var(--color-line);
   --font-sans: var(--font-body);
   --font-mono: var(--font-mono);
@@ -6950,5 +6952,155 @@ html[data-intro="play"] .intro-overlay [data-logo-fill] {
   .digest__inner {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
+  }
+}
+
+/* ── Dienst-landingspagina's ───────────────────────────────────────────────
+   Bouwt op .page-hero, .bento, .faq-section en .cta-banner. Hier alleen wat
+   daarvan afwijkt: de hero met CTA, strakkere sectieritmiek en de stappenlijn. */
+.landing-hero {
+  min-height: auto;
+  padding-block: calc(var(--space-12) + var(--space-6)) var(--space-10);
+}
+
+.landing-hero__title {
+  grid-column: 4 / span 9;
+  /* De kolom begrenst de breedte; balance verdeelt de regels gelijk, zodat er
+     geen los woord op de laatste regel valt. */
+  max-width: none;
+  min-height: 0;
+  font-size: clamp(3rem, 6.4vw, 6.5rem);
+  line-height: 1;
+  text-wrap: balance;
+}
+
+.landing-hero__body {
+  display: flex;
+  grid-column: 4 / span 6;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+}
+
+.landing-hero__sub {
+  margin-top: 0;
+}
+
+/* Beginstand van de load-reveal, alleen als de animatie ook echt draait.
+   Zonder JavaScript of met reduced motion staat alles direct. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .landing-hero [data-reveal] {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+.landing-section {
+  padding-block: var(--space-10);
+}
+
+.landing-faq {
+  margin-top: 0;
+}
+
+/* Lijn van elk stapnummer naar het volgende: verticaal, vanaf 1024px
+   horizontaal. De laatste stap heeft geen lijn. Overbrugt de gap van de lijst
+   (gap-8, vanaf lg gap-5); de nummers hebben een eigen achtergrond. */
+.landing-steps__item {
+  position: relative;
+}
+
+.landing-steps__item:not(:last-child)::before {
+  position: absolute;
+  top: 1.5rem;
+  bottom: -2rem;
+  left: 1.5rem;
+  width: 1px;
+  background: var(--color-line);
+  content: "";
+}
+
+@media screen and (min-width: 1024px) {
+  .landing-steps__item:not(:last-child)::before {
+    right: -1.25rem;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .landing-hero {
+    padding-block: calc(var(--space-12) + var(--space-4)) var(--space-9);
+  }
+
+  .landing-hero__title {
+    grid-column: 3 / span 6;
+  }
+
+  .landing-hero__body {
+    grid-column: 3 / span 6;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .landing-hero {
+    padding-block: calc(var(--space-10) + var(--space-5)) var(--space-8);
+  }
+
+  .landing-hero__title {
+    min-height: 0;
+    font-size: 3rem;
+  }
+
+  .landing-hero__body {
+    margin-top: var(--space-5);
+  }
+
+  .landing-section {
+    padding-block: var(--space-8);
+  }
+}
+
+/* Native <details> in LandingFaq. De homepage-FAQ op deze branch is nog de
+   JS-accordeon (data-open, antwoord standaard opacity 0), dus deze regels
+   gelden alleen binnen .landing-faq. */
+.landing-faq .faq-trigger {
+  cursor: pointer;
+  list-style: none;
+}
+
+.landing-faq .faq-trigger::-webkit-details-marker {
+  display: none;
+}
+
+.landing-faq .faq-answer {
+  opacity: 1;
+  transition: none;
+}
+
+.landing-faq .faq-row[open] .faq-plus {
+  border-color: #ffffff66;
+  transform: rotate(180deg);
+}
+
+.landing-faq .faq-row[open] .faq-plus::after {
+  transform: scaleY(0);
+}
+
+.landing-faq .faq-row[open] .faq-answer {
+  animation: landing-faq-answer-in .5s var(--ease-out-expo);
+}
+
+@keyframes landing-faq-answer-in {
+  from {
+    opacity: 0;
+    transform: translateY(-.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-faq .faq-row[open] .faq-answer {
+    animation: none;
   }
 }

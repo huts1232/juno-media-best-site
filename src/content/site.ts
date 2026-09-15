@@ -1,3 +1,11 @@
+/** Merknaam. Enige bron voor het merksuffix in meta-titles en het Service-schema. */
+export const brandName = "Juno Media";
+
+/** Meta-title met merksuffix: "AI-automatisering | Juno Media". */
+export function metaTitle(title: string) {
+  return `${title} | ${brandName}`;
+}
+
 export const site = {
   locale: "nl",
   /** Basis voor sitemap en canonieke URL's. Zet NEXT_PUBLIC_SITE_URL in de omgeving. */
@@ -7,7 +15,7 @@ export const site = {
     description: "A motion-led digital studio site for Juno Media.",
   },
   brand: {
-    name: "Juno Media",
+    name: brandName,
     href: "/",
   },
   navLabels: {
@@ -162,11 +170,6 @@ export const site = {
       intro:
         "Six systems that went from brief to measurable growth. Every case opens with the number it moved.",
       scrollLabel: "Scroll",
-    },
-    services: {
-      eyebrow: "Services",
-      title: "Strategy, product and launch craft",
-      intro: "Placeholder service copy keeps this setup phase content-driven.",
     },
     blog: {
       eyebrow: "Blog",

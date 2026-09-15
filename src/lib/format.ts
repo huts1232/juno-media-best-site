@@ -23,6 +23,11 @@ export function formatEuro(value: number): string {
   return euroFormat.format(Math.round(value));
 }
 
+/** Zonder spatie na het teken, zoals in lopende tekst: 950 -> "€950". */
+export function formatEuroInline(value: number): string {
+  return `€${numberFormat.format(Math.round(value))}`;
+}
+
 export function formatEuroRange(from: number, to: number): string {
   return `${euroFormat.format(Math.round(from))} - ${euroFormat.format(Math.round(to))}`;
 }

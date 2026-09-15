@@ -3,9 +3,10 @@ import Link from "next/link";
 import { PageHero } from "@/components/sections/PageHero";
 import { AgencyIcon } from "@/components/ui/AgencyIcon";
 import { getBranche, useCases, useCasesIndex } from "@/content/use-cases";
+import { metaTitle } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: `${useCasesIndex.title} | JUNO Media`,
+  title: metaTitle(useCasesIndex.title),
   description: useCasesIndex.intro,
   alternates: { canonical: "/use-cases" },
 };

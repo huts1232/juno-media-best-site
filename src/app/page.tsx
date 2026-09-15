@@ -12,7 +12,7 @@ import { ServicesBento } from "@/components/sections/ServicesBento";
 import { LogoMarquee } from "@/components/sections/LogoMarquee";
 import { CasesGrid } from "@/components/sections/CasesGrid";
 import { cases, casesSection } from "@/content/cases";
-import { services } from "@/content/services";
+import { servicesBento } from "@/content/services";
 import { site } from "@/content/site";
 import { testimonials } from "@/content/testimonials";
 import { Testimonials } from "@/components/sections/Testimonials";
@@ -35,7 +35,7 @@ export default function Home() {
       <BeforeAfter />
       <Stages content={site.pages.home.stages} />
       <AgentConfigurator />
-      <ServicesBento content={services} />
+      <ServicesBento content={servicesBento} />
       <RoiCalculator />
       <LogoMarquee content={site.pages.home.logoMarquee} />
       <UseCasePreview />

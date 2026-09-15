@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { cases } from "@/content/cases";
 import { useCases } from "@/content/use-cases";
 import { site } from "@/content/site";
+import { LANDING_SLUGS } from "@/content/landings";
 
 const STATIC_ROUTES = ["", "/cases", "/services", "/blog", "/over-ons", "/contact", "/use-cases"];
 
@@ -13,6 +14,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${base}${route || "/"}`,
       changeFrequency: "monthly" as const,
       priority: route === "" ? 1 : 0.7,
+    })),
+    ...LANDING_SLUGS.map((slug) => ({
+      url: `${base}/${slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
     })),
     ...cases.map((item) => ({
       url: `${base}/cases/${item.slug}`,
