@@ -108,7 +108,7 @@ export const aiAutomatisering = {
   },
   prijs: {
     eyebrow: "Prijs",
-    kop: "Eén prijs per automatisering, vooraf bekend.",
+    kop: "Vooraf weten wat het kost.",
     anker: {
       prefix: "Vanaf",
       bedrag: 950,
