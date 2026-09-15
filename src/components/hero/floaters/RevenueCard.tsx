@@ -1,46 +1,39 @@
 /**
- * Hero-floater: tijdwinst per week met een oplopende lijngrafiek.
- * Volledig inline SVG met een 340x200 viewBox, zodat de kaart proportioneel
- * meeschaalt met de vw-breedte die .hero-floater zet. Het kaartchroom (wit
- * vlak, rand, schaduw) staat op .hero-floater__inner. Decoratief; aria-hidden
- * staat op de container in Hero.
+ * Hero-floater linksonder: tijdwinst per week met een oplopende lijngrafiek.
+ * De viewBox is 240x150: even breed als het inhoudsvlak van de kaart bij 1440,
+ * zodat de tekst hier op dezelfde px-maten uitkomt als in de DOM-kaarten
+ * ernaast. Het kaartchroom staat op .hero-floater__fade. Decoratief;
+ * aria-hidden staat op de container in Hero.
  */
 const POINTS = [
-  [24, 170],
-  [97, 160],
-  [170, 146],
-  [243, 130],
-  [316, 112],
+  [6, 126],
+  [63, 119],
+  [120, 110],
+  [177, 99],
+  [234, 86],
 ] as const;
 
 const LINE = POINTS.map(([x, y]) => `${x},${y}`).join(" ");
-const AREA = `M${LINE.replace(/ /g, "L")}L316,182L24,182Z`;
+const AREA = `M${LINE.replace(/ /g, "L")}L234,140L6,140Z`;
 
 export function RevenueCard() {
   return (
-    <svg viewBox="0 0 340 200" focusable="false" aria-hidden="true">
-      <defs>
-        <linearGradient id="hf-revenue-fill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="var(--brand-dark)" stopOpacity="0.18" />
-          <stop offset="100%" stopColor="var(--brand-dark)" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-
-      <text x="24" y="38" className="hf-label">
+    <svg viewBox="0 0 240 150" focusable="false" aria-hidden="true">
+      <text x="0" y="14" className="hf-label">
         Tijdwinst
       </text>
-      <text x="24" y="78" className="hf-value hf-accent">
+      <text x="0" y="46" className="hf-value">
         12 uur
       </text>
-      <text x="24" y="102" className="hf-axis">
+      <text x="0" y="66" className="hf-axis">
         per week terug
       </text>
 
-      <path d={AREA} fill="url(#hf-revenue-fill)" />
+      <path d={AREA} fill="#015C9214" />
       <polyline
         points={LINE}
         fill="none"
-        stroke="var(--brand-dark)"
+        stroke="#015C92"
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -50,8 +43,8 @@ export function RevenueCard() {
           key={`${x}-${y}`}
           cx={x}
           cy={y}
-          r={index === POINTS.length - 1 ? 5.5 : 3.5}
-          fill="var(--brand-dark)"
+          r={index === POINTS.length - 1 ? 5 : 3.5}
+          fill="#015C92"
           stroke={index === POINTS.length - 1 ? "#ffffff" : "none"}
           strokeWidth={index === POINTS.length - 1 ? 2.5 : 0}
         />

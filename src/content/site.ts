@@ -36,8 +36,10 @@ export const site = {
       title: "Digital launches with startup velocity",
       intro: "A placeholder homepage shell for the phased replica build.",
       hero: {
-        eyebrow: "Juno Media studio",
-        titleLines: ["Digital launches", "startup velocity"],
+        eyebrow: "Juno Media",
+        titleLines: ["In 2030 draait elk bedrijf op", "AI-werknemers."],
+        accentLineIndex: 1,
+        sub: "Ben jij een van de eerste?",
         video: {
           ariaLabel: "Juno Media in actie",
           poster: "/media/hero-poster.jpg",

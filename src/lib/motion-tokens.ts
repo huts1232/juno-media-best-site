@@ -56,6 +56,15 @@ export const heroLoad = {
     duration: 0.72,
     ease: "expo.out",
     stagger: 0.04,
+    /** De accentregel start net na de rest van de kop. */
+    accentDelay: 0.08,
+  },
+  /** Subregel onder de kop. */
+  sub: {
+    y: 16,
+    opacity: 0,
+    duration: 0.6,
+    ease: "power2.out",
   },
   video: {
     opacity: 1,

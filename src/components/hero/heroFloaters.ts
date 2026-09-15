@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import { FlowDiagramMini, InstallsCard, MetricBubble, RevenueCard } from "./floaters";
+import { AutonomyCard, MetricBubble, RevenueCard, WorkforceCard } from "./floaters";
 
 export type HeroFloater = {
   /** Sluit aan op de .hero-floater--* regels in globals.css. */
@@ -19,8 +19,8 @@ export type HeroFloater = {
  * kaarten, geen kaart.
  */
 export const heroFloaters: readonly HeroFloater[] = [
-  { key: "flow", Component: FlowDiagramMini, speed: 0.28 },
-  { key: "installs", Component: InstallsCard, speed: 0.34 },
+  { key: "workforce", Component: WorkforceCard, speed: 0.28 },
+  { key: "autonomy", Component: AutonomyCard, speed: 0.34 },
   { key: "revenue", Component: RevenueCard, speed: 0.42 },
   { key: "metric", Component: MetricBubble, speed: 0.5 },
 ] as const;
