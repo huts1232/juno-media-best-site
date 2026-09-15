@@ -14,7 +14,8 @@ type CtaBannerProps = {
       label: string;
       href: string;
     };
-    secondary: {
+    /** Optioneel: de landingspagina's hebben één CTA. */
+    secondary?: {
       label: string;
       href: string;
     };
@@ -108,10 +109,12 @@ export function CtaBanner({ content }: CtaBannerProps) {
               <span>{content.primary.label}</span>
               <ArrowIcon />
             </Button>
-            <Button href={content.secondary.href} variant="secondary" className="cta-banner__button cta-banner__button--secondary">
-              <span>{content.secondary.label}</span>
-              <ArrowIcon />
-            </Button>
+            {content.secondary ? (
+              <Button href={content.secondary.href} variant="secondary" className="cta-banner__button cta-banner__button--secondary">
+                <span>{content.secondary.label}</span>
+                <ArrowIcon />
+              </Button>
+            ) : null}
           </div>
         </div>
 

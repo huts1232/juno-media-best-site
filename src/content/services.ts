@@ -4,7 +4,8 @@ export type DienstSlug = "ai-oplossingen" | "ai-automatisering" | "dashboards" |
 
 export type Dienst = {
   slug: DienstSlug;
-  href: `/${DienstSlug}`;
+  /** Landingspagina als die er is, anders het anker op /services. */
+  href: `/${string}`;
   /** Klein label boven de kop op de kaart. */
   label: string;
   /** Dienstnaam: kaartkop, H1 en footerlink. */
@@ -20,14 +21,15 @@ export type Dienst = {
 };
 
 /**
- * De vijf diensten voor de bento op de homepage. De hrefs wijzen naar de
- * landingspagina's per dienst; /services gebruikt nog `services` hieronder.
+ * De vijf diensten voor de bento op de homepage. Een dienst met een eigen
+ * landingspagina linkt daarheen, de rest naar /services#<slug>. /services
+ * gebruikt zelf nog `services` hieronder.
  * Volgorde = volgorde op de site: de eerste twee zijn de grote kaarten.
  */
 export const diensten: readonly Dienst[] = [
   {
     slug: "ai-oplossingen",
-    href: "/ai-oplossingen",
+    href: "/services#ai-oplossingen",
     label: "AI",
     name: "AI-oplossingen",
     body: "Agents en chatbots die op je eigen data draaien en werk overnemen dat nu bij je team ligt.",
@@ -53,7 +55,7 @@ export const diensten: readonly Dienst[] = [
   },
   {
     slug: "dashboards",
-    href: "/dashboards",
+    href: "/services#dashboards",
     label: "Inzicht",
     name: "Dashboards",
     body: "Eén scherm met de cijfers waarop je stuurt. Live uit je eigen systemen.",
@@ -65,7 +67,7 @@ export const diensten: readonly Dienst[] = [
   },
   {
     slug: "shopify",
-    href: "/shopify",
+    href: "/services#shopify",
     label: "Webshops",
     name: "Shopify",
     body: "Themes, migraties en CRO voor webshops die meer uit hun verkeer moeten halen.",
@@ -77,7 +79,7 @@ export const diensten: readonly Dienst[] = [
   },
   {
     slug: "apps",
-    href: "/apps",
+    href: "/services#apps",
     label: "Bouwen",
     name: "Apps & websites",
     body: "Snelle, meetbare sites en interne tools. Vaste scope, vaste prijs.",
