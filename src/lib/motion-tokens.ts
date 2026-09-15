@@ -222,6 +222,21 @@ export const casesMotion = {
   mobileQuery: "(max-width: 767px)",
 } as const;
 
+/**
+ * Dienst-landingspagina's: zelfde reveal als bento en cases. De query laat
+ * gsap.matchMedia de animatie overslaan bij prefers-reduced-motion.
+ */
+export const landingMotion = {
+  query: "(prefers-reduced-motion: no-preference)",
+  triggerStart: "top 85%",
+  /** Hero speelt bij page load, na de paginatransitie. */
+  loadDelay: 0.15,
+  y: 24,
+  duration: 0.7,
+  ease: "power2.out",
+  stagger: 0.08,
+} as const;
+
 /** Homepage-cases: drie kaarten, zelfde ritme als de bento. */
 export const homeCasesMotion = {
   triggerStart: "top 85%",
