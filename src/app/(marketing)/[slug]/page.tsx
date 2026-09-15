@@ -4,16 +4,22 @@ import { CtaBanner } from "@/components/sections/CtaBanner";
 import { PageHero } from "@/components/sections/PageHero";
 import { ctaBanner } from "@/content/cta";
 import { dienstPage, diensten, getDienst } from "@/content/services";
+import { LANDING_SLUGS } from "@/lib/landing";
 
 type DienstPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-/** Alleen de vijf dienst-slugs; elke andere URL op dit niveau is een 404. */
+/**
+ * Alleen de dienst-slugs zonder eigen landingspagina; elke andere URL op dit
+ * niveau is een 404. Uitgewerkte diensten hebben een statische route ernaast.
+ */
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return diensten.map((dienst) => ({ slug: dienst.slug }));
+  return diensten
+    .filter((dienst) => !LANDING_SLUGS.has(dienst.slug))
+    .map((dienst) => ({ slug: dienst.slug }));
 }
 
 export async function generateMetadata({ params }: DienstPageProps): Promise<Metadata> {

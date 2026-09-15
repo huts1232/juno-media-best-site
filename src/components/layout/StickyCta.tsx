@@ -34,6 +34,8 @@ export function StickyCta() {
     const setLabel = (next: string) => {
       if (next === currentLabel.current) return;
       currentLabel.current = next;
+      // Toegankelijke naam gelijk houden aan de zichtbare tekst.
+      pillRef.current?.setAttribute("aria-label", next);
 
       if (reducedMotion) {
         label.textContent = next;
@@ -117,6 +119,21 @@ export function StickyCta() {
             onEnterBack: () => setLabel(section.label),
           });
         }
+      }
+
+      // Een pagina kan zijn eigen label meegeven, bijvoorbeeld de CTA van een
+      // landingspagina. Die tekst staat dan in de content van die pagina.
+      for (const element of document.querySelectorAll<HTMLElement>("[data-cta-label]")) {
+        const label = element.dataset.ctaLabel;
+        if (!label) continue;
+
+        ScrollTrigger.create({
+          trigger: element,
+          start: stickyCtaMotion.zoneStart,
+          end: stickyCtaMotion.zoneEnd,
+          onEnter: () => setLabel(label),
+          onEnterBack: () => setLabel(label),
+        });
       }
 
       // In de footer heeft de pill niets meer toe te voegen.
