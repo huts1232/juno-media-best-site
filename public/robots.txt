@@ -1,0 +1,12 @@
+# OpenAI ChatGPT Ads / Search crawlers — required for Ads verification
+# https://help.openai.com/en/articles/20001243-advertiser-guidance-for-allowing-openai-web-crawlers
+User-agent: OAI-AdsBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: *
+Allow: /
+
+Sitemap: https://juno-media.nl/sitemap.xml

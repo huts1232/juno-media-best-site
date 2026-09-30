@@ -3,7 +3,16 @@ import { cases } from "@/content/cases";
 import { useCases } from "@/content/use-cases";
 import { site } from "@/content/site";
 
-const STATIC_ROUTES = ["", "/cases", "/services", "/blog", "/over-ons", "/contact", "/use-cases"];
+const STATIC_ROUTES = [
+  "",
+  "/cases",
+  "/services",
+  "/blog",
+  "/over-ons",
+  "/contact",
+  "/use-cases",
+  "/bedrijfsgegevens",
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = site.url.replace(/\/$/, "");
