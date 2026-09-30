@@ -6952,3 +6952,112 @@ html[data-intro="play"] .intro-overlay [data-logo-fill] {
     gap: var(--space-4);
   }
 }
+
+/* Bedrijfsgegevens -------------------------------------------------------- */
+
+.legal {
+  padding-block: var(--space-10) var(--space-12);
+  background: var(--color-bg);
+}
+
+.legal__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--gutter);
+  align-items: start;
+}
+
+.legal__header {
+  grid-column: 1 / span 5;
+}
+
+.legal__title {
+  max-width: 14ch;
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 500;
+  letter-spacing: var(--ls-normal);
+  line-height: var(--lh-tight);
+}
+
+.legal__intro {
+  max-width: 28rem;
+}
+
+.legal__body {
+  grid-column: 7 / span 6;
+  display: grid;
+  gap: var(--space-8);
+  max-width: 40rem;
+}
+
+.legal__body h2 {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: var(--lh-tight);
+}
+
+.legal__body p {
+  color: var(--color-ink-muted);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+}
+
+.legal__body strong {
+  color: var(--color-ink);
+  font-weight: 500;
+}
+
+.legal__body a {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.legal__facts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legal__facts li {
+  padding-block: var(--space-3);
+  border-top: 1px solid var(--color-line);
+  color: var(--color-ink-muted);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+}
+
+.legal__facts li:last-child {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.legal__updated {
+  margin-top: var(--space-5);
+  color: var(--color-ink-muted);
+  font-size: var(--fs-caption);
+}
+
+@media (max-width: 991px) {
+  .legal__header,
+  .legal__body {
+    grid-column: 1 / -1;
+  }
+
+  .legal__body {
+    margin-top: var(--space-8);
+  }
+}
+
+@media (max-width: 767px) {
+  .legal {
+    padding-block: var(--space-8) var(--space-10);
+  }
+
+  .legal__title {
+    font-size: 2.75rem;
+  }
+}
